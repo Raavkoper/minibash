@@ -2,13 +2,13 @@ NAME = minishell
 
 HEADER = includes/minishell.h
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g -fsanitize=address
 
 CC = gcc
 
 LIBFT = libraries/libft/libft.a
 
-SRCS = main.c
+SRCS = main.c lexer.c is_check.c
 
 OBJS = $(SRCS:%.c=%.o)
 
