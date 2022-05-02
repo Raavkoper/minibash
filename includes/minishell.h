@@ -36,4 +36,5 @@ int		istoken(char c);
 char	*init_shell(void);
 void	print_lexer(t_lexer *lexer);
 void	run_shell(t_data *data);
+void	free_lexer(t_lexer **lexer);
 #endif

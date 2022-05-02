@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/04/26 15:24:04 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/02 10:10:51 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	lexer(t_data *data, char *str)
 
 void	print_lexer(t_lexer *lexer)
 {
+	if (!lexer)
+		printf("lexer empty\n");
 	while (lexer != NULL)
 	{
 		printf("%s$ %d\n", lexer->command, lexer->token);
