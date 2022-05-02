@@ -2,6 +2,9 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
 # include "../libraries/libft/libft.h"
 
 typedef enum e_tokens
@@ -30,5 +33,6 @@ char	*mod_substr(char *str, int *i);
 void	append_list(t_lexer **lexer, char *str, int *i);
 int		iswhitespace(char c);
 int		istoken(char c);
+char	*init_shell(void);
 void	print_lexer(t_lexer *lexer);
 #endif

@@ -4,6 +4,6 @@ char *init_shell(void)
 {
 	char *line;
 
-	line = readline("minishell$> ");
+	line = (char *)readline("minishell$> ");
 	return (line);
 }
