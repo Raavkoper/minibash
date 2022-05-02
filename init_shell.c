@@ -17,9 +17,10 @@ void	run_shell(t_data *data)
 		line = init_shell();
 		if (line)
 		{
+			free_lexer(&data->lexer);
 			lexer(data, line);
 			print_lexer(data->lexer);
-			line = NULL;
+			free(line);
 		}
 		system("leaks minishell");
 	}
