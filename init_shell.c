@@ -11,13 +11,12 @@ char *init_shell(void)
 void	run_shell(t_data *data)
 {
 	char *line;
-	
+
 	while (1)
 	{
 		line = init_shell();
 		if (line)
 		{
-			
 			lexer(data, line);
 			print_lexer(data->lexer);
 			line = NULL;
