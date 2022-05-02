@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:13:31 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/02 10:22:16 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/02 10:42:32 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	lexer(t_data *data, char *str)
 
 	i = 0;
 	data->lexer = NULL;
+	if (check_quotes(str))
+		return ;
 	while (str[i])
 	{
 		if (iswhitespace(str[i]))
@@ -82,6 +84,8 @@ void	lexer(t_data *data, char *str)
 
 void	print_lexer(t_lexer *lexer)
 {
+	if (!lexer)
+		printf("lexer empty\n");
 	while (lexer != NULL)
 	{
 		printf("%s$ %d\n", lexer->command, lexer->token);

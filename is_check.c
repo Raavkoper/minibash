@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:54:34 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/02 10:11:46 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/02 10:42:09 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int check_quotes(char *line)
 		i++;
 	}
 	if ((s_quotes % 2) != 0 || (d_quotes % 2 != 0))
+	{
 		printf("No closing quote\n");
+		return (1);
+	}
 	return (0);
 }
