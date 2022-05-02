@@ -22,6 +22,5 @@ void	run_shell(t_data *data)
 			print_lexer(data->lexer);
 			free(line);
 		}
-		system("leaks minishell");
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 14:13:31 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/02 10:58:57 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/05/02 15:40:07 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ char	*mod_substr(char *str, int *i)
 {
 	int		start;
 	char	*sub;
-	int		index;
+	int		x;
 
 	start = 0;
-	index = 0;
+	x = 0;
 	if (!str)
 		return (NULL);
 	while (!iswhitespace(str[start]) && str[start] && !istoken(str[start]))
@@ -28,10 +28,10 @@ char	*mod_substr(char *str, int *i)
 	if (!sub)
 		return (NULL);
 	*i += start;
-	while (index < start)
+	while (x < start)
 	{
-		sub[index] = str[index];
-		index++;
+		sub[x] = str[x];
+		x++;
 	}
 	return (sub);
 }
@@ -46,7 +46,9 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 	if (!new_node)
 		exit(EXIT_FAILURE);
 	new_node->token = 0;
-	if (!istoken(str[0]))
+	if (isquote(str))
+		new_node->command = get_string(str, i);
+	else if (!istoken(str[0]))
 		new_node->command = mod_substr(str, i);
 	else
 	{
@@ -65,20 +67,20 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 	last->next = new_node;
 }
 
-void	lexer(t_data *data, char *str)
+void	lexer(t_data *data, char *line)
 {
 	int i;
 
 	i = 0;
 	data->lexer = NULL;
-	if (check_quotes(str))
+	if (check_quotes(line))
 		return ;
-	while (str[i])
+	while (line[i])
 	{
-		if (iswhitespace(str[i]))
+		if (iswhitespace(line[i]))
 			i++;
-		if (!iswhitespace(str[i]))
-			append_list(&data->lexer, &str[i], &i);
+		if (!iswhitespace(line[i]))
+			append_list(&data->lexer, &line[i], &i);
 	}
 }
 
