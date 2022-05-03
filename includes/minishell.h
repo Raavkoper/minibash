@@ -44,6 +44,8 @@ char	*quote_substr(char *line, int end);
 void	add_quote_index(int quote, char *line, int *x);
 void	free_lexer(t_lexer **lexer);
 
+/* parser functions */
+
 /* general functions */
 int		iswhitespace(char c);
 int		istoken(char c);

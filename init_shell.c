@@ -19,7 +19,8 @@ void	run_shell(t_data *data)
 		{
 			free_lexer(&data->lexer);
 			lexer(data, line);
-			print_lexer(data->lexer);
+			// print_lexer(data->lexer);
+			parser(data);
 			free(line);
 		}
 	}

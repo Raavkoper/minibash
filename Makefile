@@ -8,7 +8,7 @@ CC = gcc
 
 LIBFT = libraries/libft/libft.a
 
-SRCS = main.c lexer.c is_check.c init_shell.c free_lexer.c handle_quote.c 
+SRCS = main.c lexer.c is_check.c init_shell.c free_lexer.c handle_quote.c parser.c
 
 OBJS = $(SRCS:%.c=%.o)
 
