@@ -24,9 +24,16 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }				t_lexer;
 
+typedef struct s_parser
+{
+	char			**command;
+	struct s_parser	*next;
+}				t_parser;
+
 typedef struct s_data
 {
-	t_lexer *lexer;
+	t_lexer		*lexer;
+	t_parser	*parser;
 }				t_data;
 
 /* main functions */
@@ -45,6 +52,12 @@ void	add_quote_index(int quote, char *line, int *x);
 void	free_lexer(t_lexer **lexer);
 
 /* parser functions */
+void	init_parser(t_parser **parser);
+int		count_pipes(t_lexer *lexer);
+int		count_commands(t_lexer *lexer);
+void	add_command(t_parser *parser, char *str, int commands);
+void	parser(t_data *data);
+void	print_parser(t_parser *parser);
 
 /* general functions */
 int		iswhitespace(char c);

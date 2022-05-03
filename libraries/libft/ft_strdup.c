@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/25 16:12:14 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/03/25 16:12:15 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/03 14:30:07 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strdup(const char *s1)
 	char	*s2;
 
 	s2 = ft_calloc(ft_strlen(s1) + 1, sizeof(char));
-	if (!s2)
+	if (!s2 || !s1)
 		return (NULL);
 	ft_memcpy(s2, s1, ft_strlen(s1) + 1);
 	return (s2);
