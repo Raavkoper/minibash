@@ -5,6 +5,7 @@ char *init_shell(void)
 	char *line;
 
 	line = (char *)readline("minishell$> ");
+	add_history(line);
 	return (line);
 }
 
@@ -28,6 +29,6 @@ void	run_shell(t_data *data)
 			print_redirections(data->red);
 		}
 		free(line);
-		system("leaks minishell");
+	//	system("leaks minishell");
 	}
 }
