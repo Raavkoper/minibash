@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/04 12:03:42 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 13:03:54 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ void	parser(t_data *data)
 				add_command(data->parser, data->lexer->command, commands);
 				if (temp)
 					data->parser->command = temp;
+			}
+			else if (data->lexer && is_redirection(data->lexer->token))
+			{
+				if (data->lexer->next)
+					data->lexer = data->lexer->next->next;
+				else
+					data->lexer = data->lexer->next;
+				continue ;
 			}
 			temp = NULL;
 			data->lexer = data->lexer->next;
@@ -108,8 +116,16 @@ int	count_commands(t_lexer *lexer)
 	while (lexer && lexer->token != PIPE)
 	{
 		if (!lexer->token)
-			i += 2;
-		lexer = lexer->next;
+			i += 1;
+		if (is_redirection(lexer->token))
+		{
+			if (lexer->next)
+				lexer = lexer->next->next;
+			else
+				lexer = lexer->next;
+		}
+		else
+			lexer = lexer->next;
 	}
 	return (i);
 }
