@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/03 17:00:39 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 10:22:33 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ void	parser(t_data *data)
 				if (temp)
 					data->parser->command = temp;
 			}
+			temp = NULL;
 			data->lexer = data->lexer->next;
 		}
 		data->parser = data->parser->next;
 		if (data->lexer && data->lexer->token == PIPE)
-		{
 			data->lexer = data->lexer->next;
-		}
 	}
 	data->parser = head;
 }

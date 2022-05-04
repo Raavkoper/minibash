@@ -2,7 +2,7 @@ NAME = minishell
 
 HEADER = includes/minishell.h
 
-CFLAGS = -lreadline
+CFLAGS = -lreadline -g 
 
 CC = gcc
 
