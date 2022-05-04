@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/04 10:22:33 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 12:03:42 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	parser(t_data *data)
 	t_parser	*head;
 	
 	data->parser = NULL;
+	if (!data->lexer)
+		return ;
 	temp = NULL;
 	nodes = count_pipes(data->lexer) + 1;
 	while (nodes--)
@@ -106,7 +108,7 @@ int	count_commands(t_lexer *lexer)
 	while (lexer && lexer->token != PIPE)
 	{
 		if (!lexer->token)
-			i++;
+			i += 2;
 		lexer = lexer->next;
 	}
 	return (i);

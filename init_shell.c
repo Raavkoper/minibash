@@ -15,7 +15,7 @@ void	run_shell(t_data *data)
 	while (1)
 	{
 		line = init_shell();
-		if (line)
+		if (line && line[0])
 		{
 			free_lexer(&data->lexer);
 			lexer(data, line);

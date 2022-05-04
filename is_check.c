@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:54:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/02 15:54:05 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 11:39:18 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ int	isquote(char *line)
 		line++;
 	}
 	return (0);
+}
+
+int	is_redirection(char c)
+{
+	return (c == 60 || c == 62);
 }

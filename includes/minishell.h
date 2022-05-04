@@ -21,6 +21,7 @@ typedef struct s_lexer
 {
 	char			*command;
 	int				token;
+	int				index;
 	struct s_lexer	*next;
 }				t_lexer;
 
@@ -63,6 +64,7 @@ void	print_parser(t_parser *parser);
 int		iswhitespace(char c);
 int		istoken(char c);
 int		isquote(char *line);
+int		is_redirection(char c);
 
 /* signal functions */
 void	handle_signals(void);

@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/02 15:40:07 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 12:02:29 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 {
 	t_lexer	*new_node;
 	t_lexer	*last;
+	static int index;
 
 	last = *lexer;
 	new_node = malloc(sizeof(t_lexer));
@@ -56,6 +57,8 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 		new_node->command = NULL;
 		*i += 1;
 	}
+	new_node->index = index;
+	index++;
 	new_node->next = NULL;
 	if (*lexer == NULL)
 	{
@@ -79,7 +82,7 @@ void	lexer(t_data *data, char *line)
 	{
 		if (iswhitespace(line[i]))
 			i++;
-		if (!iswhitespace(line[i]))
+		if (line[i] && !iswhitespace(line[i]))
 			append_list(&data->lexer, &line[i], &i);
 	}
 }
@@ -90,7 +93,7 @@ void	print_lexer(t_lexer *lexer)
 		printf("lexer empty\n");
 	while (lexer != NULL)
 	{
-		printf("%s$ %d\n", lexer->command, lexer->token);
+		printf("%s$ token ascii -> %d index -> %d\n", lexer->command, lexer->token, lexer->index);
 		lexer = lexer->next;
 	}
 }
