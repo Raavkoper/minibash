@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/04 13:29:12 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 14:58:30 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	print_parser(t_parser *parser)
 {
 	int i;
 	int j;
+	char **temp;
 
 	if (!parser)
 		return ;
@@ -144,12 +145,17 @@ void	print_parser(t_parser *parser)
 	while (parser)
 	{
 		i = 0;
+		if (parser->command)
+			temp = parser->command;
 		while (*parser->command)
 		{
 			printf("command table %d command %d = %s\n", j, i, *parser->command);
 			parser->command++;
 			i++;
 		}
+		if (temp)
+			parser->command = temp;
+		temp = NULL;
 		j++;
 		parser = parser->next;
 	}

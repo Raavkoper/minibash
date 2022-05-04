@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 09:44:36 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/04 14:23:54 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 14:52:47 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,21 @@ void	free_parser(t_parser **parser)
 		temp = *parser;
 		*parser = temp->next;
 		if (temp->command)
+		{
 			free_command_stack(temp->command);
+			free(temp->command);
+		}
 		free(temp);
 	}
 }
 
 void	free_command_stack(char **command)
 {
-	int	i;
-
-	i = 0;
 	while (*command)
 	{
 		free(*command);
-		i++;
+		command++;
 	}
-	printf("hoi\n");
-	free(*command);
 }
 
 void	free_redirections(t_red **red)
