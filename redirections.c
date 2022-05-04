@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/04 13:10:24 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/04 13:50:20 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/04 14:18:32 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	redirections(t_data *data)
 {
 	int 		nodes;
-	t_red	*red_head;
+	t_red		*red_head;
 	t_lexer		*lexer_head;
 	
 	data->red = NULL;

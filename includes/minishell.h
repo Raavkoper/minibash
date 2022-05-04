@@ -67,12 +67,15 @@ int		count_commands(t_lexer *lexer);
 void	add_command(t_parser *parser, char *str, int commands);
 void	parser(t_data *data);
 void	print_parser(t_parser *parser);
+void	free_parser(t_parser **parser);
+void	free_command_stack(char **command);
 
 /* redirection functions */
 void	redirections(t_data *data);
 int		count_redirections(t_lexer *lexer);
 void	init_red(t_red **red);
 void	print_redirections(t_red *red);
+void	free_redirections(t_red **red);
 
 /* general functions */
 int		iswhitespace(char c);
