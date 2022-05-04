@@ -18,6 +18,8 @@ void	run_shell(t_data *data)
 		if (line && line[0])
 		{
 			free_lexer(&data->lexer);
+			free_parser(&data->parser);
+			free_redirections(&data->red);
 			lexer(data, line);
 			// print_lexer(data->lexer);
 			parser(data);
@@ -26,5 +28,6 @@ void	run_shell(t_data *data)
 			print_redirections(data->red);
 			free(line);
 		}
+		system("leaks minishell");
 	}
 }
