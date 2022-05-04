@@ -25,6 +25,13 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }				t_lexer;
 
+typedef struct s_red
+{
+	int				token;
+	char			*file;
+	struct s_red	*next;
+}				t_red;
+
 typedef struct s_parser
 {
 	char			**command;
@@ -35,6 +42,7 @@ typedef struct s_data
 {
 	t_lexer		*lexer;
 	t_parser	*parser;
+	t_red		*red;
 }				t_data;
 
 /* main functions */
@@ -59,6 +67,12 @@ int		count_commands(t_lexer *lexer);
 void	add_command(t_parser *parser, char *str, int commands);
 void	parser(t_data *data);
 void	print_parser(t_parser *parser);
+
+/* redirection functions */
+void	redirections(t_data *data);
+int		count_redirections(t_lexer *lexer);
+void	init_red(t_red **red);
+void	print_redirections(t_red *red);
 
 /* general functions */
 int		iswhitespace(char c);
