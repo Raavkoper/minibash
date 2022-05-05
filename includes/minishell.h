@@ -54,7 +54,7 @@ void	lexer(t_data *data, char *str);
 char	*mod_substr(char *str, int *i);
 void	append_list(t_lexer **lexer, char *str, int *i);
 void	print_lexer(t_lexer *lexer);
-int 	check_quotes(char *line);
+int		check_quotes(char *line);
 char	*get_string(char *line, int *i);
 char	*quote_substr(char *line, int end);
 void	add_quote_index(int quote, char *line, int *x);
@@ -85,4 +85,9 @@ int		is_redirection(char c);
 
 /* signal functions */
 void	handle_signals(void);
+
+/* error functions */
+void    error_check(t_lexer **lexer);
+int		check_token(t_lexer **lexer);
+
 #endif
