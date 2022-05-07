@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/04 14:58:30 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/05 10:47:50 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,26 @@ int	count_commands(t_lexer *lexer)
 	return (i);
 }
 
+int		check_token(t_lexer **lexer)
+{
+	t_lexer *temp;
+
+	temp = *lexer;
+	if (!*lexer)
+		return (0);
+	while (temp)
+	{
+		if (temp->token && temp->next == NULL)
+		{
+			printf("parse error\n");
+			free_lexer(lexer);
+			lexer = NULL;
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
 void	print_parser(t_parser *parser)
 {
 	int i;
@@ -142,7 +162,7 @@ void	print_parser(t_parser *parser)
 	if (!parser)
 		return ;
 	j = 0;
-	while (parser)
+	while (parser != NULL)
 	{
 		i = 0;
 		if (parser->command)
