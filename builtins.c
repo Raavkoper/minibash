@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   builtins.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/26 14:13:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/07 13:21:54 by rkoper        ########   odam.nl         */
+/*   Created: 2022/05/07 13:22:09 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/05/07 13:56:29 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int main(int argc, char **argv, char **env)
+void	ft_env(char **env)
 {
-	t_data data;
-	
-	data.env = env;
-	if (argc != 1)
+	while (*env)
 	{
-		printf("invalid amount of arguments given... Usage:./minishell\n");
-		exit(1);
+		printf("%s\n", *env);
+		env++;
 	}
-	run_shell(&data);
-	return (0);
+}
+
+void	ft_exit(void)
+{
+	printf("%scome back soon :)%s\n", BLUE, NC);
+	exit(0);
 }

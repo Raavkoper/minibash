@@ -4,7 +4,7 @@ char *init_shell(void)
 {
 	char *line;
 
-	line = (char *)readline("minishell$> ");
+	line = (char *)readline("\033[1m\033[32mminishell$>\x1B[0m ");
 	return (line);
 }
 
@@ -21,13 +21,14 @@ void	run_shell(t_data *data)
 			free_parser(&data->parser);
 			free_redirections(&data->red);
 			lexer(data, line);
-			print_lexer(data->lexer);
+			// print_lexer(data->lexer);
 			parser(data);
-			print_parser(data->parser);
+			// print_parser(data->parser);
 			redirections(data);
-			print_redirections(data->red);
+			// print_redirections(data->red);
+			executor(data);
 		}
 		free(line);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 }
