@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 13:22:09 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/09 14:15:16 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/09 15:02:46 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(void)
 
 void	ft_pwd(void)
 {
-	char	pwd[256];
+	char	pwd[260];
 
 	printf("%s\n", getcwd(pwd, sizeof(pwd)));
 }
@@ -60,7 +60,8 @@ void	ft_echo(char **cmd_table)
 	{
 		while (*cmd_table)
 		{
-			printf("%s ", *cmd_table);
+			putstr_echo(*cmd_table);
+			printf(" ");
 			cmd_table++;
 		}
 		printf("\n");
@@ -79,21 +80,28 @@ void	ft_echo(char **cmd_table)
 	}
 }
 
+void	putstr_echo(char *word)
+{
+	while (*word)
+	{
+		if (*word != SINGLE_QUOTE && *word != DOUBLE_QUOTE)
+			printf("%c", *word);
+		word++;
+	}
+}
+
 void	ft_cd(char **cmd_table)
 {
 	cmd_table++;
 	if (!*cmd_table)
 		return find_home_dir();
 	if (chdir(*cmd_table))
-	{
-		printf("path not found\n");
-		exit(1);
-	}
+		printf("minishell: cd: %s: No such file or directory\n", *cmd_table);
 }
 
 void	find_home_dir(void)
 {
-	char	pwd[256];
+	char	pwd[260];
 	char	*path;
 	char	*new_path;
 	int		i;
