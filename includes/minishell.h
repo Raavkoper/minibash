@@ -3,6 +3,8 @@
 
 # include <stdio.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -11,6 +13,10 @@
 # define RED "\x1B[31m"
 # define YELLOW "\x1B[33m"
 # define GREEN "\033[1m\033[32m"
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 # include "../libraries/libft/libft.h"
 
@@ -87,6 +93,13 @@ void	free_redirections(t_red **red);
 /* executor functions */
 void	executor(t_data *data);
 void	find_command(t_data *data, char *command);
+char 	*infile(t_lexer *lexer);
+char 	*outfile(t_lexer *lexer);
+int		check_file(char filename, char *name);
+char	*execute(char *cmd, char **env);
+char	*search_path(char **paths, char *cmdarg);
+char	*get_path(char **env);
+void	shell_pipex(t_data *data);
 
 /* builtin functions */
 void	ft_env(char **env);
