@@ -95,6 +95,7 @@ void	ft_pwd(void);
 void	ft_cd(char **cmd_table);
 void	directory_split(void);
 void	find_home_dir(void);
+void	ft_echo(char **cmd_table);
 
 /* general functions */
 int		iswhitespace(char c);
