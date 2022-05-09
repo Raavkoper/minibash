@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   signal.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/26 14:13:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/09 11:14:37 by rkoper        ########   odam.nl         */
+/*   Created: 2022/05/09 10:32:21 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/05/09 11:21:55 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int main(int argc, char **argv, char **env)
+void	handle_signals(void)
 {
-	t_data data;
-	
-	data.env = env;
-	if (argc != 1)
-	{
-		printf("invalid amount of arguments given... Usage:./minishell\n");
-		exit(1);
-	}
-	handle_signals();
-	run_shell(&data);
-	return (0);
+	signal(SIGINT, new_prompt);
+}
+
+void	new_prompt(void)
+{
+	// ft_putstr_fd("\b\b  ", 2);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\033[1m\033[32mminishell$> \x1B[0m", 1);
 }

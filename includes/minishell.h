@@ -100,6 +100,7 @@ int		is_redirection(char c);
 
 /* signal functions */
 void	handle_signals(void);
+void	new_prompt(void);
 
 /* error functions */
 void    error_check(t_lexer **lexer);
