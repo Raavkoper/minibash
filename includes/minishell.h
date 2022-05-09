@@ -91,6 +91,9 @@ void	find_command(t_data *data, char *command);
 /* builtin functions */
 void	ft_env(char **env);
 void	ft_exit(void);
+void	ft_pwd(void);
+void	ft_cd(void);
+void	directory_split(void);
 
 /* general functions */
 int		iswhitespace(char c);

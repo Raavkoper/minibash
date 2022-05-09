@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/07 13:56:23 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/07 12:51:06 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/09 11:12:42 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,3 @@ void	executor(t_data *data)
 	}
 }
 
-void	find_command(t_data *data, char *command)
-{
-	if (!ft_strncmp(command, "env", 3))
-		ft_env(data->env);
-	if (!ft_strncmp(command, "exit", 4))
-		ft_exit();
-}
