@@ -86,14 +86,15 @@ void	free_redirections(t_red **red);
 
 /* executor functions */
 void	executor(t_data *data);
-void	find_command(t_data *data, char *command);
+void	find_command(t_data *data, char *command, char **cmd_table);
 
 /* builtin functions */
 void	ft_env(char **env);
 void	ft_exit(void);
 void	ft_pwd(void);
-void	ft_cd(void);
+void	ft_cd(char **cmd_table);
 void	directory_split(void);
+void	find_home_dir(void);
 
 /* general functions */
 int		iswhitespace(char c);
@@ -103,6 +104,7 @@ int		is_redirection(char c);
 
 /* signal functions */
 void	handle_signals(void);
+void	new_prompt(int sig);
 
 /* error functions */
 void    error_check(t_lexer **lexer);
