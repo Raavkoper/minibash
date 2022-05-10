@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/09 13:10:38 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/10 13:23:47 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,16 @@ void	executor(t_data *data)
 	}
 }
 
+void	find_command(t_data *data, char *command, char **cmd_table)
+{
+	if (!ft_strncmp(command, "env", 4))
+		ft_env(data->env);
+	else if (!ft_strncmp(command, "exit", 5))
+		ft_exit();
+	else if (!ft_strncmp(command, "pwd", 4))
+		ft_pwd();
+	else if (!ft_strncmp(command, "cd", 3))
+		ft_cd(cmd_table);
+	else if (!ft_strncmp(command, "echo", 5))
+		ft_echo(cmd_table);
+}

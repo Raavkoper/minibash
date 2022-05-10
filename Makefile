@@ -9,7 +9,9 @@ CC = gcc
 LIBFT = libraries/libft/libft.a
 
 SRCS = main.c lexer.c is_check.c init_shell.c free.c handle_quote.c parser.c \
-		redirections.c expander.c executor.c builtins.c error.c signal.c \
+		redirections.c expander.c executor.c error.c signal.c \
+		builtins/echo.c builtins/env.c builtins/cd.c builtins/export.c \
+		builtins/unset.c builtins/exit.c builtins/pwd.c 
 
 OBJS = $(SRCS:%.c=%.o)
 
