@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/10 13:41:48 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/10 14:08:33 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_echo(char **cmd_table)
 			{
 				if (check_add_chars(*cmd_table))
 				{
-					find_home_dir('p');
+					printf("%s", getenv("HOME"));
 					cmd_table++;
 					if (*cmd_table)
 						printf(" ");
@@ -51,7 +51,7 @@ void	ft_echo(char **cmd_table)
 			{
 				if (check_add_chars(*cmd_table))
 				{
-					find_home_dir('p');
+					printf("%s", getenv("HOME"));
 					cmd_table++;
 					if (*cmd_table)
 						printf(" ");
