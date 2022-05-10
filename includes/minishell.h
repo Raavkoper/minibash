@@ -6,6 +6,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define NC "\x1B[0m"
+# define BLUE "\033[0;34m"
+# define RED "\x1B[31m"
+# define YELLOW "\x1B[33m"
+# define GREEN "\033[1m\033[32m"
+
 # include "../libraries/libft/libft.h"
 
 typedef enum e_tokens
@@ -43,6 +49,7 @@ typedef struct s_data
 	t_lexer		*lexer;
 	t_parser	*parser;
 	t_red		*red;
+	char		**env;
 }				t_data;
 
 /* main functions */
@@ -77,6 +84,20 @@ void	init_red(t_red **red);
 void	print_redirections(t_red *red);
 void	free_redirections(t_red **red);
 
+/* executor functions */
+void	executor(t_data *data);
+void	find_command(t_data *data, char *command, char **cmd_table);
+
+/* builtin functions */
+void	ft_env(char **env);
+void	ft_exit(void);
+void	ft_pwd(void);
+void	ft_cd(char **cmd_table);
+void	directory_split(void);
+void	find_home_dir(char status);
+void	ft_echo(char **cmd_table);
+void	putstr_echo(char *word);
+int		check_add_chars(char *str);
 /* general functions */
 int		iswhitespace(char c);
 int		istoken(char c);
@@ -85,6 +106,7 @@ int		is_redirection(char c);
 
 /* signal functions */
 void	handle_signals(void);
+void	new_prompt(int sig);
 
 /* error functions */
 void    error_check(t_lexer **lexer);

@@ -4,7 +4,7 @@ char *init_shell(void)
 {
 	char *line;
 
-	line = (char *)readline("minishell$> ");
+	line = (char *)readline("\033[1m\033[32mminishell$>\x1B[0m ");
 	add_history(line);
 	return (line);
 }
@@ -28,7 +28,9 @@ void	run_shell(t_data *data)
 			// print_parser(data->parser);
 			redirections(data);
 			// print_redirections(data->red);
+			executor(data);
 		}
 		free(line);
+		// system("leaks minishell");
 	}
 }
