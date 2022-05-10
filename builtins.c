@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 13:22:09 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/09 15:02:46 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/10 12:57:34 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,17 @@ void	ft_echo(char **cmd_table)
 	{
 		while (*cmd_table)
 		{
+			if (*cmd_table[0] == '~')
+			{
+				if (check_add_chars(*cmd_table))
+				{
+					find_home_dir('p');
+					cmd_table++;
+					if (*cmd_table)
+						printf(" ");
+					continue ;
+				}
+			}
 			putstr_echo(*cmd_table);
 			printf(" ");
 			cmd_table++;
@@ -72,7 +83,18 @@ void	ft_echo(char **cmd_table)
 		cmd_table++;
 		while (*cmd_table)
 		{
-			printf("%s", *cmd_table);
+			if (*cmd_table[0] == '~')
+			{
+				if (check_add_chars(*cmd_table))
+				{
+					find_home_dir('p');
+					cmd_table++;
+					if (*cmd_table)
+						printf(" ");
+					continue ;
+				}
+			}
+			putstr_echo(*cmd_table);
 			cmd_table++;
 			if (*cmd_table)
 				printf(" ");
@@ -94,12 +116,12 @@ void	ft_cd(char **cmd_table)
 {
 	cmd_table++;
 	if (!*cmd_table)
-		return find_home_dir();
+		return find_home_dir('c');
 	if (chdir(*cmd_table))
 		printf("minishell: cd: %s: No such file or directory\n", *cmd_table);
 }
 
-void	find_home_dir(void)
+void	find_home_dir(char status)
 {
 	char	pwd[260];
 	char	*path;
@@ -124,7 +146,19 @@ void	find_home_dir(void)
 	}
 	new_path = ft_calloc(i + 1, sizeof(char));
 	ft_strlcpy(new_path, path, i);
+	if (status == 'p')
+	{
+		printf("%s", new_path);
+
+		free(new_path);
+		return ;
+	}
 	if (chdir(new_path))
 		printf("error near cd\n");
+	free(new_path);
 }
 
+int	check_add_chars(char *str)
+{
+	return (str[0] == '~' && !str[1]);
+}
