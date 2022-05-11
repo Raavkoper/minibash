@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/10 14:08:33 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/11 11:50:54 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,19 @@ void	ft_echo(char **cmd_table)
 
 void	putstr_echo(char *word)
 {
+	int quote;
+	
+	quote = 0;
 	while (*word)
 	{
-		if (*word != SINGLE_QUOTE && *word != DOUBLE_QUOTE)
-			printf("%c", *word);
+		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || quote == 0))
+		{
+			quote = *word;
+			word++;
+			quote %= 2;
+			continue;
+		}	
+		printf("%c", *word);
 		word++;
 	}
 }
