@@ -96,8 +96,9 @@ void	ft_cd(char **cmd_table);
 void	directory_split(void);
 void	find_home_dir(char status);
 void	ft_echo(char **cmd_table);
-void	putstr_echo(char *word);
+void	putstr_echo(char *word, int index);
 int		check_add_chars(char *str);
+
 /* general functions */
 int		iswhitespace(char c);
 int		istoken(char c);

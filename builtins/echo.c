@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/11 11:50:54 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/11 14:28:52 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_echo(char **cmd_table)
 		{
 			if (*cmd_table[0] == '~')
 			{
-				if (check_add_chars(*cmd_table))
+				if (check_add_chars(*cmd_table) == 1)
 				{
 					printf("%s", getenv("HOME"));
 					cmd_table++;
@@ -34,8 +34,17 @@ void	ft_echo(char **cmd_table)
 						printf(" ");
 					continue ;
 				}
+				if (check_add_chars(*cmd_table) == 2)
+				{
+					printf("%s", getenv("HOME"));
+					putstr_echo(*cmd_table, 1);
+					cmd_table++;
+					if (*cmd_table)
+						printf(" ");
+					continue ;
+				}
 			}
-			putstr_echo(*cmd_table);
+			putstr_echo(*cmd_table, 0);
 			printf(" ");
 			cmd_table++;
 		}
@@ -49,7 +58,7 @@ void	ft_echo(char **cmd_table)
 		{
 			if (*cmd_table[0] == '~')
 			{
-				if (check_add_chars(*cmd_table))
+				if (check_add_chars(*cmd_table) == 1)
 				{
 					printf("%s", getenv("HOME"));
 					cmd_table++;
@@ -57,8 +66,17 @@ void	ft_echo(char **cmd_table)
 						printf(" ");
 					continue ;
 				}
+				if (check_add_chars(*cmd_table) == 2)
+				{
+					printf("%s", getenv("HOME"));
+					putstr_echo(*cmd_table, 1);
+					cmd_table++;
+					if (*cmd_table)
+						printf(" ");
+					continue ;
+				}
 			}
-			putstr_echo(*cmd_table);
+			putstr_echo(*cmd_table, 0);
 			cmd_table++;
 			if (*cmd_table)
 				printf(" ");
@@ -66,18 +84,22 @@ void	ft_echo(char **cmd_table)
 	}
 }
 
-void	putstr_echo(char *word)
+void	putstr_echo(char *word, int index)
 {
 	int quote;
+	int count;
 	
-	quote = 0;
+	count = 0;
+	while (index-- )
+		*word++;
 	while (*word)
 	{
-		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || quote == 0))
+		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
 		{
 			quote = *word;
 			word++;
-			quote %= 2;
+			count++;
+			count %= 2;
 			continue;
 		}	
 		printf("%c", *word);
@@ -87,5 +109,9 @@ void	putstr_echo(char *word)
 
 int	check_add_chars(char *str)
 {
-	return (str[0] == '~' && !str[1]);
+	if (!str[1])
+		return (1);
+	if (str[1] == '/')
+		return (2);
+	return (0);
 }
