@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/09 15:50:00 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/12 10:33:42 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*search_path(char **paths, char *cmdarg)
 	i = 0;
 	while (paths[i])
 	{
-		final_cmd = ft_strjoin(ft_strjoin(paths[i], "/"), cmdarg);
+		final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
 		if (access(final_cmd, F_OK) == 0)
 			return (final_cmd);
 		free(final_cmd);
@@ -53,7 +53,7 @@ char	*execute(char *cmd, char **env)
 	path_env = get_path(env);
 	paths = ft_split(path_env, ':');
 	cmdarg = ft_split(cmd, ' ');
-	final_cmd = search_path(paths, cmdarg[0]);
+	final_cmd = search_path(paths, cmdarg[0]);	
 	if (final_cmd == NULL)
 		exit(0);
 	else
@@ -62,14 +62,8 @@ char	*execute(char *cmd, char **env)
 	return (0);
 }
 
-void	child_process(int *end, char *cmd1, char **env)
+void	child_process(char *cmd1, char **env)
 {
-	int		x;
-
-	x = dup2(end[1], STDOUT);
-	if (x < 0)
-		return (perror("dup failed"));
-	close(end[0]);
 	execute(cmd1, env);
 }
 
@@ -133,61 +127,78 @@ char	*outfile(t_lexer *lexer)
 
 void	shell_pipex(t_data *data)
 {
-	int tmpin;
-	int tmpout;
-	int in;
-	int out;
-	int id;
-	int end[2];
+	// int tmpin;
+	// int tmpout;
+	// int in;
+	// int out;
+	// int id;
+	// int end[2];
 
-	// set input, check if file exists or not
-	tmpin = dup(STDIN);
-	tmpout = dup(STDOUT);
-	if (check_file('i', infile(data->lexer)))
-		in = open(infile(data->lexer), O_RDONLY);
-	else
-		in = dup(tmpin);
-
-	// loop through command table and create process for every command
-	while (data->parser)
-	{
-		dup2(in, STDIN);
-		close(in);
-		// if last command in command table
-		if (!data->parser->next)
-		{
-			if (check_file('o', outfile(data->lexer)))
-				out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
-			else
-				out = dup(tmpout);
-		}
-		else
-		{
-			pipe(end);
-			out = end[1];
-			in = end[0];
-		}
-		dup2(out, STDOUT);
-		close(out);
+	// // set input, check if file exists or not
+	// tmpin = dup(STDIN);
+	// tmpout = dup(STDOUT);
+	// if (check_file('i', infile(data->lexer)))
+	// 	in = open(infile(data->lexer), O_RDONLY);
+	// else
+	// 	in = dup(tmpin);
+	// if (!in || !out)
+	// 	perror("dup failed");
+	// // loop through command table and create process for every command
+	// while (data->parser)
+	// {
+	// 	dup2(in, STDIN);
+	// 	close(in);
+	// 	// if last command in command table
+	// 	if (!data->parser->next)
+	// 	{
+	// 		if (check_file('o', outfile(data->lexer)))
+	// 			out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
+	// 		else
+	// 			out = dup(tmpout);
+	// 	}
+	// 	else
+	// 	{
+	// 		pipe(end);
+	// 		out = end[1];
+	// 		in = end[0];
+	// 	}
+	// 	dup2(out, STDOUT);
+	// 	printf("Hi\n");
+	// 	close(out);
 		
-		// create child process
-		id = fork();
-		if (id == 0) // means there is a child process
+	// 	// create child process
+	// 	id = fork();
+	// 	if (id == 0) // means there is a child process
+	// 	{
+	// 		execute(*data->parser->command, data->env);
+	// 		perror("execute child");
+	// 		return ;
+	// 	}
+	// 	else if (id < 0) // fork failed
+	// 	{
+	// 		perror("fork failed");
+	// 		return ;
+	// 	}
+	// 	data->parser = data->parser->next;
+	// }
+	// waitpid(id, NULL, 0);
+	// dup2(in, STDIN);
+	// dup2(out, STDOUT);
+	// close(in);
+	// close(out);
+
+	int id;
+	while (data->parser) 
+	{
+		id = fork(); 
+		if (id == 0) 
+			child_process(*data->parser->command, data->env);
+		else if (id < 0) 
 		{
-			execute(*data->parser->command, data->env);
-			perror("execute child");
-			return ;
-		}
-		else if (id < 0) // fork failed
-		{
-			perror("fork failed");
-			return ;
+			perror("fork");
+			return; 
 		}
 		waitpid(id, NULL, 0);
 		data->parser = data->parser->next;
 	}
-	dup2(in, STDIN);
-	dup2(out, STDOUT);
-	close(in);
-	close(out);
 }

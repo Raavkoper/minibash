@@ -100,6 +100,7 @@ char	*execute(char *cmd, char **env);
 char	*search_path(char **paths, char *cmdarg);
 char	*get_path(char **env);
 void	shell_pipex(t_data *data);
+void	child_process(char *cmd1, char **env);
 
 /* builtin functions */
 void	ft_env(char **env);

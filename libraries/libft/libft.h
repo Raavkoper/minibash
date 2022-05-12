@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   libft.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/25 16:13:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/03/25 16:13:56 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 16:13:55 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/12 10:24:02 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	ft_putlhex_fd(unsigned long n, int fd);
 void	ft_putunbr_fd(unsigned int n, int fd);
 int		ft_checkvalue(va_list argptr, char value);
 int		ft_checkvalue1(va_list argptr, char value);
+char	*ft_strjoin_p(char const *s1, char const *s2);
 #endif
