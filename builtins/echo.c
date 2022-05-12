@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/11 14:28:52 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/12 10:19:02 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	putstr_echo(char *word, int index)
 	int count;
 	
 	count = 0;
-	while (index-- )
-		*word++;
+	while (index--)
+		word++;
 	while (*word)
 	{
 		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
