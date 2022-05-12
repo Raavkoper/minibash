@@ -9,9 +9,10 @@ CC = gcc
 LIBFT = libraries/libft/libft.a
 
 SRCS = main.c lexer.c is_check.c init_shell.c free.c handle_quote.c parser.c \
-		redirections.c expander.c executor.c error.c signal.c \
+		signal.c \
 		builtins/echo.c builtins/env.c builtins/cd.c builtins/export.c \
-		builtins/unset.c builtins/exit.c builtins/pwd.c 
+		builtins/unset.c builtins/exit.c builtins/pwd.c \
+		redirections.c expander.c executor.c error.c pipes.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -29,11 +30,13 @@ $(NAME): $(LIBFT) $(OBJS)
 
 clean:
 	@rm -f $(OBJS)
+	@make clean -C libraries/libft
 	@echo "\033[1;34mA\033[1;31ml\033[1;32ml \033[1;33mc\033[1;30ml\033[1;35me\033[1;36ma\033[1;37mn\033[0m"
 
 fclean:
 	@rm -f $(OBJS)
 	@rm -f $(NAME)
+	@make fclean -C libraries/libft
 	@echo "\033[0;31mFiles killed💀❌\033[0m"
 
 re:	fclean all

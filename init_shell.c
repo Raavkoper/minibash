@@ -25,12 +25,13 @@ void	run_shell(t_data *data)
 			// print_lexer(data->lexer);
 			error_check(&data->lexer);
 			parser(data);
-			// print_parser(data->parser);
+			//print_parser(data->parser);
 			redirections(data);
-			// print_redirections(data->red);
+			//print_redirections(data->red);
+			shell_pipex(data);
 			executor(data);
 		}
 		free(line);
-		// system("leaks minishell");
+		//system("leaks minishell");
 	}
 }

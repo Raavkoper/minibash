@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/10 13:23:47 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/07 12:51:06 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/12 11:10:50 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	executor(t_data *data)
 {
 	t_parser *cmd_table;
 
+	data->parser = NULL;
+	if (!data->parser)
+		return ;
 	cmd_table = data->parser;
 	while (cmd_table)
 	{

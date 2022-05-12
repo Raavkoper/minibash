@@ -1,38 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_pipex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 16:12:21 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/12 10:14:49 by cdiks            ###   ########.fr       */
+/*   Created: 2022/01/19 16:11:45 by cdiks             #+#    #+#             */
+/*   Updated: 2022/05/12 10:31:13 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_p(char const *s1, char const *s2)
 {
 	char	*s3;
-	int		i;
-	int		j;
-	int		len1;
-	int		len2;
+	size_t	counter;
+	size_t	counter2;
+	size_t len1;
+	size_t len2;
 
-	if (!s1 || !s2)
-		return (NULL);
-	i = 0;
-	j = 0;
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	s3 = ft_calloc(len1 + len2 + 1, sizeof(char));
+	if (!s1 || !s2)
+		return (NULL);
+	counter = 0;
+	counter2 = 0;
+	s3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!s3)
 		return (NULL);
-	while (i++ < len1)
-		s3[i] = s1[i];
-	while (j++ < len2)
-		s3[i + j] = s2[j];
+	while (counter != len1)
+	{
+		s3[counter] = s1[counter];
+		counter++;
+	}
+	while (counter2 != len2)
+	{
+		s3[counter + counter2] = s2[counter2];
+		counter2++;
+	}
+	s3[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 	return (s3);
 }
-
