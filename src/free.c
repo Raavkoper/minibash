@@ -39,21 +39,22 @@ void	free_parser(t_parser **parser)
 		temp = *parser;
 		*parser = temp->next;
 		if (temp->command)
-		{
-			free_command_stack(temp->command);
-			free(temp->command);
-		}
+			free_dp(temp->command);
 		free(temp);
 	}
 }
 
-void	free_command_stack(char **command)
+void	free_dp(char **arr)
 {
-	while (*command)
+	int i;
+
+	i = 0;
+	while (arr[i])
 	{
-		free(*command);
-		command++;
+		free(arr[i]);
+		i++;
 	}
+	free(arr);
 }
 
 void	free_redirections(t_red **red)

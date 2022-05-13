@@ -12,6 +12,11 @@
 
 #include "../includes/minishell.h"
 
+char	**get_env(char **env)
+{
+	
+}
+
 void	ft_env(char **env)
 {
 	while (*env)

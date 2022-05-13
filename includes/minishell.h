@@ -71,7 +71,6 @@ int		check_quotes(char *line);
 char	*get_string(char *line, int *i);
 char	*quote_substr(char *line, int end);
 void	add_quote_index(int quote, char *line, int *x);
-void	free_lexer(t_lexer **lexer);
 
 /* parser functions */
 void	init_parser(t_parser **parser);
@@ -80,19 +79,16 @@ int		count_commands(t_lexer *lexer);
 void	add_command(t_parser *parser, char *str, int commands);
 void	parser(t_data *data);
 void	print_parser(t_parser *parser);
-void	free_parser(t_parser **parser);
-void	free_command_stack(char **command);
 
 /* redirection functions */
 void	redirections(t_data *data);
 int		count_redirections(t_lexer *lexer);
 void	init_red(t_red **red);
 void	print_redirections(t_red *red);
-void	free_redirections(t_red **red);
 
 /* executor functions */
 void	executor(t_data *data);
-void	find_command(t_data *data, char *command, char **cmd_table);
+int		find_command(t_data *data, char *command, char **cmd_table);
 char 	*infile(t_lexer *lexer);
 char 	*outfile(t_lexer *lexer);
 int		check_file(char filename, char *name);
@@ -118,6 +114,12 @@ int		iswhitespace(char c);
 int		istoken(char c);
 int		isquote(char *line);
 int		is_redirection(char c);
+
+/* free functions */
+void	free_redirections(t_red **red);
+void	free_lexer(t_lexer **lexer);
+void	free_parser(t_parser **parser);
+void	free_dp(char **arr);
 
 /* signal functions */
 void	handle_signals(void);

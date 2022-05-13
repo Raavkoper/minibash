@@ -21,12 +21,13 @@ void	executor(t_data *data)
 	cmd_table = data->parser;
 	while (cmd_table)
 	{
-		find_command(data, *cmd_table->command, cmd_table->command);
+		if (!find_command(data, *cmd_table->command, cmd_table->command))
+			return ;
 		cmd_table = cmd_table->next;
 	}
 }
 
-void	find_command(t_data *data, char *command, char **cmd_table)
+int	find_command(t_data *data, char *command, char **cmd_table)
 {
 	if (!ft_strncmp(command, "env", 4))
 		ft_env(data->env);
@@ -38,4 +39,10 @@ void	find_command(t_data *data, char *command, char **cmd_table)
 		ft_cd(cmd_table);
 	else if (!ft_strncmp(command, "echo", 5))
 		ft_echo(cmd_table);
+	else
+	{
+		printf("minishell: %s: command not found\n", command);
+		return (0);
+	}
+	return (1);
 }
