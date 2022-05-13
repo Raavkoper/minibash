@@ -14,7 +14,7 @@
 
 char	**get_env(char **env)
 {
-	
+	return NULL;
 }
 
 void	ft_env(char **env)
