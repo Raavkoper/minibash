@@ -100,7 +100,9 @@ void	child_process(char *cmd1, char **env);
 
 /* builtin functions */
 void	ft_env(char **env);
+char	**get_env(char **env);
 void	ft_exit(void);
+void	ft_export(char	**env, char **cmd_table);
 void	ft_pwd(void);
 void	ft_cd(char **cmd_table);
 void	directory_split(void);
@@ -114,6 +116,7 @@ int		iswhitespace(char c);
 int		istoken(char c);
 int		isquote(char *line);
 int		is_redirection(char c);
+int		dp_len(char **arr);
 
 /* free functions */
 void	free_redirections(t_red **red);

@@ -16,7 +16,8 @@ int main(int argc, char **argv, char **env)
 {
 	t_data data;
 	
-	data.env = env;
+	data.env = get_env(env);
+	
 	if (argc != 1)
 	{
 		printf("invalid amount of arguments given... Usage:./minishell\n");

@@ -11,3 +11,16 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_export(char	**env, char **cmd_table)
+{
+	if (!*cmd_table)
+	{
+		while (*env)
+		{
+			printf("declare -x %s\n", *env);
+			env++;
+		}
+		return ;
+	}
+}

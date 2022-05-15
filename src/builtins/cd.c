@@ -14,7 +14,6 @@
 
 void	ft_cd(char **cmd_table)
 {
-	cmd_table++;
 	if (!*cmd_table || ((*cmd_table[0] == '~' && !cmd_table[1])))
 	{
 		if (chdir(getenv("HOME")))

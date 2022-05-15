@@ -36,9 +36,11 @@ int	find_command(t_data *data, char *command, char **cmd_table)
 	else if (!ft_strncmp(command, "pwd", 4))
 		ft_pwd();
 	else if (!ft_strncmp(command, "cd", 3))
-		ft_cd(cmd_table);
+		ft_cd(++cmd_table);
 	else if (!ft_strncmp(command, "echo", 5))
-		ft_echo(cmd_table);
+		ft_echo(++cmd_table);
+	else if (!ft_strncmp(command, "export", 7))
+		ft_export(data->env, ++cmd_table);
 	else
 	{
 		printf("minishell: %s: command not found\n", command);
