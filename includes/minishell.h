@@ -104,6 +104,7 @@ char	**env_dup(char **env, int size);
 void	ft_exit(void);
 void	ft_export(char	***env, char **cmd_table);
 void	print_export(char **env);
+void	export_add_quotes(char *var);
 int		varname_len(char *var);
 char	**sort_env(char **env);
 void	export_check_dup(char ***env, char *command);

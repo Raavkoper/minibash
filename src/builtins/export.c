@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/16 15:14:58 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/16 15:38:00 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,30 @@ void	print_export(char **env)
 	env_sorted = sort_env(env_dup(env, dp_len(env) + 1));
 	while (env_sorted[i])
 	{
-		printf("declare -x %s\n", env_sorted[i]);
+		export_add_quotes(env[i]);
 		i++;
+		printf("\n");
 	}
 	free(env_sorted);
+}
+
+void	export_add_quotes(char *var)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (var[i])
+	{
+		if (var[i - 1] == '=' && j == 0)
+		{
+			printf("\"");
+			j++;
+		}
+		printf("%c", var[i]);
+		if (!var[i + 1] && j == 1)
+			printf("\"");
+		i++;
+	}
 }
