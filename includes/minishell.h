@@ -101,7 +101,17 @@ void	child_process(t_parser *parser, char **env);
 
 /* builtin functions */
 void	ft_env(char **env);
+char	**env_dup(char **env, int size);
 void	ft_exit(void);
+void	ft_export(char	***env, char **cmd_table);
+void	print_export(char **env);
+void	export_add_quotes(char *var);
+int		varname_len(char *var);
+char	**sort_env(char **env);
+void	export_check_dup(char ***env, char *command);
+void	add_line_to_env(char ***env, char *new_var);
+void	remove_line_from_env(char ***env, char *var);
+void	ft_unset(char ***env, char **cmd_table);
 void	ft_pwd(void);
 void	ft_cd(char **cmd_table);
 void	directory_split(void);
@@ -115,6 +125,7 @@ int		iswhitespace(char c);
 int		istoken(char c);
 int		isquote(char *line);
 int		is_redirection(char c);
+int		dp_len(char **arr);
 
 /* free functions */
 void	free_redirections(t_red **red);

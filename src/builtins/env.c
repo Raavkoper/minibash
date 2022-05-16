@@ -6,15 +6,37 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:39:26 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/10 13:40:06 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/16 13:23:56 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**get_env(char **env)
+int		dp_len(char **arr)
 {
-	return NULL;
+	int i;
+
+	i = 0;
+	while (arr[i])
+		i++;	
+	return (i);
+}
+
+char	**env_dup(char **env, int size)
+{
+	int i;
+	char **new_env;
+
+	i = 0;
+	new_env = ft_calloc(size, sizeof(char *));
+	if (!new_env)
+		exit(1);
+	while (env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	return (new_env);
 }
 
 void	ft_env(char **env)
@@ -22,6 +44,6 @@ void	ft_env(char **env)
 	while (*env)
 	{
 		printf("%s\n", *env);
-		env++;	
+		env++;
 	}
 }

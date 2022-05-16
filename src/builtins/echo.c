@@ -14,7 +14,6 @@
 
 void	ft_echo(char **cmd_table)
 {
-	cmd_table++;
 	if (!*cmd_table)
 	{
 		printf("\n");

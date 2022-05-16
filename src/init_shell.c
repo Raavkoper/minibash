@@ -24,7 +24,7 @@ void	run_shell(t_data *data)
 			lexer(data, line);
 			// print_lexer(data->lexer);
 			error_check(&data->lexer);
-			parser(data);
+			 parser(data);
 			// print_parser(data->parser);
 			redirections(data);
 			// print_redirections(data->red);
