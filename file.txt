@@ -1,0 +1,15 @@
+total 88
+drwxr-xr-x  14 cdiks  piscine    476 May 16 11:57 .
+drwx------   5 cdiks  piscine    170 May 13 14:16 ..
+drwxr-xr-x  15 cdiks  piscine    510 May 16 09:47 .git
+-rw-r--r--   1 cdiks  piscine     31 May  9 10:20 .gitignore
+-rw-r--r--@  1 cdiks  piscine   1152 May 16 09:49 Makefile
+drwxr-xr-x   9 cdiks  piscine    306 May 13 14:36 builtins
+-rw-r--r--   1 cdiks  piscine      0 May 16 11:57 file.txt
+-rw-r--r--   1 cdiks  piscine      0 May 16 11:57 file2.txt
+drwxr-xr-x   3 cdiks  piscine    102 May 13 14:36 includes
+drwxr-xr-x   3 cdiks  piscine    102 May  9 10:20 libraries
+-rwxr-xr-x   1 cdiks  piscine  30804 May 16 11:38 minishell
+drwxr-xr-x  16 cdiks  piscine    544 May 16 11:38 objs
+drwxr-xr-x  16 cdiks  piscine    544 May 13 14:36 src
+-rw-r--r--   1 cdiks  piscine     12 May 16 11:51 test.txt

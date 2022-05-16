@@ -46,6 +46,7 @@ typedef struct s_red
 
 typedef struct s_parser
 {
+	t_red			*red;
 	char			**command;
 	struct s_parser	*next;
 }				t_parser;
@@ -92,11 +93,11 @@ int		find_command(t_data *data, char *command, char **cmd_table);
 char 	*infile(t_lexer *lexer);
 char 	*outfile(t_lexer *lexer);
 int		check_file(char filename, char *name);
-char	*execute(char *cmd, char **env);
+char	*execute(t_parser *parser, char **env);
 char	*search_path(char **paths, char *cmdarg);
 char	*get_path(char **env);
 void	shell_pipex(t_data *data);
-void	child_process(char *cmd1, char **env);
+void	child_process(t_parser *parser, char **env);
 
 /* builtin functions */
 void	ft_env(char **env);

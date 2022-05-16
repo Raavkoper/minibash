@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipes.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/05/12 12:03:24 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
+/*   Updated: 2022/05/16 11:38:07 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*search_path(char **paths, char *cmdarg)
 	return (NULL);
 }
 
-char	*execute(char *cmd, char **env)
+char	*execute(t_parser *parser, char **env)
 {
 	char	**paths;
 	char	**cmdarg;
@@ -52,31 +52,19 @@ char	*execute(char *cmd, char **env)
 
 	path_env = get_path(env);
 	paths = ft_split(path_env, ':');
-	cmdarg = ft_split(cmd, ' ');
-	final_cmd = search_path(paths, cmdarg[0]);	
+	cmdarg = parser->command;
+	final_cmd = search_path(paths, *cmdarg);
 	if (final_cmd == NULL)
-		exit(0);
+		exit(1);
 	else
 		execve(final_cmd, cmdarg, env);
 	perror("could not execute");
 	return (0);
 }
 
-void	child_process(char *cmd1, char **env)
+void	child_process(t_parser *parser, char **env)
 {
-	execute(cmd1, env);
-}
-
-void	parent_process(int *end, char *cmd2, char **env)
-{
-	int		x;
-
-	waitpid(-1, NULL, 0);
-	x = dup2(end[0], STDIN);
-	if (x < 0)
-		return (perror("dup failed"));
-	close(end[1]);
-	execute(cmd2, env);
+	execute(parser, env);
 }
 
 int	check_file(char filename, char *name)
@@ -127,78 +115,56 @@ char	*outfile(t_lexer *lexer)
 
 void	shell_pipex(t_data *data)
 {
-	// int tmpin;
-	// int tmpout;
-	// int in;
-	// int out;
-	// int id;
-	// int end[2];
+	int 		tmpin;
+	int 		tmpout;
+	int 		out;
+	int 		in;
+	pid_t 		id;
+	int 		end[2];
+	t_parser	*temp;
 
-	// // set input, check if file exists or not
-	// tmpin = dup(STDIN);
-	// tmpout = dup(STDOUT);
-	// if (check_file('i', infile(data->lexer)))
-	// 	in = open(infile(data->lexer), O_RDONLY);
-	// else
-	// 	in = dup(tmpin);
-	// if (!in || !out)
-	// 	perror("dup failed");
-	// // loop through command table and create process for every command
-	// while (data->parser)
-	// {
-	// 	dup2(in, STDIN);
-	// 	close(in);
-	// 	// if last command in command table
-	// 	if (!data->parser->next)
-	// 	{
-	// 		if (check_file('o', outfile(data->lexer)))
-	// 			out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
-	// 		else
-	// 			out = dup(tmpout);
-	// 	}
-	// 	else
-	// 	{
-	// 		pipe(end);
-	// 		out = end[1];
-	// 		in = end[0];
-	// 	}
-	// 	dup2(out, STDOUT);
-	// 	printf("Hi\n");
-	// 	close(out);
-		
-	// 	// create child process
-	// 	id = fork();
-	// 	if (id == 0) // means there is a child process
-	// 	{
-	// 		execute(*data->parser->command, data->env);
-	// 		perror("execute child");
-	// 		return ;
-	// 	}
-	// 	else if (id < 0) // fork failed
-	// 	{
-	// 		perror("fork failed");
-	// 		return ;
-	// 	}
-	// 	data->parser = data->parser->next;
-	// }
-	// waitpid(id, NULL, 0);
-	// dup2(in, STDIN);
-	// dup2(out, STDOUT);
-	// close(in);
-	// close(out);
-
-	int id;
-	while (data->parser) 
+	temp = data->parser;
+	tmpin = dup(STDIN);
+	tmpout = dup(STDOUT);
+	if (check_file('i', infile(data->lexer)))
+		in = open(infile(data->lexer), O_RDONLY);
+	else
+		in = dup(tmpin);
+	while (temp)
 	{
-		id = fork(); 
-		if (id == 0) 
-			child_process(*data->parser->command, data->env);
+		dup2(in, STDIN);
+		if (temp->next == NULL)
+		{
+			if (check_file('o', outfile(data->lexer)))
+				out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
+			else
+				out = dup(tmpout);
+		}
+		else
+		{
+			pipe(end);
+			out = end[1];
+			in = end[0];
+		}
+		id = fork();
+		if (id == 0)
+		{
+			dup2(out, STDOUT);
+			child_process(temp, data->env);
+			close(in);
+		}
 		else if (id < 0) 
 		{
-			perror("fork");
-			return; 
+			perror("fork failed");
+			return ;
 		}
+		dup2(in, STDIN);
 		waitpid(id, NULL, 0);
-		data->parser = data->parser->next;
+		close(out);
+		temp = temp->next;
 	}
+	dup2(tmpin, STDIN);
+	dup2(tmpout, STDOUT);
+	close(tmpin);
+	close(tmpout);
 }

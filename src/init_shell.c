@@ -28,8 +28,8 @@ void	run_shell(t_data *data)
 			// print_parser(data->parser);
 			redirections(data);
 			// print_redirections(data->red);
-			// shell_pipex(data);
-			executor(data);
+			shell_pipex(data);
+			//executor(data);
 		}
 		free(line);
 		// system("leaks minishell");
