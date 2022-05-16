@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/16 11:38:07 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/16 15:03:00 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,27 @@ char	*infile(t_lexer *lexer)
 char	*outfile(t_lexer *lexer)
 {
 	char *outfile;
+	int reds;
+	int i;
 
+	reds = count_redirections(lexer);
+	if (!reds)
+		return (NULL);
+	i = 0;
 	while (lexer->next != NULL)
 	{
-		if (lexer->token == OUTFILE)
+		while (i != reds)
 		{
-			outfile = lexer->next->command;
-			return (outfile);
+			if (lexer->token == OUTFILE)
+			{
+				open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
+				i++;
+			}
+			lexer = lexer->next;
 		}
-		lexer = lexer->next;
+		outfile = lexer->command;
 	}
-	return (NULL);
+	return (outfile);
 }
 
 void	shell_pipex(t_data *data)
@@ -153,7 +163,7 @@ void	shell_pipex(t_data *data)
 			child_process(temp, data->env);
 			close(in);
 		}
-		else if (id < 0) 
+		else if (id < 0)
 		{
 			perror("fork failed");
 			return ;
