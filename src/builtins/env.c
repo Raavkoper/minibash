@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:39:26 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/10 13:40:06 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/16 13:23:56 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int		dp_len(char **arr)
 	return (i);
 }
 
-char	**get_env(char **env)
+char	**env_dup(char **env, int size)
 {
 	int i;
 	char **new_env;
 
 	i = 0;
-	new_env = ft_calloc(dp_len(env) + 1, sizeof(char *));
+	new_env = ft_calloc(size, sizeof(char *));
 	if (!new_env)
 		exit(1);
 	while (env[i])
