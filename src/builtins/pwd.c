@@ -6,15 +6,19 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:40:42 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/10 13:41:00 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/18 14:13:42 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
-void	ft_pwd(void)
+char	*ft_pwd(int status)
 {
 	char	pwd[260];
 
-	printf("%s\n", getcwd(pwd, sizeof(pwd)));
+	if (status == 1)
+		printf("%s\n", getcwd(pwd, sizeof(pwd)));
+	if (status == 0)
+		return (getcwd(pwd, sizeof(pwd)));
+	return (NULL);
 }
