@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/16 15:03:00 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/18 15:12:35 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*execute(t_parser *parser, char **env)
 void	child_process(t_parser *parser, char **env)
 {
 	execute(parser, env);
+	printf("stinkkind\n");
 }
 
 int	check_file(char filename, char *name)
@@ -100,25 +101,17 @@ char	*infile(t_lexer *lexer)
 char	*outfile(t_lexer *lexer)
 {
 	char *outfile;
-	int reds;
-	int i;
-
-	reds = count_redirections(lexer);
-	if (!reds)
+	
+	if (!count_redirections(lexer))
 		return (NULL);
-	i = 0;
 	while (lexer->next != NULL)
 	{
-		while (i != reds)
-		{
 			if (lexer->token == OUTFILE)
 			{
+				outfile = lexer->next->command;
 				open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
-				i++;
 			}
 			lexer = lexer->next;
-		}
-		outfile = lexer->command;
 	}
 	return (outfile);
 }
