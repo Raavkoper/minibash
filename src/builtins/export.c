@@ -6,11 +6,11 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/16 15:38:00 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/18 15:47:02 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 void	ft_export(char ***env, char **cmd_table)
 {
@@ -20,8 +20,10 @@ void	ft_export(char ***env, char **cmd_table)
 		return ;
 	}
 	export_check_dup(env, *cmd_table);
-	if (ft_isalpha(*cmd_table[0]) || *cmd_table[0] == '_')
+	while (*cmd_table && (ft_isalpha(*cmd_table[0]) || *cmd_table[0] == '_'))
 		add_line_to_env(env, *cmd_table++);
+	if (*cmd_table && !ft_isalpha(*cmd_table[0]))
+		printf("minishell: export: %s: not a valid identifier\n", *cmd_table);
 }
 
 char	**sort_env(char **env)
@@ -66,11 +68,12 @@ void	print_export(char **env)
 	env_sorted = sort_env(env_dup(env, dp_len(env) + 1));
 	while (env_sorted[i])
 	{
+		printf("declare -x ");
 		export_add_quotes(env[i]);
 		i++;
 		printf("\n");
 	}
-	free(env_sorted);
+	free_dp(env_sorted);
 }
 
 void	export_add_quotes(char *var)

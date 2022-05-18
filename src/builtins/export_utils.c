@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:03:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/16 15:20:05 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/18 15:39:33 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	remove_line_from_env(char ***env, char *var)
 			oui++;
 		i++;
 	}
-	free(*env);
+	free_dp(*env);
 	*env = new_env;
 }
 
@@ -72,6 +72,6 @@ void	add_line_to_env(char ***env, char *new_var)
 	len = dp_len(*env);
 	new_env = env_dup(*env, len + 2);
 	new_env[len] = ft_strdup(new_var);
-	free(*env);
+	free_dp(*env);
 	*env = new_env;
 }

@@ -6,11 +6,11 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:39:26 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/16 13:23:56 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/18 14:14:06 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int		dp_len(char **arr)
 {
