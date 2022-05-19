@@ -32,6 +32,6 @@ void	run_shell(t_data *data)
 			executor(data);
 		}
 		free(line);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 }

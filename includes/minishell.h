@@ -76,8 +76,8 @@ void	add_quote_index(int quote, char *line, int *x);
 /* parser functions */
 void	init_parser(t_parser **parser);
 int		count_pipes(t_lexer *lexer);
-int		count_commands(t_lexer *lexer);
-void	add_command(t_parser *parser, char *str, int commands);
+int		count_commands(t_lexer *lexer, char **env);
+void	add_command(t_parser *parser, char *str, int commands, char **env);
 void	parser(t_data *data);
 void	print_parser(t_parser *parser);
 
@@ -86,6 +86,10 @@ void	redirections(t_data *data);
 int		count_redirections(t_lexer *lexer);
 void	init_red(t_red **red);
 void	print_redirections(t_red *red);
+
+/* expander functions */
+int		check_expansion(char **env, char *var);
+char	*cpy_env_var(char **env, char *var);
 
 /* executor functions */
 void	executor(t_data *data);
@@ -126,6 +130,7 @@ int		iswhitespace(char c);
 int		istoken(char c);
 int		isquote(char *line);
 int		is_redirection(char c);
+int		isis(char *line);
 int		dp_len(char **arr);
 
 /* free functions */
