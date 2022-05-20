@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/18 15:12:35 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/19 14:54:21 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ char	*get_path(char **env)
 		i++;
 	}
 	return (NULL);
+}
+
+int has_outfile(t_lexer *lexer)
+{
+	int i;
+	
+	i = 0;
+	while (lexer)
+	{
+		if (lexer->token == OUTFILE)
+			i++;
+		lexer = lexer->next;
+	}
+	if (!i)
+		return (1);
+	return (0);
 }
 
 char	*search_path(char **paths, char *cmdarg)
@@ -65,7 +81,6 @@ char	*execute(t_parser *parser, char **env)
 void	child_process(t_parser *parser, char **env)
 {
 	execute(parser, env);
-	printf("stinkkind\n");
 }
 
 int	check_file(char filename, char *name)
@@ -100,18 +115,18 @@ char	*infile(t_lexer *lexer)
 
 char	*outfile(t_lexer *lexer)
 {
-	char *outfile;
-	
-	if (!count_redirections(lexer))
+	char 	*outfile;
+
+	if (has_outfile(lexer))
 		return (NULL);
 	while (lexer->next != NULL)
 	{
-			if (lexer->token == OUTFILE)
-			{
-				outfile = lexer->next->command;
-				open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			}
-			lexer = lexer->next;
+		if (lexer->token == OUTFILE)
+		{
+			outfile = lexer->next->command;
+			open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		}
+		lexer = lexer->next;
 	}
 	return (outfile);
 }
@@ -129,12 +144,12 @@ void	shell_pipex(t_data *data)
 	temp = data->parser;
 	tmpin = dup(STDIN);
 	tmpout = dup(STDOUT);
-	if (check_file('i', infile(data->lexer)))
-		in = open(infile(data->lexer), O_RDONLY);
-	else
-		in = dup(tmpin);
 	while (temp)
 	{
+		if (check_file('i', infile(data->lexer)))
+			in = open(infile(data->lexer), O_RDONLY);
+		else
+			in = dup(tmpin);
 		dup2(in, STDIN);
 		if (temp->next == NULL)
 		{
