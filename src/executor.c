@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/18 11:38:18 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/20 15:30:14 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	executor(t_data *data)
 
 int	find_command(t_data *data, char *command, char **cmd_table)
 {
+	if (!command)
+		return (0);
 	if (!ft_strncmp(command, "env", 4))
 		ft_env(data->env);
 	else if (!ft_strncmp(command, "exit", 5))
