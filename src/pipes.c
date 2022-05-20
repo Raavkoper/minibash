@@ -6,58 +6,11 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/19 14:54:21 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/20 15:51:42 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_path(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH", 4) == 0)
-			return (env[i] + 5);
-		i++;
-	}
-	return (NULL);
-}
-
-int has_outfile(t_lexer *lexer)
-{
-	int i;
-	
-	i = 0;
-	while (lexer)
-	{
-		if (lexer->token == OUTFILE)
-			i++;
-		lexer = lexer->next;
-	}
-	if (!i)
-		return (1);
-	return (0);
-}
-
-char	*search_path(char **paths, char *cmdarg)
-{
-	int		i;
-	char	*final_cmd;
-
-	i = 0;
-	while (paths[i])
-	{
-		final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
-		if (access(final_cmd, F_OK) == 0)
-			return (final_cmd);
-		free(final_cmd);
-		i++;
-	}
-	return (NULL);
-}
 
 char	*execute(t_parser *parser, char **env)
 {
@@ -80,108 +33,70 @@ char	*execute(t_parser *parser, char **env)
 
 void	child_process(t_parser *parser, char **env)
 {
-	execute(parser, env);
-}
-
-int	check_file(char filename, char *name)
-{
-	if (filename == 'i')
+    pid_t   id;
+    
+    id = fork();
+    if (id < 0)
 	{
-		if (access(name, F_OK) == 0)
-			return (open(name, O_RDONLY));
-		else
-			return (0);
+		perror("fork failed");
+		return ;
 	}
-	else
-		return (open(name, O_CREAT | O_RDWR | O_TRUNC, 0644));
-	return (0);
+    else if (id == 0)
+	    execute(parser, env);
+    else
+        waitpid(id, NULL, 0);
 }
 
-char	*infile(t_lexer *lexer)
+void    create_pipes(int in, int tmpout, t_parser *parser)
 {
-	char *infile;
-
-	while (lexer->next != NULL)
-	{
-		if (lexer->token == INFILE)
-		{
-			infile = lexer->next->command;
-			return (infile);
-		}
-		lexer = lexer->next;
-	}
-	return (NULL);
+    int end[2];
+    int out;
+    
+    out = dup(tmpout);
+    dup2(in, STDIN);
+    close(in);
+    if (parser->next != NULL)
+    {
+        pipe(end);
+        out = end[1];
+	    in = end[0];
+    }
+	dup2(out, STDOUT);
+   	close(out);
 }
 
-char	*outfile(t_lexer *lexer)
+void	check_redirections(t_data *data, int in, t_parser *temp)
 {
-	char 	*outfile;
+	int out;
 
-	if (has_outfile(lexer))
-		return (NULL);
-	while (lexer->next != NULL)
-	{
-		if (lexer->token == OUTFILE)
-		{
-			outfile = lexer->next->command;
-			open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		}
-		lexer = lexer->next;
-	}
-	return (outfile);
+	if (check_file('i', infile(data->lexer)))
+		in = open(infile(data->lexer), O_RDONLY);
+	dup2(in, STDIN);
+	if (check_file('o', outfile(data->lexer)))
+			out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
+	dup2(out, STDOUT);
+	close(out);
 }
 
-void	shell_pipex(t_data *data)
+void    shell_pipex(t_data *data)
 {
-	int 		tmpin;
+    int 		tmpin;
 	int 		tmpout;
-	int 		out;
 	int 		in;
-	pid_t 		id;
-	int 		end[2];
 	t_parser	*temp;
-
-	temp = data->parser;
-	tmpin = dup(STDIN);
+    
+    temp = data->parser;
+    tmpin = dup(STDIN);
 	tmpout = dup(STDOUT);
-	while (temp)
-	{
-		if (check_file('i', infile(data->lexer)))
-			in = open(infile(data->lexer), O_RDONLY);
-		else
-			in = dup(tmpin);
-		dup2(in, STDIN);
-		if (temp->next == NULL)
-		{
-			if (check_file('o', outfile(data->lexer)))
-				out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
-			else
-				out = dup(tmpout);
-		}
-		else
-		{
-			pipe(end);
-			out = end[1];
-			in = end[0];
-		}
-		id = fork();
-		if (id == 0)
-		{
-			dup2(out, STDOUT);
-			child_process(temp, data->env);
-			close(in);
-		}
-		else if (id < 0)
-		{
-			perror("fork failed");
-			return ;
-		}
-		dup2(in, STDIN);
-		waitpid(id, NULL, 0);
-		close(out);
-		temp = temp->next;
-	}
-	dup2(tmpin, STDIN);
+	in = dup(tmpin);
+    while (temp)
+    {
+        create_pipes(in, tmpout, temp);
+		check_redirections(data, in, temp);
+        child_process(temp, data->env);
+        temp = temp->next;
+    }
+    dup2(tmpin, STDIN);
 	dup2(tmpout, STDOUT);
 	close(tmpin);
 	close(tmpout);
