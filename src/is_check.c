@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:54:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/19 10:46:51 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/22 11:45:43 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ int	isis(char *line)
 	while (*line && !iswhitespace(*line))
 	{
 		if (*line == 61)
+			return (1);
+		line++;
+	}
+	return (0);
+}
+
+int	isdollar(char *line)
+{
+	while (*line && !iswhitespace(*line))
+	{
+		if (*line == 36)
 			return (1);
 		line++;
 	}

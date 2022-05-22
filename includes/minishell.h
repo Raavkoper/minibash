@@ -90,6 +90,8 @@ void	print_redirections(t_red *red);
 /* expander functions */
 int		check_expansion(char **env, char *var);
 char	*cpy_env_var(char **env, char *var);
+char	*trim_double(char *word, int index);
+char	*trim_qoutes(char *word, int index);
 
 /* executor functions */
 void	executor(t_data *data);
@@ -132,7 +134,7 @@ int		isquote(char *line);
 int		is_redirection(char c);
 int		isis(char *line);
 int		dp_len(char **arr);
-
+int		isdollar(char *line);
 /* free functions */
 void	free_redirections(t_red **red);
 void	free_lexer(t_lexer **lexer);
