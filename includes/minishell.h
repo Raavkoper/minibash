@@ -85,6 +85,7 @@ void	redirections(t_data *data);
 int		count_redirections(t_lexer *lexer);
 void	init_red(t_red **red);
 void	print_redirections(t_red *red);
+char 	*double_reds(t_lexer *lexer);
 
 /* executor functions */
 void	executor(t_data *data);
@@ -99,8 +100,8 @@ char	*get_path(char **env);
 void	shell_pipex(t_data *data);
 void	child_process(t_parser *parser, char **env);
 void    create_pipes(int in, int tmpout, t_parser *parser);
-void	check_redirections(t_data *data, int in, t_parser *temp);
-
+void	check_redirections(t_data *data, int in);
+int		check_doubles(t_lexer * lexer);
 
 /* builtin functions */
 void	ft_env(char **env);

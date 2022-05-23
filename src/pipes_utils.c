@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/20 13:48:52 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/23 12:53:02 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,26 @@ char	*search_path(char **paths, char *cmdarg)
 	return (NULL);
 }
 
+char *double_reds(t_lexer *lexer)
+{
+	char	*out;
 
+	while (lexer->next != NULL)
+	{
+		if (lexer->token == OUTFILE && lexer->next->token == OUTFILE)
+			return (lexer->next->next->command);
+		lexer = lexer->next;
+	}
+	return (NULL);
+}
 
-
-
+int	check_doubles(t_lexer *lexer)
+{
+	while (lexer)
+	{
+		if (lexer->token == OUTFILE && lexer->next->token == OUTFILE)
+			return (1);
+		lexer = lexer->next;
+	}
+	return (0);
+}

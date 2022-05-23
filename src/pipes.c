@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/20 15:51:42 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/23 13:19:21 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,20 @@ void    create_pipes(int in, int tmpout, t_parser *parser)
    	close(out);
 }
 
-void	check_redirections(t_data *data, int in, t_parser *temp)
+void	check_redirections(t_data *data, int in)
 {
 	int out;
 
 	if (check_file('i', infile(data->lexer)))
 		in = open(infile(data->lexer), O_RDONLY);
 	dup2(in, STDIN);
-	if (check_file('o', outfile(data->lexer)))
-			out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (check_doubles(data->lexer))
+	{
+		if (check_file('o', double_reds(data->lexer)))
+			out = open(double_reds(data->lexer), O_CREAT | O_RDWR | O_APPEND, 0644);
+	}
+	else if (check_file('o', outfile(data->lexer)))
+		out = open(outfile(data->lexer), O_CREAT | O_RDWR | O_TRUNC, 0644);
 	dup2(out, STDOUT);
 	close(out);
 }
@@ -92,7 +97,7 @@ void    shell_pipex(t_data *data)
     while (temp)
     {
         create_pipes(in, tmpout, temp);
-		check_redirections(data, in, temp);
+		check_redirections(data, in);
         child_process(temp, data->env);
         temp = temp->next;
     }
