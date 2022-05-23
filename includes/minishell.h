@@ -95,6 +95,7 @@ char	*trim_qoutes(char *word);
 char	*cpy_env_var(char **env, char *var, int *x);
 char	*add_char(char *str, char c);
 char	*dub_min_digit(char *str, int *x);
+char	*trim_quotes(char *word);
 
 /* executor functions */
 void	executor(t_data *data);
@@ -127,7 +128,6 @@ char	*get_old_pwd(char **env);
 void	directory_split(void);
 void	find_home_dir(char status);
 void	ft_echo(char **cmd_table);
-void	putstr_echo(char *word, int index);
 int		check_add_chars(char *str);
 
 /* general functions */
@@ -138,6 +138,7 @@ int		is_redirection(char c);
 int		isis(char *line);
 int		dp_len(char **arr);
 int		isdollar(char *line);
+
 /* free functions */
 void	free_redirections(t_red **red);
 void	free_lexer(t_lexer **lexer);

@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 12:38:32 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 19:03:13 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,28 @@ char	*expander(char **env, char *var)
 {
 	int i;
 	char *ret;
+	int sq;
+	int dq;
 
 	i = 0;
+	sq = 0;
+	dq = 0;
 	ret = "";
 	while (var[i])
 	{
-		if (var[i] == '$' && ft_isdigit(var[i + 1]))
+		if (var[i] == '"' && !sq)
+		{
+			dq++;
+			dq %= 2;
+		}
+		if (var[i] == '\'' && !dq)
+		{
+			sq++;
+			sq %= 2;
+		}
+		if (var[i] == '$' && ft_isdigit(var[i + 1]) && !sq)
 			ret = ft_strjoin(ret, dub_min_digit(&var[i + 2], &i));
-		if (var[i] == '$' && var[i + 1])
+		if (var[i] == '$' && var[i + 1] && !sq && !iswhitespace(var[i + 1]))
 			ret = ft_strjoin(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
 		{
@@ -49,7 +63,7 @@ char	*expander(char **env, char *var)
 			i++;
 		}
 	}
-	return (ret);
+	return (trim_quotes(ret));
 }
 
 
@@ -61,6 +75,14 @@ char	*cpy_env_var(char **env, char *var, int *x)
 
 	i = 0;
 	len = varname_len(var);
+	while (i < len && !iswhitespace(var[i]))
+		i++;
+	if (i != len)
+	{
+		*x += i + 1;
+		return ("");
+	}
+	i = 0;
 	while (env[i])
 	{
 		env_len = varname_len(env[i]);
@@ -107,14 +129,14 @@ char	*cpy_env_var(char **env, char *var, int *x)
 // 	return (ret);
 // }
 
-char	*trim_qoutes(char *word)
+char	*trim_quotes(char *word)
 {
 	int quote;
 	int count;
 	char *ret;
 	int i;
 	
-	ret = ft_calloc(ft_strlen(word), sizeof(char));
+	ret = ft_calloc(ft_strlen(word) + 1, sizeof(char));
 	if (!ret)
 		exit(1);
 	count = 0;

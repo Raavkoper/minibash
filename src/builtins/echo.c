@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 09:12:51 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 18:49:29 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	ft_echo(char **cmd_table)
 				if (check_add_chars(*cmd_table) == 2)
 				{
 					printf("%s", getenv("HOME"));
-					putstr_echo(*cmd_table, 1);
+					printf("%s", *cmd_table);
 					cmd_table++;
 					if (*cmd_table)
 						printf(" ");
 					continue ;
 				}
 			}
-			putstr_echo(*cmd_table, 0);
+			printf("%s", *cmd_table);
 			printf(" ");
 			cmd_table++;
 		}
@@ -52,7 +52,8 @@ void	ft_echo(char **cmd_table)
 	}
 	if (!ft_strncmp(*cmd_table, "-n", 3))
 	{
-		cmd_table++;
+		while (*cmd_table && !ft_strncmp(*cmd_table, "-n", 3))
+			cmd_table++;
 		while (*cmd_table)
 		{
 			if (*cmd_table[0] == '~')
@@ -68,41 +69,18 @@ void	ft_echo(char **cmd_table)
 				if (check_add_chars(*cmd_table) == 2)
 				{
 					printf("%s", getenv("HOME"));
-					putstr_echo(*cmd_table, 1);
+					printf("%s", *cmd_table);
 					cmd_table++;
 					if (*cmd_table)
 						printf(" ");
 					continue ;
 				}
 			}
-			putstr_echo(*cmd_table, 0);
+			printf("%s", *cmd_table);
 			cmd_table++;
 			if (*cmd_table)
 				printf(" ");
 		}
-	}
-}
-
-void	putstr_echo(char *word, int index)
-{
-	int quote;
-	int count;
-	
-	count = 0;
-	while (index--)
-		word++;
-	while (*word)
-	{
-		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
-		{
-			quote = *word;
-			word++;
-			count++;
-			count %= 2;
-			continue;
-		}	
-		printf("%c", *word);
-		word++;
 	}
 }
 

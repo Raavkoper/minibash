@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 10:04:48 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 18:35:14 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	add_command(t_parser *parser, char *str, int commands, char **env)
 	if ((str[0] == '$' && str[1]) || isdollar(str))
 		*parser->command = expander(env, str);
 	else
-		*parser->command = ft_strdup(str);
+		*parser->command = trim_quotes(str);
 }
 
 void	init_parser(t_parser **parser)
