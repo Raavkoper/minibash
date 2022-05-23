@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:03:13 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 19:52:32 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ char	*expander(char **env, char *var)
 			sq %= 2;
 		}
 		if (var[i] == '$' && ft_isdigit(var[i + 1]) && !sq)
-			ret = ft_strjoin(ret, dub_min_digit(&var[i + 2], &i));
+			ret = merge_str(ret, dub_min_digit(&var[i + 2], &i));
 		if (var[i] == '$' && var[i + 1] && !sq && !iswhitespace(var[i + 1]))
-			ret = ft_strjoin(ret, cpy_env_var(env, &var[i + 1], &i));
+			ret = merge_str(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
 		{
 			ret = add_char(ret, var[i]);
 			i++;
 		}
 	}
-	return (trim_quotes(ret));
+	return (trim_quotes(ret, 1));
 }
 
 
@@ -129,19 +129,19 @@ char	*cpy_env_var(char **env, char *var, int *x)
 // 	return (ret);
 // }
 
-char	*trim_quotes(char *word)
+char	*trim_quotes(char *word, int liberate)
 {
 	int quote;
 	int count;
 	char *ret;
 	int i;
+	char *temp;
 	
-	ret = ft_calloc(ft_strlen(word) + 1, sizeof(char));
-	if (!ret)
-		exit(1);
+	ret = safe_calloc(ft_strlen(word) + 1, sizeof(char));
 	count = 0;
 	i = 0;
 	quote = 0;
+	temp = word;
 	while (*word)
 	{
 		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
@@ -156,5 +156,7 @@ char	*trim_quotes(char *word)
 		i++;
 		word++;
 	}
+	if (liberate)
+		free(temp);
 	return (ret);
 }

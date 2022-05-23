@@ -95,7 +95,8 @@ char	*trim_qoutes(char *word);
 char	*cpy_env_var(char **env, char *var, int *x);
 char	*add_char(char *str, char c);
 char	*dub_min_digit(char *str, int *x);
-char	*trim_quotes(char *word);
+char	*trim_quotes(char *word, int liberate);
+char	*merge_str(char *s1, char *s2);
 
 /* executor functions */
 void	executor(t_data *data);
@@ -152,5 +153,6 @@ void	new_prompt(int sig);
 /* error functions */
 void    error_check(t_lexer **lexer);
 int		check_token(t_lexer **lexer);
+void	*safe_calloc(size_t count, size_t size);
 
 #endif

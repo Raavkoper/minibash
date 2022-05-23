@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 18:35:14 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 19:50:26 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,13 @@ void	parser(t_data *data)
 void	add_command(t_parser *parser, char *str, int commands, char **env)
 {
 	if (parser->command == NULL)
-	{
-		parser->command = ft_calloc(sizeof(char *), commands + 1);
-		if (!parser->command)
-			exit(1);
-	}
+		parser->command = safe_calloc(sizeof(char *), commands + 1);
 	while (*parser->command != NULL)
 		parser->command++;
 	if ((str[0] == '$' && str[1]) || isdollar(str))
 		*parser->command = expander(env, str);
 	else
-		*parser->command = trim_quotes(str);
+		*parser->command = trim_quotes(str, 0);
 }
 
 void	init_parser(t_parser **parser)

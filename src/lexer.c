@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/12 12:03:24 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 19:37:16 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ char	*mod_substr(char *str, int *i)
 		return (NULL);
 	while (!iswhitespace(str[start]) && str[start] && !istoken(str[start]))
 		start++;
-	sub = ft_calloc(start + 1, sizeof(char));
-	if (!sub)
-		return (NULL);
+	sub = safe_calloc(start + 1, sizeof(char));
 	*i += start;
 	while (x < start)
 	{

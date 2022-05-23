@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/22 10:55:26 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 19:37:16 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ char	**sort_env(char **env)
 	diff = 0;
 	j = 0;
 	len = dp_len(env);
-	env_sorted = ft_calloc(sizeof(char *), (size_t)len + 1);
-	if (!env_sorted)
-		exit(1);
+	env_sorted = safe_calloc(sizeof(char *), (size_t)len + 1);
 	while (j < len)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 14:50:17 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/12 12:03:24 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 19:37:16 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,7 @@ char	*quote_substr(char *line, int end)
 	char *ret;
 
 	i = 0;
-	ret = ft_calloc(end + 1, sizeof(char));
-	if (!ret)
-		return (NULL);
+	ret = safe_calloc(end + 1, sizeof(char));
 	while (i < end)
 	{
 		ret[i] = line[i];
