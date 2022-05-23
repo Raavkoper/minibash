@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:54:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/22 11:45:43 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 09:12:18 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	isquote(char *line)
 {
 	while (*line && !iswhitespace(*line))
 	{
-		if (*line == 39 || *line == 34)
-			return (1);
+		if (*line == 39)
+			return (39);
+		if (*line == 34)
+			return (34);
 		line++;
 	}
 	return (0);

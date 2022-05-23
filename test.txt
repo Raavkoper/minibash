@@ -7,6 +7,9 @@ echo "$PATH"
 echo "$PATH"PO
 /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/binPO
 
+echo '$PAT"'"H'''"
+
+
 echo "*"
 echo *bla
 echo '$PATH'
@@ -34,10 +37,10 @@ echo $PATH"*"
 echo bla $bla
 echo bla $bla | cat -e
 echo "$?"lala $?asdf $PATH "$PATH" * *bla *"bla
-test 'export
-test 'export a\nexport a=42\nexport
-test 'export a=\nexport a=42\nexport
-test 'export a=\nexport a\nexport
+test export
+test export a\nexport a=42\nexport
+test export a=\nexport a=42\nexport
+test export a=\nexport a\nexport
 export =
 export =10
 export "|"=10

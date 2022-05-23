@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 16:12:21 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/12 10:14:49 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strjoin.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/25 16:12:21 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/05/23 09:47:12 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s3 = ft_calloc(len1 + len2 + 1, sizeof(char));
 	if (!s3)
 		return (NULL);
-	while (i++ < len1)
+	while (i < len1)
+	{
 		s3[i] = s1[i];
-	while (j++ < len2)
+		i++;
+	}
+	while (j < len2)
+	{
 		s3[i + j] = s2[j];
+		j++;
+	}
 	return (s3);
 }
-

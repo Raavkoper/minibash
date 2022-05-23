@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:03:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/18 15:39:33 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 12:43:40 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	varname_len(char *var)
 	int i;
 	
 	i = 0;
-	while (var[i] && var[i] != '=')
+	while (var[i] && var[i] != '=' && var[i] != '$' && var[i] != ':' && var[i] != '*' && var[i] != '"' && var[i] != '\'')
 		i++;
 	return (i);
 }

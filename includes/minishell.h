@@ -89,9 +89,12 @@ void	print_redirections(t_red *red);
 
 /* expander functions */
 int		check_expansion(char **env, char *var);
-char	*cpy_env_var(char **env, char *var);
+char	*expander(char **env, char *var);
 char	*trim_double(char *word, int index);
-char	*trim_qoutes(char *word, int index);
+char	*trim_qoutes(char *word);
+char	*cpy_env_var(char **env, char *var, int *x);
+char	*add_char(char *str, char c);
+char	*dub_min_digit(char *str, int *x);
 
 /* executor functions */
 void	executor(t_data *data);

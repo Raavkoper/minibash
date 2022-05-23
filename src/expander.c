@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/22 12:02:44 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/23 12:38:32 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,75 +14,100 @@
 
 int	check_expansion(char **env, char *var)
 {
-	int i;
-	int len;
+	// int i;
+	// int len;
 
-	if (var[0] != '$' || isquote(var))
-		return (1);
-	i = 1;
-	len = varname_len(var) - 1;
-	if (ft_isdigit(var[1]) && var[2])
-		return (1);
-	while (*env && ft_strncmp(*env, &var[1], len))
-		env++;
-	if (*env && !ft_strncmp(*env, &var[1], len))
-		return (1);
-	return (0);
+	// if (!isdollar(var) || isquote(var))
+	// 	return (1);
+	// i = 1;
+	// len = varname_len(var) - 1;
+	// if (ft_isdigit(var[1]) && var[2])
+	// 	return (1);
+	// while (*env && ft_strncmp(*env, &var[1], len))
+	// 	env++;
+	// if (*env && !ft_strncmp(*env, &var[1], len))
+	// 	return (1);
+	return (1);
 }
 
-char	*cpy_env_var(char **env, char *var)
+char	*expander(char **env, char *var)
 {
 	int i;
-	int len;
+	char *ret;
 
 	i = 0;
-	len = varname_len(var) - 1;
-	if (ft_isdigit(var[1]) && var[2])
-		return (ft_strdup(&var[2]));
-	// if (var[0] == '"')
-	// 	var = trim_double(var, 1);
-	if (isquote(var))
-		return (trim_qoutes(var, 1));
+	ret = "";
+	while (var[i])
+	{
+		if (var[i] == '$' && ft_isdigit(var[i + 1]))
+			ret = ft_strjoin(ret, dub_min_digit(&var[i + 2], &i));
+		if (var[i] == '$' && var[i + 1])
+			ret = ft_strjoin(ret, cpy_env_var(env, &var[i + 1], &i));
+		else
+		{
+			ret = add_char(ret, var[i]);
+			i++;
+		}
+	}
+	return (ret);
+}
+
+
+char	*cpy_env_var(char **env, char *var, int *x)
+{
+	int len;
+	int env_len;
+	int i;
+
+	i = 0;
+	len = varname_len(var);
 	while (env[i])
 	{
-		if (varname_len(env[i]) == len)
+		env_len = varname_len(env[i]);
+		if (env_len == len)
 		{
-			if (!ft_strncmp(env[i], &var[1], len))
+			if (!ft_strncmp(env[i], var, env_len))
+			{
+				*x += len + 1;
 				return (ft_strdup(&env[i][len + 1]));
+			}
 		}
 		i++;
 	}
-	return (NULL);
+	*x += len + 1;
+	return ("");
 }
-
-// char	*trim_double(char *word, int index)
+// char	*expander(char **env, char *var)
 // {
-// 	int quote;
-// 	char *ret;
 // 	int i;
-	
-// 	ret = ft_calloc(ft_strlen(word), sizeof(char));
-// 	if (!ret)
-// 		exit(1);
-// 	while (index--)
-// 		word++;
+// 	int len;
+// 	char *ret;
+
 // 	i = 0;
-// 	quote = 0;
-// 	while (*word)
+// 	len = varname_len(var) - 1;
+// 	ret = "";
+// 	if (ft_isdigit(var[1]) && var[2])
+// 		return (ft_strdup(&var[2]));
+// 	// if (var[0] == '"')
+// 	// 	var = trim_double(var, 1);
+// 	if (isquote(var))
+// 		return (trim_qoutes(var));
+// 	while (env[i])
 // 	{
-// 		while (*word && !quote)
+// 		if (varname_len(env[i]) == len)
 // 		{
-// 			if (*word == '"')
-// 				quote++;
-// 			word++;
+// 			if (!ft_strncmp(env[i], &var[1], len))
+// 				ret = ft_strjoin(ret, (ft_strdup(&env[i][len + 1])));
 // 		}
-// 		ret[i] = *word;
 // 		i++;
 // 	}
+// 	ret = ft_strjoin(ret, check_add_string(&var[len + 1]));
+// 	if (!ret[0])
+// 		ret = NULL;
 // 	return (ret);
 // }
 
-char	*trim_qoutes(char *word, int index)
+char	*trim_qoutes(char *word)
 {
 	int quote;
 	int count;
@@ -95,8 +120,6 @@ char	*trim_qoutes(char *word, int index)
 	count = 0;
 	i = 0;
 	quote = 0;
-	while (index--)
-		word++;
 	while (*word)
 	{
 		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
@@ -107,11 +130,8 @@ char	*trim_qoutes(char *word, int index)
 			count %= 2;
 			continue;
 		}
-		if (quote)
-		{
-			ret[i] = *word;
-			i++;
-		}
+		ret[i] = *word;
+		i++;
 		word++;
 	}
 	return (ret);
