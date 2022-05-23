@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:54:34 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/19 11:02:18 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/23 09:03:07 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,26 @@ int	isquote(char *line)
 int	is_redirection(char c)
 {
 	return (c == 60 || c == 62);
+}
+
+int	isis(char *line)
+{
+	while (*line && !iswhitespace(*line))
+	{
+		if (*line == 61)
+			return (1);
+		line++;
+	}
+	return (0);
+}
+
+int	isdollar(char *line)
+{
+	while (*line && !iswhitespace(*line))
+	{
+		if (*line == 36)
+			return (1);
+		line++;
+	}
+	return (0);
 }
