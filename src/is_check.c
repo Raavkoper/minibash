@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:54:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 10:55:25 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/24 13:11:51 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int	isquote(char *line)
 
 int	is_redirection(char c)
 {
-	return (c == 60 || c == 62);
+	if (c == 60)
+		return (60);
+	if (c == 62)
+		return (62);
+	return (0);
 }
 
 int	isis(char *line)

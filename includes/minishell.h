@@ -25,6 +25,8 @@ typedef enum e_tokens
 	PIPE = '|',
     OUTFILE = '>',
     INFILE = '<',
+	D_INFILE = 310,
+	D_OUTFILE = 312,
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 }			t_tokens;

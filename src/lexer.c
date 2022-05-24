@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:37:16 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/24 13:22:20 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,17 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 		new_node->command = mod_substr(str, i);
 	else
 	{
-		new_node->token = str[0];
+		if (str[1] && is_redirection(str[0]) == is_redirection(str[1]))
+		{
+			new_node->token = is_redirection(str[0]) + 250;
+			*i += 2;
+		}
+		else
+		{
+			new_node->token = str[0];
+			*i += 1;
+		}
 		new_node->command = NULL;
-		*i += 1;
 	}
 	new_node->index = index;
 	index++;
@@ -91,7 +99,7 @@ void	print_lexer(t_lexer *lexer)
 		printf("lexer empty\n");
 	while (lexer != NULL)
 	{
-		printf("%s$ token ascii -> %d index -> %d\n", lexer->command, lexer->token, lexer->index);
+		printf("command -> %s$ token ascii -> %d index -> %d\n", lexer->command, lexer->token, lexer->index);
 		lexer = lexer->next;
 	}
 }
