@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 10:51:20 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/24 11:10:02 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,11 @@ void	add_command(t_parser *parser, char *str, int commands, char **env)
 	while (*parser->command != NULL)
 		parser->command++;
 	if (isdollar(str))
+	{
 		*parser->command = expander(env, str);
+		if (!parser->command[0][0])
+			*parser->command = NULL;
+	}
 	else
 		*parser->command = trim_quotes(str, 0);
 }

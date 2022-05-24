@@ -1,6 +1,15 @@
 #include "minishell.h"
 
-char *init_shell(void)
+void	welcome()
+{
+printf("%s%s\n", YELLOW, "                                                ,--.        ,--.   ,--.,--.,--.           "); 
+printf("%s%s\n", GREEN, "--.--. ,--,--. ,--,--.,--.  ,--.,---. ,--,--,--.`--\',--,--, `--\' ,-|  |`--\'|  |,-.  ,---. "); 
+printf("%s%s\n", BLUE, "  .--\'\' ,-.  |\' ,-.  | \\  `\'  /(  .-\' |        |,--.|      \\,--.\' .-. |,--.|     / (  .-\' "); 
+printf("%s%s\n", RED, "  |   \\ \'-\'  |\\ \'-\'  |  \\    / .-\'  `)|  |  |  ||  ||  ||  ||  |\\ `-\' ||  ||  \\  \\ .-\'  `)"); 
+printf("%s%s%s\n", YELLOW, "--\'    `--`--\' `--`--\'   `--\'  `----\' `--`--`--\'`--\'`--\'\'--\'`--\' `---\' `--\'`--\'`--\'`----\' ", NC); 
+}
+
+char 	*init_shell(void)
 {
 	char *line;
 
@@ -13,6 +22,7 @@ void	run_shell(t_data *data)
 {
 	char *line;
 
+	welcome();
 	while (1)
 	{
 		line = init_shell();
