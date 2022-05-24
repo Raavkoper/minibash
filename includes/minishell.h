@@ -96,6 +96,7 @@ char	*add_char(char *str, char c);
 char	*dub_min_digit(char *str, int *x);
 char	*trim_quotes(char *word, int liberate);
 char	*merge_str(char *s1, char *s2);
+int		export_strncmp(const char *s1, const char *s2, size_t n);
 
 /* executor functions */
 void	executor(t_data *data);

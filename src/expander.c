@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:52:32 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/24 11:01:43 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*cpy_env_var(char **env, char *var, int *x)
 		env_len = varname_len(env[i]);
 		if (env_len == len)
 		{
-			if (!ft_strncmp(env[i], var, env_len))
+			if (!export_strncmp(env[i], var, env_len))
 			{
 				*x += len + 1;
 				return (ft_strdup(&env[i][len + 1]));
