@@ -134,6 +134,7 @@ char	*get_old_pwd(char **env);
 void	directory_split(void);
 void	find_home_dir(char status);
 void	ft_echo(char **cmd_table);
+int 	check_add_n(char *str);
 int		check_add_chars(char *str);
 
 /* general functions */

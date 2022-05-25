@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 18:49:29 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/25 11:45:13 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_echo(char **cmd_table)
 		printf("\n");
 		return ;
 	}
-	if (ft_strncmp(*cmd_table, "-n", 3))
+	if (!check_add_n(*cmd_table) || !ft_strncmp(*cmd_table, "-n", 3))
 	{
 		while (*cmd_table)
 		{
@@ -52,7 +52,7 @@ void	ft_echo(char **cmd_table)
 	}
 	if (!ft_strncmp(*cmd_table, "-n", 3))
 	{
-		while (*cmd_table && !ft_strncmp(*cmd_table, "-n", 3))
+		while (*cmd_table && (check_add_n(*cmd_table) || !ft_strncmp(*cmd_table, "-n", 3)))
 			cmd_table++;
 		while (*cmd_table)
 		{
@@ -82,6 +82,17 @@ void	ft_echo(char **cmd_table)
 				printf(" ");
 		}
 	}
+}
+
+int check_add_n(char *str)
+{
+	if (str[0] == '-')
+		str++;
+	while (*str && *str == 'n')
+		str++;
+	if (!*str)
+		return (1);
+	return (0);
 }
 
 int	check_add_chars(char *str)

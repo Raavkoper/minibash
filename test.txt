@@ -1,14 +1,127 @@
-echo "$PA"TH
-TH
+echo
+echo ""
+echo < |
+echo > |
+echo << |
+echo >> |
+echo -nABC
+echo $BLA$BLA=10$BLA
+echo a"bc"d
+echo a"bcd"e
+echo 'hoi'"'"bla"
+echo -n
+echo bla -n
+echo -n -n -n
+echo -n -n -n bla
+ls | echo -n bla
+echo -nnnn
 
-echo "$PATH"
-/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin
+cd\npwd
+cd\npwd\ncd -\npwd
+cd ..\ncd tests\npwd
+cd ..\ncd tests/\npwd
+cd ../../..\npwd
+cd banaan
+cd /usr\npwd
+cd /usr/bin\npwd
+cd /bla
+cd /\npwd
+cd ..\necho $OLDPWD\ncd tests\necho $OLDPWD
+echo $OLDPWDcd /\necho $OLDPWD\ncd tests\necho $OLDPWD
+cd\nunset OLDPWD\necho oldpwd after unset: $OLDPWD\ncd -\npwd
 
-echo "$PATH"PO
-/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/binPO
+ls | ls | unset OLDPWD\necho oldpwd after unset: $OLDPWD\ncd -\npwd
+unset HOME\necho home after unset: $HOME\ncd\npwd
+mkdir TESTDIR\ncd TESTDIR\nrmdir ../T
 
-echo '$PAT"'"H'''"
+test 'export
+test 'export a\nexport a=42\nexport
+test 'export a=\nexport a=42\nexport
+test 'export a=\nexport a\nexport
+export =
+export =10
+export "|"=10
+export ">"=10
+export "$"=10
+export "["=10
+export "111"="222"
+test 'export A=bla\nexport
+test 'export 1A=bla\nexport
+test 'export A1=bla\nexport
+test 'export _A=bla\nexport
+test 'export A_=bla\nexport
+test 'export A=bla\nexport A=bloe\nexport
+test 'export A=bla\nexport A=$A-bloe\nexport
+test 'export PATH=$PATH:/banaan/konijn\nexport
+export A$B=10\necho $A$B
+export B=3\necho $A$B
+export B+=3\necho $A$B
+export HOME+=3\necho $HOME
+export HOME=+3\necho $HOME
+test 'export +=3\nexport
+export HOME+=\necho $HOME
+export A$B=10\necho $A$B\nexport B=3\necho $A$B
+test 'export PA=10\nexport
+test 'export a1=10\nunset a1\nexport
+test 'export a=
 
+unset PATH\necho $PATH
+unset HOME\necho $HOME
+test 'unset $PATH\nexport
+test 'unset a1=10\nexport
+test 'unset $PATH\nexport
+test 'unset PATH\nexport
+test 'unset PPATH\nexport
+test 'unset PATHH\nexport
+test 'unset "PATH "\nexport
+test 'unset " PATH"\nexport
+test 'unset PATH=\nexport
+test 'unset 1a\nexport
+test 'unset a-\nexport
+test 'unset a-\nexport
+test 'unset
+exit
+exit 0
+exit 1
+exit 42
+exit 1 1
+exit banaan
+exit
+
+pwd > $OUTFILE
+> $OUTFILE pwd
+> $OUTFILE ls -a
+cat test_shell_split.c > $OUTFILE -e
+cat > $OUTFILE < test_shell_split.c -e
+cat < test_shell_split.c > $OUTFILE -e
+< test_shell_split.c << bla cat\n
+
+cat << bla -e\nasdf\n
+cat << bla -e\nasdf\nbla\n
+cat << bla\nasdf\nbla\n
+<< bla cat\nasdf\nbla\n
+<< bla\nasdf\nbla\n cat
+<< bla cat\nasdf\nbla\necho banaan
+<< bla cat < test_shell_split.c\nasdf\nbla\n
+<< wildcard.c ls -la | wc -w >> $OUTFILE\
+ls | grep 
+ls|cat -e
+ls|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e
+ls | < banaan | ls
+ls | cat > $OUTFILE
+ls < lol.c | grep "a"
+ls < test_shell_split.c | grep "a"
+< test_shell_split.c grep a | cat -e
+< test_shell_split.c | cat -e > $OUTFILE
+< test_shell_split.c | ls | cat -e > $OUTFILE
+< test_shell_split.c grep a | > $OUTFILE
+< test_shell_split.c grep a | cat -e > $OUTFILE
+< test_shell_split.c grep "a"|grep "m" | wc -l|cat -e > $OUTFILE
+ls | cat > $OUTFILE < test_shell_split.c -e
+cat > $OUTFILE < test_shell_split.c -e | ls
+ls | < integration_tests grep "a" | cat -e
+ls | head -n 10 | tail -n 9 | rev | sort | rev | cat -e
+cat |
 
 echo "*"
 echo *bla
@@ -36,68 +149,43 @@ echo "*"$PATH
 echo $PATH"*"
 echo bla $bla
 echo bla $bla | cat -e
-echo "$?"lala $?asdf $PATH "$PATH" * *bla *"bla
-test export
-test export a\nexport a=42\nexport
-test export a=\nexport a=42\nexport
-test export a=\nexport a\nexport
-export =
-export =10
-export "|"=10
-export ">"=10
-export "$"=10
-export "["=10
-export "111"="222"
-test 'export A=bla\nexport
-test 'export 1A=bla\nexport
-test 'export A1=bla\nexport
-test 'export _A=bla\nexport
-test 'export A_=bla\nexport
-test 'export A=bla\nexport A=bloe\nexport
-test 'export A=bla\nexport A=$A-bloe\nexport
-test 'export PATH=$PATH:/banaan/konijn\nexport
-export A$B=10\necho $A$B
-export B=3\necho $A$B
-export B+=3\necho $A$B
-export HOME+=3\necho $HOME
-export HOME=+3\necho $HOME
-test 'export +=3\nexport
-export HOME+=\necho $HOME
-export A$B=10\necho $A$B\nexport B=3\necho $A$B
-test 'export PA=10\nexport
-test 'export a1=10\nunset a1\nexport
-test 'export a=5=5\nexport
-echo
-echo ""
-echo < |
-echo > |
-echo << |
-echo >> |
-echo -nABC
-echo $BLA$BLA=10$BLA
-echo a"bc"d
-echo a"bcd"e
-echo 'hoi'"'"bla"
-echo -n
-echo bla -n
-echo -n -n -n
-echo -n -n -n bla
-ls | echo -n bla
-echo -nnnn
-echo -nnnn bla
-cd\npwd
-cd\npwd\ncd -\npwd
-cd ..\ncd tests\npwd
-cd ..\ncd tests/\npwd
-cd ../../..\npwd
-cd banaan
-cd /usr\npwd
-cd /usr/bin\npwd
-cd /bla
-cd /\npwd
-cd ..\necho $OLDPWD\ncd tests\necho $OLDPWD
-echo $OLDPWDcd /\necho $OLDPWD\ncd tests\necho $OLDPWD
-cd\nunset OLDPWD\necho oldpwd after unset: $OLDPWD\ncd -\npwd
-ls | ls | unset OLDPWD\necho oldpwd after unset: $OLDPWD\ncd -\npwd
-unset HOME\necho home after unset: $HOME\ncd\npwd
-mkdir TESTDIR\ncd TESTDIR\nrmdir ../TESTDIR\npwd
+echo "$?"lala $?asdf $PATH "$PATH" * 
+
+cat test_shell_split.c
+cat test_sh"ell_split.c"
+cat "test_sh"ell_split.c
+cat '"tes't_s'h"'ell_"spl"it.c
+n test
+ls *.c | cat
+echo bla | export $BLA=bla\necho $BLA
+ls | > tmp_file | ls\nrm tmp_file
+ls | cat << bla\nasdf\nbla\n'
+cat << bla | cat\nasdf\nbla\n'
+<< bla cat | << bloe cat\nfirst\nbla\nsecond\nbloe\n'
+<< bla cat | << bloe cat\nfirst\nbla\nsecond\nbloe\nls\n
+cat << bla | echo bla\nasdf\nbla\n'
+cat < test_shell_split.c > $OUTFILE << hd -e | echo *$PATH '*'$PATH "*"$PATH *"$PATH" *'\''$PATH'\'' | cat -e
+
+|
+<
+>
+< <
+> <
+<<
+<< <
+> > outfile
+ls | >
+ls | > >
+ls | > >>
+ls | <
+< | ls
+ls | banaan
+ls | "|"
+| ls
+ls |
+ls | | ls
+ls ||| cat
+ls\n\n\nls ||| cat
+ls\n\n\nexit banaan
+ls\n\n\nexport "$"=10
+ls\n\n
