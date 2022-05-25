@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/05/25 14:41:00 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/25 15:21:56 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    error_check(t_lexer **lexer)
 	{
 		if (iter->token)
         {
-            if (!valid_token(iter->next, iter->token))
+            if (!valid_token(iter->next, &iter->token))
             {
                 print_error(lexer, iter->token);
                 return ;
@@ -40,20 +40,26 @@ void    print_error(t_lexer **lexer, int token)
 	    printf("minishell: syntax error near unexpected token `<<'\n");
     else if (token == 312)
 	    printf("minishell: syntax error near unexpected token `>>'\n");
-    else
+    else if (istoken(token))
 	    printf("minishell: syntax error near unexpected token `%c'\n", (char)token);
 	free_lexer(lexer);
 	lexer = NULL;
 }
 
-int		valid_token(t_lexer *lexer, int token)
+int		valid_token(t_lexer *lexer, int *token)
 {
     if (!lexer)
         return (0);
-	if ((token == '>' || token == '|') && (!lexer->command))
+	if ((*token == '>' || *token == '|') && (!lexer->command))
         return (0);
-    if (token == '<' && access(lexer->command, F_OK))
+    if ((*token == 312 || *token == 310) && (!lexer->command))
         return (0);
+    if (*token == '<' && access(lexer->command, F_OK))
+    {
+        printf("minishell: %s: No such file or directory\n", lexer->command);
+        *token = 0;
+        return (0);
+    }
 	return (1);
 }
 
