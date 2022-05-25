@@ -158,7 +158,8 @@ void	new_prompt(int sig);
 
 /* error functions */
 void    error_check(t_lexer **lexer);
-int		check_token(t_lexer **lexer);
+int		valid_token(t_lexer *lexer, int token);
+void    print_error(t_lexer **lexer, int token);
 void	*safe_calloc(size_t count, size_t size);
 
 #endif

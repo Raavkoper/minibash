@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/05/23 19:31:51 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/25 14:41:00 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,47 @@
 
 void    error_check(t_lexer **lexer)
 {
-    check_token(lexer);
+    t_lexer *iter;
+
+	iter = *lexer;
+	if (!*lexer)
+		return ;
+	while (iter)
+	{
+		if (iter->token)
+        {
+            if (!valid_token(iter->next, iter->token))
+            {
+                print_error(lexer, iter->token);
+                return ;
+            }
+        }
+		iter = iter->next;
+	}
+	return ;
+}
+
+void    print_error(t_lexer **lexer, int token)
+{
+    if (token == 310)
+	    printf("minishell: syntax error near unexpected token `<<'\n");
+    else if (token == 312)
+	    printf("minishell: syntax error near unexpected token `>>'\n");
+    else
+	    printf("minishell: syntax error near unexpected token `%c'\n", (char)token);
+	free_lexer(lexer);
+	lexer = NULL;
+}
+
+int		valid_token(t_lexer *lexer, int token)
+{
+    if (!lexer)
+        return (0);
+	if ((token == '>' || token == '|') && (!lexer->command))
+        return (0);
+    if (token == '<' && access(lexer->command, F_OK))
+        return (0);
+	return (1);
 }
 
 void	*safe_calloc(size_t count, size_t size)

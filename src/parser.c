@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 11:10:02 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/25 13:14:34 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,26 +134,6 @@ int	count_commands(t_lexer *lexer, char **env)
 			lexer = lexer->next;
 	}
 	return (i);
-}
-
-int		check_token(t_lexer **lexer)
-{
-	t_lexer *temp;
-
-	temp = *lexer;
-	if (!*lexer)
-		return (0);
-	while (temp)
-	{
-		if (temp->token && temp->next == NULL)
-		{
-			printf("parse error\n");
-			free_lexer(lexer);
-			lexer = NULL;
-		}
-		temp = temp->next;
-	}
-	return (0);
 }
 
 void	print_parser(t_parser *parser)
