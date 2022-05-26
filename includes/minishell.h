@@ -89,7 +89,6 @@ void	init_red(t_red **red);
 void	print_redirections(t_red *red);
 
 /* expander functions */
-int		check_expansion(char **env, char *var);
 char	*expander(char **env, char *var);
 char	*trim_double(char *word, int index);
 char	*trim_qoutes(char *word);

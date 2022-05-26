@@ -6,16 +6,11 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:33:48 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 12:09:52 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_expansion(char **env, char *var)
-{
-	return (1);
-}
 
 char	*expander(char **env, char *var)
 {

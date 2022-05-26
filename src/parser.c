@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:36:48 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 12:10:08 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	count_commands(t_lexer *lexer, char **env)
 		return (0);
 	while (lexer && lexer->token != PIPE)
 	{
-		if (!lexer->token && check_expansion(env, lexer->command))
+		if (!lexer->token)
 			i += 1;
 		if (is_redirection(lexer->token))
 		{
