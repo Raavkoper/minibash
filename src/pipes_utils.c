@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/20 13:48:52 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   pipes_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/05/26 11:37:13 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_path(char **env)
 	return (NULL);
 }
 
-
 char	*search_path(char **paths, char *cmdarg)
 {
 	int		i;
@@ -43,8 +42,3 @@ char	*search_path(char **paths, char *cmdarg)
 	}
 	return (NULL);
 }
-
-
-
-
-

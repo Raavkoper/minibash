@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/18 11:57:11 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirections.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/04 13:10:24 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/05/26 11:37:46 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	redirections(t_data *data)
 {
-	int 		nodes;
+	int			nodes;
 	t_red		*red_head;
 	t_lexer		*lexer_head;
-	
+
 	data->red = NULL;
 	if (!data->lexer)
 		return ;
@@ -65,7 +65,7 @@ void	init_red(t_red **red)
 
 int	count_redirections(t_lexer *lexer)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lexer)

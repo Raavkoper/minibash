@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/05/25 15:21:56 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:32:00 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    error_check(t_lexer **lexer)
 		return ;
 	while (iter)
 	{
-		if (iter->token)
+        if (iter->token)
         {
             if (!valid_token(iter->next, &iter->token))
             {
@@ -37,7 +37,7 @@ void    error_check(t_lexer **lexer)
 void    print_error(t_lexer **lexer, int token)
 {
     if (token == 310)
-	    printf("minishell: syntax error near unexpected token `<<'\n");
+        printf("minishell: syntax error near unexpected token `<<'\n");
     else if (token == 312)
 	    printf("minishell: syntax error near unexpected token `>>'\n");
     else if (istoken(token))

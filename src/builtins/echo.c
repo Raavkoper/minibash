@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 11:45:13 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:28:29 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_echo(char **cmd_table)
 	}
 }
 
-int check_add_n(char *str)
+int	check_add_n(char *str)
 {
 	if (str[0] == '-')
 		str++;

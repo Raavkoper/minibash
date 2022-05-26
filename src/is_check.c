@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:54:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 13:11:51 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:35:19 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	iswhitespace(char c)
 	return (c == 32 || c == 10 || c == 9 || c == 11);
 }
 
-int istoken(char c)
+int	istoken(char c)
 {
 	return (c == 60 || c == 62 || c == 39 || c == 34 || c == 124);
 }

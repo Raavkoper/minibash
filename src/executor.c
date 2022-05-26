@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/20 15:30:14 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:32:33 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	executor(t_data *data)
 {
-	t_parser *cmd_table;
+	t_parser	*cmd_table;
 
 	if (!data->parser)
 		return ;

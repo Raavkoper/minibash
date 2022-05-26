@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 13:14:34 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:36:48 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	parser(t_data *data)
 {
-	int 		nodes;
-	int 		commands;
+	int			nodes;
+	int			commands;
 	char		**temp;
 	t_parser	*parser_head;
 	t_lexer		*lexer_head;
@@ -100,7 +100,7 @@ void	init_parser(t_parser **parser)
 
 int	count_pipes(t_lexer *lexer)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lexer)
@@ -114,7 +114,7 @@ int	count_pipes(t_lexer *lexer)
 
 int	count_commands(t_lexer *lexer, char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!lexer)
@@ -138,9 +138,9 @@ int	count_commands(t_lexer *lexer, char **env)
 
 void	print_parser(t_parser *parser)
 {
-	int i;
-	int j;
-	char **temp;
+	int		i;
+	int		j;
+	char	**temp;
 
 	if (!parser)
 		return ;

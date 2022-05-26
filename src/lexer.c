@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 14:07:49 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:35:50 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*mod_substr(char *str, int *i)
 
 void	append_list(t_lexer **lexer, char *str, int *i)
 {
-	t_lexer	*new_node;
-	t_lexer	*last;
-	static int index;
+	t_lexer		*new_node;
+	t_lexer		*last;
+	static int	index;
 
 	last = *lexer;
 	new_node = malloc(sizeof(t_lexer));
@@ -78,7 +78,7 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 
 void	lexer(t_data *data, char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->lexer = NULL;

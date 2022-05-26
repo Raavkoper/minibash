@@ -6,26 +6,26 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:39:26 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:36:30 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:28:47 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		dp_len(char **arr)
+int	dp_len(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])
-		i++;	
+		i++;
 	return (i);
 }
 
 char	**env_dup(char **env, int size)
 {
-	int i;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	new_env = safe_calloc(size, sizeof(char *));

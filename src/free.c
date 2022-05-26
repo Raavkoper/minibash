@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 09:44:36 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 10:22:05 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:34:02 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_lexer(t_lexer **lexer)
 
 void	free_parser(t_parser **parser)
 {
-	t_parser *temp;
+	t_parser	*temp;
 
 	if (!*parser)
 		return ;
@@ -46,7 +46,7 @@ void	free_parser(t_parser **parser)
 
 void	free_dp(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])

@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 14:50:17 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:37:16 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:34:18 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int check_quotes(char *line)
 
 void	add_quote_index(int quote, char *line, int *x)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	line++;
 	while (line[i] != quote && line[i])
@@ -49,8 +49,8 @@ void	add_quote_index(int quote, char *line, int *x)
 
 char	*get_string(char *line, int *i)
 {
-	int quote;
-	int x;
+	int	quote;
+	int	x;
 
 	x = 0;
 	while (line[x])
@@ -85,8 +85,8 @@ char	*get_string(char *line, int *i)
 
 char	*quote_substr(char *line, int end)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	ret = safe_calloc(end + 1, sizeof(char));

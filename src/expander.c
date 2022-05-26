@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 11:01:43 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:33:48 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,15 @@
 
 int	check_expansion(char **env, char *var)
 {
-	// int i;
-	// int len;
-
-	// if (!isdollar(var) || isquote(var))
-	// 	return (1);
-	// i = 1;
-	// len = varname_len(var) - 1;
-	// if (ft_isdigit(var[1]) && var[2])
-	// 	return (1);
-	// while (*env && ft_strncmp(*env, &var[1], len))
-	// 	env++;
-	// if (*env && !ft_strncmp(*env, &var[1], len))
-	// 	return (1);
 	return (1);
 }
 
 char	*expander(char **env, char *var)
 {
-	int i;
-	char *ret;
-	int sq;
-	int dq;
+	int		i;
+	char	*ret;
+	int		sq;
+	int		dq;
 
 	i = 0;
 	sq = 0;
@@ -66,12 +53,11 @@ char	*expander(char **env, char *var)
 	return (trim_quotes(ret, 1));
 }
 
-
 char	*cpy_env_var(char **env, char *var, int *x)
 {
-	int len;
-	int env_len;
-	int i;
+	int	len;
+	int	env_len;
+	int	i;
 
 	i = 0;
 	len = varname_len(var);
@@ -131,12 +117,12 @@ char	*cpy_env_var(char **env, char *var, int *x)
 
 char	*trim_quotes(char *word, int liberate)
 {
-	int quote;
-	int count;
-	char *ret;
-	int i;
-	char *temp;
-	
+	int		quote;
+	int		count;
+	char	*ret;
+	int		i;
+	char	*temp;
+
 	ret = safe_calloc(ft_strlen(word) + 1, sizeof(char));
 	count = 0;
 	i = 0;
@@ -150,7 +136,7 @@ char	*trim_quotes(char *word, int liberate)
 			word++;
 			count++;
 			count %= 2;
-			continue;
+			continue ;
 		}
 		ret[i] = *word;
 		i++;

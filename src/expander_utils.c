@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/23 10:58:51 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:49:12 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:32:44 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*add_char(char *str, char c)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	ret = safe_calloc(ft_strlen(str) + 2, sizeof(char));

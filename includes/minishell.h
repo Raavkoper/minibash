@@ -123,6 +123,7 @@ void	ft_export(char	***env, char **cmd_table);
 void	print_export(char **env);
 void	export_add_quotes(char *var);
 int		varname_len(char *var);
+int		export_var_len(char *str);
 char	**sort_env(char **env);
 void	export_check_dup(char ***env, char *command);
 void	add_line_to_env(char ***env, char *new_var);
