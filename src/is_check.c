@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   is_check.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/04/26 14:54:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 13:11:51 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   is_check.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 14:54:34 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/26 15:16:10 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	iswhitespace(char c)
 int istoken(char c)
 {
 	return (c == 60 || c == 62 || c == 39 || c == 34 || c == 124);
+}
+
+int is_double(int c)
+{
+	return (c == 310 || c == 312);
 }
 
 int	isquote(char *line)
@@ -37,10 +42,10 @@ int	isquote(char *line)
 
 int	is_redirection(char c)
 {
-	if (c == 60)
-		return (60);
-	if (c == 62)
-		return (62);
+	if (c == INFILE)
+		return (INFILE);
+	if (c == OUTFILE)
+		return (OUTFILE);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:48:35 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/20 13:50:47 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/26 15:00:18 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int has_outfile(t_lexer *lexer)
 	i = 0;
 	while (lexer)
 	{
-		if (lexer->token == OUTFILE)
+		if (lexer->token == OUTFILE || lexer->token == D_OUTFILE)
 			i++;
 		lexer = lexer->next;
 	}
@@ -28,17 +28,13 @@ int has_outfile(t_lexer *lexer)
 	return (0);
 }
 
-int	check_file(char filename, char *name)
+int check_file(char filename, char *name)
 {
 	if (filename == 'i')
 	{
 		if (access(name, F_OK) == 0)
 			return (open(name, O_RDONLY));
-		else
-			return (0);
 	}
-	else
-		return (open(name, O_CREAT | O_RDWR | O_TRUNC, 0644));
 	return (0);
 }
 
@@ -58,20 +54,17 @@ char	*infile(t_lexer *lexer)
 	return (NULL);
 }
 
-char	*outfile(t_lexer *lexer)
+int	outfile(t_lexer *lexer)
 {
-	char 	*outfile;
-
-	if (has_outfile(lexer))
-		return (NULL);
-	while (lexer->next != NULL)
+	if (lexer->token == D_OUTFILE)
 	{
-		if (lexer->token == OUTFILE)
-		{
-			outfile = lexer->next->command;
-			open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		}
-		lexer = lexer->next;
+		if (lexer->next->command)
+     		return (open(lexer->next->command, O_CREAT | O_RDWR | O_APPEND, 0644));
 	}
-	return (outfile);
+	else if (lexer->token == OUTFILE)
+	{
+		if (lexer->next->command)
+			return (open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644));
+	}
+	return (0);
 }

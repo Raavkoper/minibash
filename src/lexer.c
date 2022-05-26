@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 14:07:49 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 14:13:31 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/26 15:20:45 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*mod_substr(char *str, int *i)
 	x = 0;
 	if (!str)
 		return (NULL);
-	while (!iswhitespace(str[start]) && str[start] && !istoken(str[start]))
+	while (!iswhitespace(str[start]) && str[start] && !istoken(str[start]) 
+		&& !is_double(str[start]))
 		start++;
 	sub = safe_calloc(start + 1, sizeof(char));
 	*i += start;
@@ -47,11 +48,12 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 	new_node->token = 0;
 	if (isquote(str))
 		new_node->command = get_string(str, i);
-	else if (!istoken(str[0]))
+	else if (!istoken(str[0]) && !is_double(str[0]))
 		new_node->command = mod_substr(str, i);
 	else
 	{
-		if (str[1] && is_redirection(str[0]) && is_redirection(str[0]) == is_redirection(str[1]))
+		if ((str[1] && is_redirection(str[0]) && is_redirection(str[0]) == is_redirection(str[1]))
+			|| is_double(str[0]))
 		{
 			new_node->token = is_redirection(str[0]) + 250;
 			*i += 2;

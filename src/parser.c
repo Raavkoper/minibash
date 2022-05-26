@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 13:14:34 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/26 15:10:38 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	parser(t_data *data)
 				if (temp)
 					data->parser->command = temp;
 			}
-			else if (data->lexer && is_redirection(data->lexer->token))
+			else if ((data->lexer && is_redirection(data->lexer->token)) 
+			|| is_double(data->lexer->token))
 			{
 				if (data->lexer->next)
 					data->lexer = data->lexer->next->next;
@@ -123,7 +124,7 @@ int	count_commands(t_lexer *lexer, char **env)
 	{
 		if (!lexer->token && check_expansion(env, lexer->command))
 			i += 1;
-		if (is_redirection(lexer->token))
+		if (is_redirection(lexer->token) || is_double(lexer->token))
 		{
 			if (lexer->next)
 				lexer = lexer->next->next;

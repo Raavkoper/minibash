@@ -104,8 +104,9 @@ int		export_strncmp(const char *s1, const char *s2, size_t n);
 void	executor(t_data *data);
 int		find_command(t_data *data, char *command, char **cmd_table);
 char 	*infile(t_lexer *lexer);
-char 	*outfile(t_lexer *lexer);
+int		outfile(t_lexer *lexer);
 int		 has_outfile(t_lexer *lexer);
+int		check_doubles(t_lexer *lexer);
 int		check_file(char filename, char *name);
 char	*execute(t_parser *parser, char **env);
 char	*search_path(char **paths, char *cmdarg);
@@ -140,6 +141,7 @@ int		check_add_chars(char *str);
 /* general functions */
 int		iswhitespace(char c);
 int		istoken(char c);
+int 	is_double(int c);
 int		isquote(char *line);
 int		is_redirection(char c);
 int		isis(char *line);

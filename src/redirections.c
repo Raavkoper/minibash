@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/18 11:57:11 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/26 15:24:16 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	redirections(t_data *data)
 	lexer_head = data->lexer;
 	while (data->lexer)
 	{
-		if (is_redirection(data->lexer->token))
+		if (is_redirection(data->lexer->token) || is_double(data->lexer->token))
 		{
 			data->red->token = data->lexer->token;
 			if (data->lexer->next && data->lexer->next->command)
@@ -70,7 +70,8 @@ int	count_redirections(t_lexer *lexer)
 	i = 0;
 	while (lexer)
 	{
-		if (is_redirection(lexer->token) && lexer->next && lexer->next->command)
+		if ((is_redirection(lexer->token) || is_double(lexer->token)) 
+			&& lexer->next && lexer->next->command)
 			i++;
 		lexer = lexer->next;
 	}
