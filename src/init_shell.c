@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 12:12:44 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/27 12:50:28 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	run_shell(t_data *data)
 			free_parser(&data->parser);
 			free_redirections(&data->red);
 			lexer(data, line);
-			print_lexer(data->lexer);
+			// print_lexer(data->lexer);
 			error_check(&data->lexer);
 			parser(data);
 			// print_parser(data->parser);
@@ -54,6 +54,6 @@ void	run_shell(t_data *data)
 			executor(data);
 		}
 		free(line);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 }

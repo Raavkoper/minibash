@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   export.c                                           :+:    :+:            */
+/*                                                          ::::::::            */
+/*   export.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:29:49 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/27 15:00:52 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_export(char ***env, char **cmd_table)
 {
-	if (!*cmd_table)
+	if (!*cmd_table || cmd_table[0][0] == '#')
 	{
 		print_export(*env);
 		return ;
 	}
-	export_check_dup(env, *cmd_table);
 	while (*cmd_table && (ft_isalpha(*cmd_table[0]) || *cmd_table[0] == '_' || *cmd_table[0] == '$'))
 	{
+		export_check_dup(env, *cmd_table);
 		if (*cmd_table[0] == '$' && isis(*cmd_table))
 			break ;
 		else if (*cmd_table[0] == '$' && !isis(*cmd_table))
