@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   signal.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/09 10:32:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 10:20:50 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 10:32:21 by rkoper            #+#    #+#             */
+/*   Updated: 2022/05/27 11:49:44 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_signals(void)
 {
-	signal(SIGINT, new_prompt);
+	// signal(SIGINT, new_prompt);
 }
 
 void	new_prompt(int sig)

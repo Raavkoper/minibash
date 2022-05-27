@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/26 15:04:00 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:16:56 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void    create_pipes(int in, int tmpout, t_parser *parser)
 {
     int end[2];
     int out;
-    
+
     out = dup(tmpout);
     dup2(in, STDIN);
     close(in);
@@ -101,6 +101,11 @@ void    shell_pipex(t_data *data)
 	in = dup(tmpin);
     while (temp)
     {
+		if (check_heredoc(data->lexer))
+		{
+			in = open(hidden_name(check_heredoc(data->lexer)), O_RDONLY);
+			open_heredoc(data->lexer);
+		}
         create_pipes(in, tmpout, temp);
 		check_redirections(data, in, temp);
         child_process(temp, data->env);

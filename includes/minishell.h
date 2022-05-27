@@ -116,6 +116,13 @@ void	child_process(t_parser *parser, char **env);
 void    create_pipes(int in, int tmpout, t_parser *parser);
 void	check_redirections(t_data *data, int in, t_parser *temp);
 
+/* heredoc functions */
+char 	*check_heredoc(t_lexer *lexer);
+void	open_heredoc(t_lexer *lexer);
+int 	check_end(char *input, char *filename);
+char    *hidden_name(char *name);
+
+
 /* builtin functions */
 void	ft_env(char **env);
 char	**env_dup(char **env, int size);
