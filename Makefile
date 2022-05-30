@@ -2,7 +2,7 @@ NAME = minishell
 
 HEADER = includes/minishell.h 
 
-CFLAGS = -g
+CFLAGS = -g 
 
 LDFLAGS = -lreadline 
 
@@ -20,7 +20,7 @@ SRCS = main.c lexer.c is_check.c init_shell.c free.c handle_quote.c parser.c \
 		builtins/echo.c builtins/env.c builtins/cd.c builtins/export.c \
 		builtins/unset.c builtins/exit.c builtins/pwd.c signal.c builtins/export_utils.c\
 		redirections.c expander.c executor.c error.c pipes.c pipes_utils.c \
-		check_files.c expander_utils.c 
+		check_files.c expander_utils.c init_cmdtable.c
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 

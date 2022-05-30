@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:28:29 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/30 13:44:04 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_echo(char **cmd_table)
 		printf("\n");
 		return ;
 	}
-	if (!check_add_n(*cmd_table) || !ft_strncmp(*cmd_table, "-n", 3))
+	if (!check_add_n(*cmd_table) && ft_strncmp(*cmd_table, "-n", 3))
 	{
 		while (*cmd_table)
 		{
@@ -50,37 +50,34 @@ void	ft_echo(char **cmd_table)
 		printf("\n");
 		return ;
 	}
-	if (!ft_strncmp(*cmd_table, "-n", 3))
+	while (*cmd_table && (check_add_n(*cmd_table) || !ft_strncmp(*cmd_table, "-n", 3)))
+		cmd_table++;
+	while (*cmd_table)
 	{
-		while (*cmd_table && (check_add_n(*cmd_table) || !ft_strncmp(*cmd_table, "-n", 3)))
-			cmd_table++;
-		while (*cmd_table)
+		if (*cmd_table[0] == '~')
 		{
-			if (*cmd_table[0] == '~')
+			if (check_add_chars(*cmd_table) == 1)
 			{
-				if (check_add_chars(*cmd_table) == 1)
-				{
-					printf("%s", getenv("HOME"));
-					cmd_table++;
-					if (*cmd_table)
-						printf(" ");
-					continue ;
-				}
-				if (check_add_chars(*cmd_table) == 2)
-				{
-					printf("%s", getenv("HOME"));
-					printf("%s", *cmd_table);
-					cmd_table++;
-					if (*cmd_table)
-						printf(" ");
-					continue ;
-				}
+				printf("%s", getenv("HOME"));
+				cmd_table++;
+				if (*cmd_table)
+					printf(" ");
+				continue ;
 			}
-			printf("%s", *cmd_table);
-			cmd_table++;
-			if (*cmd_table)
-				printf(" ");
+			if (check_add_chars(*cmd_table) == 2)
+			{
+				printf("%s", getenv("HOME"));
+				printf("%s", *cmd_table);
+				cmd_table++;
+				if (*cmd_table)
+					printf(" ");
+				continue ;
+			}
 		}
+		printf("%s", *cmd_table);
+		cmd_table++;
+		if (*cmd_table)
+			printf(" ");
 	}
 }
 

@@ -81,6 +81,7 @@ int		count_commands(t_lexer *lexer, char **env);
 void	add_command(t_parser *parser, char *str, int commands, char **env);
 void	parser(t_data *data);
 void	print_parser(t_parser *parser);
+t_parser *init_cmdtable(t_parser *parser);
 
 /* redirection functions */
 void	redirections(t_data *data);
@@ -104,6 +105,7 @@ void	executor(t_data *data);
 int		find_command(t_data *data, char *command, char **cmd_table);
 char 	*infile(t_lexer *lexer);
 char 	*outfile(t_lexer *lexer);
+int		ft_word_check(char const *s);
 int		 has_outfile(t_lexer *lexer);
 int		check_file(char filename, char *name);
 char	*execute(t_parser *parser, char **env);

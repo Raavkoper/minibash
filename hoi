@@ -1,0 +1,26 @@
+total 152
+drwxr-xr-x  25 rkoper  piscine    850 May 28 11:41 .
+drwxr-xr-x   5 rkoper  piscine    170 May 23 17:51 ..
+drwxr-xr-x  15 rkoper  piscine    510 May 27 15:19 .git
+-rw-r--r--   1 rkoper  piscine     37 May 12 12:15 .gitignore
+drwxr-xr-x   5 rkoper  piscine    170 May  4 09:44 .vscode
+-rw-r--r--   1 rkoper  piscine      0 May 25 14:49 ?2=lo
+-rw-r--r--   1 rkoper  piscine      0 May 25 14:49 ??
+-rw-r--r--   1 rkoper  piscine   1224 May 27 12:00 Makefile
+-rw-r--r--   1 rkoper  piscine     53 May 25 12:58 bash_err
+-rw-r--r--   1 rkoper  piscine      0 May 25 12:58 bash_out
+-rw-r--r--   1 rkoper  piscine      0 May 25 12:58 bash_outfile
+-rw-r--r--   1 rkoper  piscine      0 May 22 12:08 file.c
+-rw-r--r--   1 rkoper  piscine      5 May 22 12:08 file1.txt
+-rw-r--r--   1 rkoper  piscine      6 May 22 12:08 file2.txt
+-rw-r--r--   1 rkoper  piscine      0 May 25 15:21 fssdf
+-rw-r--r--   1 rkoper  piscine    936 May 22 12:08 hello
+-rw-r--r--   1 rkoper  piscine      0 May 28 11:42 hoi
+drwxr-xr-x   3 rkoper  piscine    102 May 25 14:49 includes
+drwxr-xr-x   3 rkoper  piscine    102 Apr 26 13:26 libraries
+-rw-r--r--   1 rkoper  piscine      0 May 22 12:08 lop
+-rwxr-xr-x   1 rkoper  piscine  43740 May 28 11:41 minishell
+drwxr-xr-x  19 rkoper  piscine    646 May 28 11:41 objs
+-rw-r--r--   1 rkoper  piscine      0 May 25 15:21 skdgj
+drwxr-xr-x  19 rkoper  piscine    646 May 25 14:49 src
+-rw-r--r--   1 rkoper  piscine   4101 May 25 12:58 test.txt
