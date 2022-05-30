@@ -105,7 +105,7 @@ void	executor(t_data *data);
 int		find_command(t_data *data, char *command, char **cmd_table);
 char 	*infile(t_lexer *lexer);
 int		outfile(t_lexer *lexer);
-int		 has_outfile(t_lexer *lexer);
+int		has_outfile(t_lexer *lexer);
 int		check_doubles(t_lexer *lexer);
 int		check_file(char filename, char *name);
 char	*execute(t_parser *parser, char **env);
@@ -114,13 +114,12 @@ char	*get_path(char **env);
 void	shell_pipex(t_data *data);
 void	child_process(t_parser *parser, char **env);
 void    create_pipes(int in, int tmpout, t_parser *parser);
-void	check_redirections(t_data *data, int in, t_parser *temp);
+void	check_redirections(t_data *data, int in);
 
 /* heredoc functions */
 char 	*check_heredoc(t_lexer *lexer);
 void	open_heredoc(t_lexer *lexer);
 int 	check_end(char *input, char *filename);
-char    *hidden_name(char *name);
 
 
 /* builtin functions */

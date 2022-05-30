@@ -5,7 +5,7 @@ HEADER = includes/minishell.h
 CFLAGS = -g 
 LDFLAGS = -lreadline 
 
-CC = gcc
+CC = gcc 
 
 LIBFT = libraries/libft/libft.a
 

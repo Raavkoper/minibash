@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 09:20:22 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/27 14:53:59 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/30 13:28:45 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,13 @@ int check_end(char *input, char *filename)
 
 char *check_heredoc(t_lexer *lexer)
 {
-    char *filename;
-
     while (lexer)
     {
         if (lexer->token == D_INFILE)
-        {
-            filename = lexer->next->command;
-            return (filename);
-        }
+            return (lexer->next->command);
         lexer = lexer->next;
     }
-    return (0);
-}
-
-char    *hidden_name(char *name)
-{
-    char *filename;
-
-    filename = ft_strjoin("/tmp/", name);
-    return (filename);
+    return (NULL);
 }
 
 void    open_heredoc(t_lexer *lexer)
@@ -48,18 +35,20 @@ void    open_heredoc(t_lexer *lexer)
     char *hid_name;
     int  fd;
 
-    line = readline("heredoc> ");
-    hid_name = hidden_name(check_heredoc(lexer));
+    hid_name = ft_strjoin("/tmp/", check_heredoc(lexer));
     filename = check_heredoc(lexer);
     fd = open(hid_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+    line = readline("heredoc> ");
     while (line)
     {
         if (!check_end(line, filename))
-           break ;
+            break ;
+        write(fd, line, ft_strlen(line));
+        write(fd, "\n", 1);
         free(line);
         line = readline("heredoc> ");
     }
-    free(line);
+    free(hid_name);
     close(fd);
-    return ;
+    free(line);
 }

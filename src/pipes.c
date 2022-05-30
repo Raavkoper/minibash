@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/27 14:16:56 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/30 12:16:31 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void    create_pipes(int in, int tmpout, t_parser *parser)
    	close(out);
 }
 
-void	check_redirections(t_data *data, int in, t_parser *temp)
+void	check_redirections(t_data *data, int in)
 {
 	int out;
-
+	t_lexer *headref = data->lexer;
 	while (data->lexer)
 	{
 		if (data->lexer->token == INFILE)
@@ -86,6 +86,7 @@ void	check_redirections(t_data *data, int in, t_parser *temp)
 		}
 		data->lexer = data->lexer->next;
 	}
+	data->lexer = headref;
 }
 
 void    shell_pipex(t_data *data)
@@ -94,23 +95,26 @@ void    shell_pipex(t_data *data)
 	int 		tmpout;
 	int 		in;
 	t_parser	*temp;
+	char		*hid_name;
 
     temp = data->parser;
     tmpin = dup(STDIN);
 	tmpout = dup(STDOUT);
 	in = dup(tmpin);
+	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
     while (temp)
     {
 		if (check_heredoc(data->lexer))
 		{
-			in = open(hidden_name(check_heredoc(data->lexer)), O_RDONLY);
+			in = open(hid_name, O_RDONLY);
 			open_heredoc(data->lexer);
 		}
         create_pipes(in, tmpout, temp);
-		check_redirections(data, in, temp);
+		check_redirections(data, in);
         child_process(temp, data->env);
         temp = temp->next;
     }
+	free(hid_name);
     dup2(tmpin, STDIN);
 	dup2(tmpout, STDOUT);
 	close(tmpin);
