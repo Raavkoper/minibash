@@ -6,16 +6,16 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:48:35 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/26 15:00:18 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/30 13:44:46 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int has_outfile(t_lexer *lexer)
+int	has_outfile(t_lexer *lexer)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (lexer)
 	{
@@ -28,7 +28,7 @@ int has_outfile(t_lexer *lexer)
 	return (0);
 }
 
-int check_file(char filename, char *name)
+int	check_file(char filename, char *name)
 {
 	if (filename == 'i')
 	{
@@ -40,7 +40,7 @@ int check_file(char filename, char *name)
 
 char	*infile(t_lexer *lexer)
 {
-	char *infile;
+	char	*infile;
 
 	while (lexer->next != NULL)
 	{
@@ -59,12 +59,14 @@ int	outfile(t_lexer *lexer)
 	if (lexer->token == D_OUTFILE)
 	{
 		if (lexer->next->command)
-     		return (open(lexer->next->command, O_CREAT | O_RDWR | O_APPEND, 0644));
+			return (open(lexer->next->command,
+					O_CREAT | O_RDWR | O_APPEND, 0644));
 	}
 	else if (lexer->token == OUTFILE)
 	{
 		if (lexer->next->command)
-			return (open(lexer->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644));
+			return (open(lexer->next->command,
+					O_CREAT | O_RDWR | O_TRUNC, 0644));
 	}
 	return (0);
 }

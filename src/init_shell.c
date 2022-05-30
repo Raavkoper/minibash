@@ -33,11 +33,11 @@ void	run_shell(t_data *data)
 			free_redirections(&data->red);
 			lexer(data, line);
 			//print_lexer(data->lexer);
-			error_check(&data->lexer);
+			// error_check(&data->lexer);
 			parser(data);
 			//print_parser(data->parser);
 			redirections(data);
-			// print_redirections(data->red);
+			print_redirections(data->red);
 			shell_pipex(data);
 			//executor(data);
 		}

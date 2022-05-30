@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/30 12:16:31 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/30 15:10:25 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,42 +33,44 @@ char	*execute(t_parser *parser, char **env)
 
 void	child_process(t_parser *parser, char **env)
 {
-    pid_t   id;
-    
-    id = fork();
-    if (id < 0)
+	pid_t	id;
+
+	id = fork();
+	if (id < 0)
 	{
 		perror("fork failed");
 		return ;
 	}
-    else if (id == 0)
-	    execute(parser, env);
-    else
-        waitpid(id, NULL, 0);
+	else if (id == 0)
+		execute(parser, env);
+	else
+		waitpid(id, NULL, 0);
 }
 
-void    create_pipes(int in, int tmpout, t_parser *parser)
+void	create_pipes(int in, int tmpout, t_parser *parser)
 {
-    int end[2];
-    int out;
+	int	end[2];
+	int	out;
 
-    out = dup(tmpout);
-    dup2(in, STDIN);
-    close(in);
-    if (parser->next != NULL)
-    {
-        pipe(end);
-        out = end[1];
-	    in = end[0];
-    }
+	out = dup(tmpout);
+	dup2(in, STDIN);
+	close(in);
+	if (parser->next != NULL)
+	{
+		pipe(end);
+		out = end[1];
+		in = end[0];
+	}
 	dup2(out, STDOUT);
-   	close(out);
+	close(out);
 }
 
 void	check_redirections(t_data *data, int in)
 {
-	int out;
-	t_lexer *headref = data->lexer;
+	int		out;
+	t_lexer	*headref;
+
+	headref = data->lexer;
 	while (data->lexer)
 	{
 		if (data->lexer->token == INFILE)
@@ -89,34 +91,32 @@ void	check_redirections(t_data *data, int in)
 	data->lexer = headref;
 }
 
-void    shell_pipex(t_data *data)
+void	shell_pipex(t_data *data)
 {
-    int 		tmpin;
-	int 		tmpout;
-	int 		in;
+	int			tmpin;
+	int			tmpout;
+	int			in;
 	t_parser	*temp;
+	t_red		*red;
 	char		*hid_name;
 
-    temp = data->parser;
-    tmpin = dup(STDIN);
+	red = data->red;
+	temp = data->parser;
+	tmpin = dup(STDIN);
 	tmpout = dup(STDOUT);
 	in = dup(tmpin);
 	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
-    while (temp)
-    {
+	while (temp)
+	{
 		if (check_heredoc(data->lexer))
 		{
 			in = open(hid_name, O_RDONLY);
 			open_heredoc(data->lexer);
 		}
-        create_pipes(in, tmpout, temp);
+		create_pipes(in, tmpout, temp);
 		check_redirections(data, in);
-        child_process(temp, data->env);
-        temp = temp->next;
-    }
-	free(hid_name);
-    dup2(tmpin, STDIN);
-	dup2(tmpout, STDOUT);
-	close(tmpin);
-	close(tmpout);
+		child_process(temp, data->env);
+		temp = temp->next;
+	}
+	end_pipes(hid_name, tmpin, tmpout);
 }

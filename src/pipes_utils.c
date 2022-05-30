@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/20 13:48:52 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/05/30 14:13:05 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_path(char **env)
 	return (NULL);
 }
 
-
 char	*search_path(char **paths, char *cmdarg)
 {
 	int		i;
@@ -44,7 +43,11 @@ char	*search_path(char **paths, char *cmdarg)
 	return (NULL);
 }
 
-
-
-
-
+void	end_pipes(char *hid_name, int tmpin, int tmpout)
+{
+	free(hid_name);
+	dup2(tmpin, STDIN);
+	dup2(tmpout, STDOUT);
+	close(tmpin);
+	close(tmpout);
+}
