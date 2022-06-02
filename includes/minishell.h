@@ -82,6 +82,8 @@ void	add_command(t_parser *parser, char *str, int commands, char **env);
 void	parser(t_data *data);
 void	print_parser(t_parser *parser);
 t_parser *init_cmdtable(t_parser *parser);
+int	list_len(t_parser *parser);
+int	wordcount(char const *s);
 
 /* redirection functions */
 void	redirections(t_data *data);
@@ -94,7 +96,7 @@ char	*expander(char **env, char *var);
 char	*trim_double(char *word, int index);
 char	*trim_qoutes(char *word);
 char	*cpy_env_var(char **env, char *var, int *x);
-char	*add_char(char *str, char c);
+char	*add_char(char *str, char c, int liberate);
 char	*dub_min_digit(char *str, int *x);
 char	*trim_quotes(char *word, int liberate);
 char	*merge_str(char *s1, char *s2);

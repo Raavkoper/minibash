@@ -4,7 +4,7 @@ HEADER = includes/minishell.h
 
 CFLAGS = -g 
 
-LDFLAGS = -lreadline 
+# LDFLAGS = -lreadline 
 
 CC = gcc
 
@@ -13,6 +13,8 @@ LIBFT = libraries/libft/libft.a
 OBJS_DIR = objs
 SRC_DIR = src
 INCLUDE_DIR = includes
+READLINE_DIR = $(shell brew --prefix readline)
+READLINE_LIB = -lreadline -lhistory -L $(READLINE_DIR)/lib
 
 INC := -I $(INCLUDE_DIR)
 
@@ -34,7 +36,7 @@ $(LIBFT):
 	$(MAKE) -C libraries/libft
 
 $(NAME): $(LIBFT) $(OBJS) 
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(INC) $^ -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC) $(READLINE_LIB) $^ -o $(NAME)
 	@echo "\033[92mFiles made 🤔\033[0m"
 
 run: $(NAME)

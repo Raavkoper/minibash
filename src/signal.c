@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 10:32:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:37:51 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/02 13:32:32 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	handle_signals(void)
 {
-	signal(SIGINT, new_prompt);
+	// signal(SIGINT, new_prompt);
 }
 
 void	new_prompt(int sig)
 {
 	ft_putstr_fd("\n", 1);
-	ft_putstr_fd("\033[1m\033[32mminishell$> \x1B[0m", 1);
+	// rl_replace_line(0);
+	rl_redisplay();
 }

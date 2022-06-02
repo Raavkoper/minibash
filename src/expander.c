@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/30 11:08:26 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/01 11:22:31 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*expander(char **env, char *var)
 			ret = merge_str(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
 		{
-			ret = add_char(ret, var[i]);
+			ret = add_char(ret, var[i], i);
 			i++;
 		}
 	}
@@ -59,10 +59,7 @@ char	*cpy_env_var(char **env, char *var, int *x)
 	while (i < len && !iswhitespace(var[i]))
 		i++;
 	if (i != len)
-	{
-		*x += i + 1;
 		return ("");
-	}
 	i = 0;
 	while (env[i])
 	{
@@ -80,35 +77,6 @@ char	*cpy_env_var(char **env, char *var, int *x)
 	*x += len + 1;
 	return ("");
 }
-// char	*expander(char **env, char *var)
-// {
-// 	int i;
-// 	int len;
-// 	char *ret;
-
-// 	i = 0;
-// 	len = varname_len(var) - 1;
-// 	ret = "";
-// 	if (ft_isdigit(var[1]) && var[2])
-// 		return (ft_strdup(&var[2]));
-// 	// if (var[0] == '"')
-// 	// 	var = trim_double(var, 1);
-// 	if (isquote(var))
-// 		return (trim_qoutes(var));
-// 	while (env[i])
-// 	{
-// 		if (varname_len(env[i]) == len)
-// 		{
-// 			if (!ft_strncmp(env[i], &var[1], len))
-// 				ret = ft_strjoin(ret, (ft_strdup(&env[i][len + 1])));
-// 		}
-// 		i++;
-// 	}
-// 	ret = ft_strjoin(ret, check_add_string(&var[len + 1]));
-// 	if (!ret[0])
-// 		ret = NULL;
-// 	return (ret);
-// }
 
 char	*trim_quotes(char *word, int liberate)
 {

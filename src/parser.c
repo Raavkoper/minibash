@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/30 11:37:31 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/02 15:53:10 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void	parser(t_data *data)
 {
 	int			nodes;
 	int			commands;
-	char		**temp;
 	t_parser	*parser_head;
 	t_lexer		*lexer_head;
 
 	data->parser = NULL;
 	if (!data->lexer)
 		return ;
-	temp = NULL;
 	nodes = count_pipes(data->lexer) + 1;
 	while (nodes--)
 		init_parser(&data->parser);
@@ -35,13 +33,7 @@ void	parser(t_data *data)
 		while (data->lexer && data->lexer->token != PIPE)
 		{
 			if (!data->lexer->token)
-			{
-				if (data->parser->command)
-					temp = data->parser->command;
 				add_command(data->parser, data->lexer->command, commands, data->env);
-				if (temp)
-					data->parser->command = temp;
-			}
 			else if (data->lexer && is_redirection(data->lexer->token))
 			{
 				if (data->lexer->next)
@@ -50,7 +42,6 @@ void	parser(t_data *data)
 					data->lexer = data->lexer->next;
 				continue ;
 			}
-			temp = NULL;
 			data->lexer = data->lexer->next;
 		}
 		data->parser = data->parser->next;
@@ -63,18 +54,29 @@ void	parser(t_data *data)
 
 void	add_command(t_parser *parser, char *str, int commands, char **env)
 {
+	int i;
+
+	i = 0;
 	if (parser->command == NULL)
 		parser->command = safe_calloc(sizeof(char *), commands + 1);
 	while (*parser->command != NULL)
+	{
 		parser->command++;
+		i++;
+	}
 	if (isdollar(str))
 	{
 		*parser->command = expander(env, str);
 		if (!parser->command[0][0])
+		{
+			free(*parser->command);
 			*parser->command = NULL;
+		}
 	}
 	else
 		*parser->command = trim_quotes(str, 0);
+	while (i--)
+		parser->command--;
 }
 
 void	init_parser(t_parser **parser)
