@@ -6,13 +6,13 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/23 10:58:51 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/01 11:22:45 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/03 14:33:04 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*add_char(char *str, char c, int liberate)
+char	*add_char(char *str, char c, int *liberate)
 {
 	int		i;
 	char	*ret;
@@ -25,8 +25,9 @@ char	*add_char(char *str, char c, int liberate)
 		i++;
 	}
 	ret[i] = c;
-	if (liberate)
+	if (*liberate)
 		free(str);
+	*liberate += 1;
 	return (ret);
 }
 

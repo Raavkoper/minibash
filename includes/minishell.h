@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 11:39:48 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/03 14:38:15 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,13 @@ char		*expander(char **env, char *var);
 char		*trim_double(char *word, int index);
 char		*trim_qoutes(char *word);
 char		*cpy_env_var(char **env, char *var, int *x);
-char		*add_char(char *str, char c, int liberate);
+char		*add_char(char *str, char c, int *liberate);
 char		*dub_min_digit(char *str, int *x);
 char		*trim_quotes(char *word, int liberate);
 char		*merge_str(char *s1, char *s2);
+void		quote_checker(int *sq, int *dq, char c);
 int			export_strncmp(const char *s1, const char *s2, size_t n);
+void		three_ints_tozero(int *a, int *b, int *c);
 
 /* executor functions */
 void		executor(t_data *data);

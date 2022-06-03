@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 11:57:52 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/03 14:40:13 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,33 @@ char	*expander(char **env, char *var)
 	int		sq;
 	int		dq;
 
-	i = 0;
-	sq = 0;
-	dq = 0;
+	three_ints_tozero(&i, &sq, &dq);
 	ret = "";
 	while (var[i])
 	{
-		if (var[i] == '"' && !sq)
-		{
-			dq++;
-			dq %= 2;
-		}
-		if (var[i] == '\'' && !dq)
-		{
-			sq++;
-			sq %= 2;
-		}
+		quote_checker(&sq, &dq, var[i]);
 		if (var[i] == '$' && ft_isdigit(var[i + 1]) && !sq)
 			ret = merge_str(ret, dub_min_digit(&var[i + 2], &i));
 		if (var[i] == '$' && var[i + 1] && !sq && !iswhitespace(var[i + 1]))
 			ret = merge_str(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
-		{
-			ret = add_char(ret, var[i], i);
-			i++;
-		}
+			ret = add_char(ret, var[i], &i);
 	}
 	return (trim_quotes(ret, 1));
+}
+
+void	quote_checker(int *sq, int *dq, char c)
+{
+	if (c == '"' && !*sq)
+	{
+		*dq += 1;
+		*dq %= 2;
+	}
+	if (c == '\'' && !*dq)
+	{
+		*sq += 1;
+		*sq %= 2;
+	}
 }
 
 char	*cpy_env_var(char **env, char *var, int *x)
@@ -87,9 +87,7 @@ char	*trim_quotes(char *word, int liberate)
 	char	*temp;
 
 	ret = safe_calloc(ft_strlen(word) + 1, sizeof(char));
-	count = 0;
-	i = 0;
-	quote = 0;
+	three_ints_tozero(&count, &i, &quote);
 	temp = word;
 	while (*word)
 	{
@@ -101,11 +99,17 @@ char	*trim_quotes(char *word, int liberate)
 			count %= 2;
 			continue ;
 		}
-		ret[i] = *word;
-		i++;
+		ret[i++] = *word;
 		word++;
 	}
 	if (liberate)
 		free(temp);
 	return (ret);
+}
+
+void	three_ints_tozero(int *a, int *b, int *c)
+{
+	*a = 0;
+	*b = 0;
+	*c = 0;
 }
