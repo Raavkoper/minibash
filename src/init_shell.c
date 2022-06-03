@@ -37,7 +37,7 @@ void	run_shell(t_data *data)
 			parser(data);
 			//print_parser(data->parser);
 			redirections(data);
-			// print_redirections(data->parser->red);
+			//print_redirections(data->parser->red);
 			shell_pipex(data);
 			// executor(data);
 		}
