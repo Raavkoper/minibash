@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/01 11:22:31 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/03 11:57:52 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*trim_quotes(char *word, int liberate)
 	temp = word;
 	while (*word)
 	{
-		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
+		if ((*word == '\'' || *word == '"') && (*word == quote || count == 0))
 		{
 			quote = *word;
 			word++;
