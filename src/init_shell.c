@@ -2,11 +2,11 @@
 
 void	welcome()
 {
-printf("%s%s\n", YELLOW, "                                                ,--.        ,--.   ,--.,--.,--.           "); 
-printf("%s%s\n", GREEN, "--.--. ,--,--. ,--,--.,--.  ,--.,---. ,--,--,--.`--\',--,--, `--\' ,-|  |`--\'|  |,-.  ,---. "); 
-printf("%s%s\n", BLUE, "  .--\'\' ,-.  |\' ,-.  | \\  `\'  /(  .-\' |        |,--.|      \\,--.\' .-. |,--.|     / (  .-\' "); 
-printf("%s%s\n", RED, "  |   \\ \'-\'  |\\ \'-\'  |  \\    / .-\'  `)|  |  |  ||  ||  ||  ||  |\\ `-\' ||  ||  \\  \\ .-\'  `)"); 
-printf("%s%s%s\n", YELLOW, "--\'    `--`--\' `--`--\'   `--\'  `----\' `--`--`--\'`--\'`--\'\'--\'`--\' `---\' `--\'`--\'`--\'`----\' ", NC); 
+printf("%s%s\n", YELLOW, "                                                ,--.        ,--.   ,--.,--.,--.           ");
+printf("%s%s\n", GREEN, "--.--. ,--,--. ,--,--.,--.  ,--.,---. ,--,--,--.`--\',--,--, `--\' ,-|  |`--\'|  |,-.  ,---. ");
+printf("%s%s\n", BLUE, "  .--\'\' ,-.  |\' ,-.  | \\  `\'  /(  .-\' |        |,--.|      \\,--.\' .-. |,--.|     / (  .-\' ");
+printf("%s%s\n", RED, "  |   \\ \'-\'  |\\ \'-\'  |  \\    / .-\'  `)|  |  |  ||  ||  ||  ||  |\\ `-\' ||  ||  \\  \\ .-\'  `)");
+printf("%s%s%s\n", YELLOW, "--\'    `--`--\' `--`--\'   `--\'  `----\' `--`--`--\'`--\'`--\'\'--\'`--\' `---\' `--\'`--\'`--\'`----\' ", NC);
 }
 
 char 	*init_shell(void)
@@ -29,17 +29,17 @@ void	run_shell(t_data *data)
 		if (line && line[0])
 		{
 			free_lexer(&data->lexer);
+			free_redirections(&data->parser);
 			free_parser(&data->parser);
-			free_redirections(&data->red);
 			lexer(data, line);
 			//print_lexer(data->lexer);
-			// error_check(&data->lexer);
+			error_check(&data->lexer);
 			parser(data);
 			//print_parser(data->parser);
 			redirections(data);
-			print_redirections(data->red);
+			// print_redirections(data->parser->red);
 			shell_pipex(data);
-			//executor(data);
+			// executor(data);
 		}
 		free(line);
 		//system("leaks minishell");

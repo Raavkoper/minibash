@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/26 15:24:16 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/03 11:12:52 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ void	redirections(t_data *data)
 	t_red		*red_head;
 	t_lexer		*lexer_head;
 	
-	data->red = NULL;
+	data->parser->red = NULL;
 	if (!data->lexer)
 		return ;
 	nodes = count_redirections(data->lexer) + 1;
 	while (nodes--)
-		init_red(&data->red);
-	red_head = data->red;
+		init_red(&data->parser->red);
+	red_head = data->parser->red;
 	lexer_head = data->lexer;
 	while (data->lexer)
 	{
 		if (is_redirection(data->lexer->token) || is_double(data->lexer->token))
 		{
-			data->red->token = data->lexer->token;
+			data->parser->red->token = data->lexer->token;
 			if (data->lexer->next && data->lexer->next->command)
-				data->red->file = ft_strdup(data->lexer->next->command);
-			data->red = data->red->next;
+				data->parser->red->file = ft_strdup(data->lexer->next->command);
+			data->parser->red = data->parser->red->next;
 		}
 		data->lexer = data->lexer->next;
 	}
-	data->red = red_head;
+	data->parser->red = red_head;
 	data->lexer = lexer_head;
 }
 

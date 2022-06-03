@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/30 15:10:25 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/03 13:41:09 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,29 @@ void	create_pipes(int in, int tmpout, t_parser *parser)
 	close(out);
 }
 
-void	check_redirections(t_data *data, int in)
+void	check_redirections(t_parser *parser)
 {
-	int		out;
-	t_lexer	*headref;
+	int			out;
+	int			in;
+	t_red		*headref;
 
-	headref = data->lexer;
-	while (data->lexer)
+	headref	= parser->red;
+	while (parser->red)
 	{
-		if (data->lexer->token == INFILE)
+		if (parser->red->token == INFILE)
 		{
-			in = check_file('i', infile(data->lexer));
+			in = check_file(parser->red->file);
 			dup2(in, STDIN);
-			data->lexer = data->lexer->next;
 		}
-		if (data->lexer->token == OUTFILE || data->lexer->token == D_OUTFILE)
+		if (parser->red->token == OUTFILE || parser->red->token == D_OUTFILE)
 		{
-			out = outfile(data->lexer);
+			out = outfile(parser->red);
 			dup2(out, STDOUT);
 			close(out);
-			data->lexer = data->lexer->next;
 		}
-		data->lexer = data->lexer->next;
+		parser->red = parser->red->next;
 	}
-	data->lexer = headref;
+	parser->red = headref;
 }
 
 void	shell_pipex(t_data *data)
@@ -96,27 +95,23 @@ void	shell_pipex(t_data *data)
 	int			tmpin;
 	int			tmpout;
 	int			in;
-	t_parser	*temp;
-	t_red		*red;
 	char		*hid_name;
 
-	red = data->red;
-	temp = data->parser;
 	tmpin = dup(STDIN);
 	tmpout = dup(STDOUT);
 	in = dup(tmpin);
 	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
-	while (temp)
+	while (data->parser)
 	{
 		if (check_heredoc(data->lexer))
 		{
 			in = open(hid_name, O_RDONLY);
-			open_heredoc(data->lexer);
+			open_heredoc(data);
 		}
-		create_pipes(in, tmpout, temp);
-		check_redirections(data, in);
-		child_process(temp, data->env);
-		temp = temp->next;
+		create_pipes(in, tmpout, data->parser);
+		check_redirections(data->parser);
+		child_process(data->parser, data->env);
+		data->parser = data->parser->next;
 	}
 	end_pipes(hid_name, tmpin, tmpout);
 }

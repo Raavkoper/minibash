@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   free.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/02 09:44:36 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 10:22:05 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 09:44:36 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/03 11:22:03 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,18 @@ void	free_dp(char **arr)
 	free(arr);
 }
 
-void	free_redirections(t_red **red)
+void	free_redirections(t_parser **parser)
 {
 	t_red	*temp;
+	t_red	*red;
 
-	if (!*red)
+	if (!*parser)
 		return ;
-	while (*red)
+	// red = *parser->red;
+	while (red)
 	{
-		temp = *red;
-		*red = temp->next;
+		temp = red;
+		red = temp->next;
 		if (temp->file)
 			free(temp->file);
 		free(temp);

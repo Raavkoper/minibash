@@ -49,14 +49,15 @@ typedef struct s_red
 typedef struct s_parser
 {
 	char			**command;
+	t_red			*red;
 	struct s_parser	*next;
 }				t_parser;
 
 typedef struct s_data
 {
 	t_lexer		*lexer;
-	t_parser	*parser;
-	t_red		*red;
+	t_parser	*parser;\
+	//t_red		*red;
 	char		**env;
 }				t_data;
 
@@ -103,23 +104,22 @@ int		export_strncmp(const char *s1, const char *s2, size_t n);
 /* executor functions */
 void	executor(t_data *data);
 int		find_command(t_data *data, char *command, char **cmd_table);
-char 	*infile(t_lexer *lexer);
-int		outfile(t_lexer *lexer);
+int		outfile(t_red *red);
 int		has_outfile(t_lexer *lexer);
 int		check_doubles(t_lexer *lexer);
-int		check_file(char filename, char *name);
+int		check_file(char *name);
 char	*execute(t_parser *parser, char **env);
 char	*search_path(char **paths, char *cmdarg);
 char	*get_path(char **env);
 void	shell_pipex(t_data *data);
 void	child_process(t_parser *parser, char **env);
 void    create_pipes(int in, int tmpout, t_parser *parser);
-void	check_redirections(t_data *data, int in);
+void	check_redirections(t_parser *parser);
 void	end_pipes(char *hid_name, int tmpin, int tmpout);
 
 /* heredoc functions */
-char 	*check_heredoc(t_lexer *lexer);
-void	open_heredoc(t_lexer *lexer);
+char	*check_heredoc(t_lexer *lexer);
+void	open_heredoc(t_data *data);
 int 	check_end(char *input, char *filename);
 
 /* builtin functions */
@@ -155,7 +155,7 @@ int		dp_len(char **arr);
 int		isdollar(char *line);
 
 /* free functions */
-void	free_redirections(t_red **red);
+void	free_redirections(t_parser **parser);
 void	free_lexer(t_lexer **lexer);
 void	free_parser(t_parser **parser);
 void	free_dp(char **arr);

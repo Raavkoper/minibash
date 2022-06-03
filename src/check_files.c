@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 13:48:35 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/30 13:44:46 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/02 14:10:00 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,44 +28,25 @@ int	has_outfile(t_lexer *lexer)
 	return (0);
 }
 
-int	check_file(char filename, char *name)
+int	check_file(char *name)
 {
-	if (filename == 'i')
-	{
-		if (access(name, F_OK) == 0)
-			return (open(name, O_RDONLY));
-	}
+	if (access(name, F_OK) == 0)
+		return (open(name, O_RDONLY));
 	return (0);
 }
 
-char	*infile(t_lexer *lexer)
+int	outfile(t_red *red)
 {
-	char	*infile;
-
-	while (lexer->next != NULL)
+	if (red->token == D_OUTFILE)
 	{
-		if (lexer->token == INFILE)
-		{
-			infile = lexer->next->command;
-			return (infile);
-		}
-		lexer = lexer->next;
-	}
-	return (NULL);
-}
-
-int	outfile(t_lexer *lexer)
-{
-	if (lexer->token == D_OUTFILE)
-	{
-		if (lexer->next->command)
-			return (open(lexer->next->command,
+		if (red->file)
+			return (open(red->file,
 					O_CREAT | O_RDWR | O_APPEND, 0644));
 	}
-	else if (lexer->token == OUTFILE)
+	else if (red->token == OUTFILE)
 	{
-		if (lexer->next->command)
-			return (open(lexer->next->command,
+		if (red->file)
+			return (open(red->file,
 					O_CREAT | O_RDWR | O_TRUNC, 0644));
 	}
 	return (0);
