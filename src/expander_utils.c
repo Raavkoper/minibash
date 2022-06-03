@@ -6,16 +6,16 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/23 10:58:51 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:49:12 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/03 14:33:04 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*add_char(char *str, char c)
+char	*add_char(char *str, char c, int *liberate)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	ret = safe_calloc(ft_strlen(str) + 2, sizeof(char));
@@ -25,8 +25,9 @@ char	*add_char(char *str, char c)
 		i++;
 	}
 	ret[i] = c;
-	if (str[0])
+	if (*liberate)
 		free(str);
+	*liberate += 1;
 	return (ret);
 }
 
@@ -44,7 +45,7 @@ char	*dub_min_digit(char *str, int *x)
 		ret[i] = str[i];
 		i++;
 	}
-	*x += len + 2;
+	*x += len + 1;
 	return (ret);
 }
 

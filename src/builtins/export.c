@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   export.c                                           :+:    :+:            */
+/*                                                          ::::::::            */
+/*   export.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/25 13:48:57 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/27 15:00:52 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_export(char ***env, char **cmd_table)
 {
-	if (!*cmd_table)
+	if (!*cmd_table || cmd_table[0][0] == '#')
 	{
 		print_export(*env);
 		return ;
 	}
-	export_check_dup(env, *cmd_table);
 	while (*cmd_table && (ft_isalpha(*cmd_table[0]) || *cmd_table[0] == '_' || *cmd_table[0] == '$'))
 	{
+		export_check_dup(env, *cmd_table);
 		if (*cmd_table[0] == '$' && isis(*cmd_table))
 			break ;
 		else if (*cmd_table[0] == '$' && !isis(*cmd_table))
@@ -38,12 +38,12 @@ void	ft_export(char ***env, char **cmd_table)
 
 char	**sort_env(char **env)
 {
-	int i;
-	int j;
-	int i_lowest;
-	int diff;
-	int len;
-	char **env_sorted;
+	int		i;
+	int		j;
+	int		i_lowest;
+	int		diff;
+	int		len;
+	char	**env_sorted;
 
 	i_lowest = 0;
 	diff = 0;
@@ -69,8 +69,8 @@ char	**sort_env(char **env)
 
 void	print_export(char **env)
 {
-	int i;
-	char **env_sorted;
+	int		i;
+	char	**env_sorted;
 
 	i = 0;
 	env_sorted = sort_env(env_dup(env, dp_len(env) + 1));
@@ -103,4 +103,14 @@ void	export_add_quotes(char *var)
 			printf("\"");
 		i++;
 	}
+}
+
+int	export_var_len(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && (ft_isalnum(str[i]) || str[i] != '='))
+		i++;
+	return (i);
 }

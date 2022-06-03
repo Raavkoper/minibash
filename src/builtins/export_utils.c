@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:03:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 11:04:12 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/30 13:54:30 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	varname_len(char *var)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (var[i] && ft_isalnum(var[i]))
 		i++;
@@ -24,7 +24,7 @@ int	varname_len(char *var)
 
 void	export_check_dup(char ***env, char *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[0][i])
@@ -41,22 +41,23 @@ void	export_check_dup(char ***env, char *command)
 
 void	remove_line_from_env(char ***env, char *var)
 {
-	int i;
-	int j;
-	int oui;
-	char **new_env;
+	int		i;
+	int		j;
+	int		len;
+	char	**new_env;
 
 	i = 0;
 	j = 0;
-	oui = 0;
-	new_env = safe_calloc(dp_len(*env), sizeof(char *));
+	len = varname_len(var);
+	new_env = safe_calloc(dp_len(*env) + 1, sizeof(char *));
 	while (env[0][i])
 	{
-		if (ft_strncmp(env[0][i], var, varname_len(env[0][i])))
-			new_env[j++] = ft_strdup(env[0][i]);
+		if (len == export_var_len(env[0][i]) && !ft_strncmp(env[0][i], var, len))
+			i++;
 		else
-			oui++;
-		i++;
+			new_env[j++] = ft_strdup(env[0][i]);
+		if (env[0][i])
+			i++;
 	}
 	free_dp(*env);
 	*env = new_env;

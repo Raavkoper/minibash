@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 14:13:31 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/26 15:20:45 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/03 14:46:57 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*mod_substr(char *str, int *i)
 
 void	append_list(t_lexer **lexer, char *str, int *i)
 {
-	t_lexer	*new_node;
-	t_lexer	*last;
-	static int index;
+	t_lexer		*new_node;
+	t_lexer		*last;
+	static int	index;
 
 	last = *lexer;
 	new_node = malloc(sizeof(t_lexer));
@@ -80,7 +80,7 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 
 void	lexer(t_data *data, char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->lexer = NULL;

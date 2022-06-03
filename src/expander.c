@@ -6,82 +6,60 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/24 11:01:43 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/03 14:40:13 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_expansion(char **env, char *var)
-{
-	// int i;
-	// int len;
-
-	// if (!isdollar(var) || isquote(var))
-	// 	return (1);
-	// i = 1;
-	// len = varname_len(var) - 1;
-	// if (ft_isdigit(var[1]) && var[2])
-	// 	return (1);
-	// while (*env && ft_strncmp(*env, &var[1], len))
-	// 	env++;
-	// if (*env && !ft_strncmp(*env, &var[1], len))
-	// 	return (1);
-	return (1);
-}
-
 char	*expander(char **env, char *var)
 {
-	int i;
-	char *ret;
-	int sq;
-	int dq;
+	int		i;
+	char	*ret;
+	int		sq;
+	int		dq;
 
-	i = 0;
-	sq = 0;
-	dq = 0;
+	three_ints_tozero(&i, &sq, &dq);
 	ret = "";
 	while (var[i])
 	{
-		if (var[i] == '"' && !sq)
-		{
-			dq++;
-			dq %= 2;
-		}
-		if (var[i] == '\'' && !dq)
-		{
-			sq++;
-			sq %= 2;
-		}
+		quote_checker(&sq, &dq, var[i]);
 		if (var[i] == '$' && ft_isdigit(var[i + 1]) && !sq)
 			ret = merge_str(ret, dub_min_digit(&var[i + 2], &i));
 		if (var[i] == '$' && var[i + 1] && !sq && !iswhitespace(var[i + 1]))
 			ret = merge_str(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
-		{
-			ret = add_char(ret, var[i]);
-			i++;
-		}
+			ret = add_char(ret, var[i], &i);
 	}
 	return (trim_quotes(ret, 1));
 }
 
+void	quote_checker(int *sq, int *dq, char c)
+{
+	if (c == '"' && !*sq)
+	{
+		*dq += 1;
+		*dq %= 2;
+	}
+	if (c == '\'' && !*dq)
+	{
+		*sq += 1;
+		*sq %= 2;
+	}
+}
 
 char	*cpy_env_var(char **env, char *var, int *x)
 {
-	int len;
-	int env_len;
-	int i;
+	int	len;
+	int	env_len;
+	int	i;
 
 	i = 0;
 	len = varname_len(var);
 	while (i < len && !iswhitespace(var[i]))
 		i++;
 	if (i != len)
-	{
-		*x += i + 1;
 		return ("");
-	}
 	i = 0;
 	while (env[i])
 	{
@@ -99,64 +77,39 @@ char	*cpy_env_var(char **env, char *var, int *x)
 	*x += len + 1;
 	return ("");
 }
-// char	*expander(char **env, char *var)
-// {
-// 	int i;
-// 	int len;
-// 	char *ret;
-
-// 	i = 0;
-// 	len = varname_len(var) - 1;
-// 	ret = "";
-// 	if (ft_isdigit(var[1]) && var[2])
-// 		return (ft_strdup(&var[2]));
-// 	// if (var[0] == '"')
-// 	// 	var = trim_double(var, 1);
-// 	if (isquote(var))
-// 		return (trim_qoutes(var));
-// 	while (env[i])
-// 	{
-// 		if (varname_len(env[i]) == len)
-// 		{
-// 			if (!ft_strncmp(env[i], &var[1], len))
-// 				ret = ft_strjoin(ret, (ft_strdup(&env[i][len + 1])));
-// 		}
-// 		i++;
-// 	}
-// 	ret = ft_strjoin(ret, check_add_string(&var[len + 1]));
-// 	if (!ret[0])
-// 		ret = NULL;
-// 	return (ret);
-// }
 
 char	*trim_quotes(char *word, int liberate)
 {
-	int quote;
-	int count;
-	char *ret;
-	int i;
-	char *temp;
-	
+	int		quote;
+	int		count;
+	char	*ret;
+	int		i;
+	char	*temp;
+
 	ret = safe_calloc(ft_strlen(word) + 1, sizeof(char));
-	count = 0;
-	i = 0;
-	quote = 0;
+	three_ints_tozero(&count, &i, &quote);
 	temp = word;
 	while (*word)
 	{
-		if ((*word == SINGLE_QUOTE || *word == DOUBLE_QUOTE) && (*word == quote || count == 0))
+		if ((*word == '\'' || *word == '"') && (*word == quote || count == 0))
 		{
 			quote = *word;
 			word++;
 			count++;
 			count %= 2;
-			continue;
+			continue ;
 		}
-		ret[i] = *word;
-		i++;
+		ret[i++] = *word;
 		word++;
 	}
 	if (liberate)
 		free(temp);
 	return (ret);
+}
+
+void	three_ints_tozero(int *a, int *b, int *c)
+{
+	*a = 0;
+	*b = 0;
+	*c = 0;
 }

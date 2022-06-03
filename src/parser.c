@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
-/*   Updated: 2022/05/26 15:10:38 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/03 14:47:31 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 void	parser(t_data *data)
 {
-	int 		nodes;
-	int 		commands;
-	char		**temp;
+	int			nodes;
+	int			commands;
 	t_parser	*parser_head;
 	t_lexer		*lexer_head;
 
 	data->parser = NULL;
 	if (!data->lexer)
 		return ;
-	temp = NULL;
 	nodes = count_pipes(data->lexer) + 1;
 	while (nodes--)
 		init_parser(&data->parser);
@@ -35,12 +33,7 @@ void	parser(t_data *data)
 		while (data->lexer && data->lexer->token != PIPE)
 		{
 			if (!data->lexer->token)
-			{
-				if (data->parser->command)
-					temp = data->parser->command;
 				add_command(data->parser, data->lexer->command, commands, data->env);
-				if (temp)
-					data->parser->command = temp;
 			}
 			else if ((data->lexer && is_redirection(data->lexer->token)) 
 			|| is_double(data->lexer->token))
@@ -51,7 +44,6 @@ void	parser(t_data *data)
 					data->lexer = data->lexer->next;
 				continue ;
 			}
-			temp = NULL;
 			data->lexer = data->lexer->next;
 		}
 		data->parser = data->parser->next;
@@ -64,18 +56,29 @@ void	parser(t_data *data)
 
 void	add_command(t_parser *parser, char *str, int commands, char **env)
 {
+	int i;
+
+	i = 0;
 	if (parser->command == NULL)
 		parser->command = safe_calloc(sizeof(char *), commands + 1);
 	while (*parser->command != NULL)
+	{
 		parser->command++;
+		i++;
+	}
 	if (isdollar(str))
 	{
 		*parser->command = expander(env, str);
 		if (!parser->command[0][0])
+		{
+			free(*parser->command);
 			*parser->command = NULL;
+		}
 	}
 	else
 		*parser->command = trim_quotes(str, 0);
+	while (i--)
+		parser->command--;
 }
 
 void	init_parser(t_parser **parser)
@@ -101,7 +104,7 @@ void	init_parser(t_parser **parser)
 
 int	count_pipes(t_lexer *lexer)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lexer)
@@ -115,14 +118,14 @@ int	count_pipes(t_lexer *lexer)
 
 int	count_commands(t_lexer *lexer, char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!lexer)
 		return (0);
 	while (lexer && lexer->token != PIPE)
 	{
-		if (!lexer->token && check_expansion(env, lexer->command))
+		if (!lexer->token)
 			i += 1;
 		if (is_redirection(lexer->token) || is_double(lexer->token))
 		{
@@ -139,9 +142,9 @@ int	count_commands(t_lexer *lexer, char **env)
 
 void	print_parser(t_parser *parser)
 {
-	int i;
-	int j;
-	char **temp;
+	int		i;
+	int		j;
+	char	**temp;
 
 	if (!parser)
 		return ;

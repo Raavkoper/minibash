@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 10:48:53 by cdiks             #+#    #+#             */
-/*   Updated: 2022/05/30 14:48:11 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   error.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/06/03 14:46:17 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	print_error(t_lexer **lexer, int token)
 	else if (token == 312)
 		printf("minishell: syntax error near unexpected token `>>'\n");
 	else if (istoken(token))
-		printf("minishell: syntax error near unexpected token `%c'\n", (char)token);
+		printf("minishell: syntax error near unexpected token `%c'\n", \
+		(char)token);
 	free_lexer(lexer);
 	lexer = NULL;
 }
@@ -67,11 +68,11 @@ void	*safe_calloc(size_t count, size_t size)
 {
     void	*ptr;
 
-    ptr = ft_calloc(count, size);
-    if (!ptr)
-    {
-        write(2, "failed to allocate memory\n", 27);
-        exit(1);
-    }
-    return (ptr);
+	ptr = ft_calloc(count, size);
+	if (!ptr)
+	{
+		write(2, "failed to allocate memory\n", 27);
+		exit(1);
+	}
+	return (ptr);
 }

@@ -6,17 +6,17 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:36:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/23 19:37:16 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/05/26 11:27:45 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	ft_cd(char ***env, char **cmd_table)
-{
-	char *old_path;
-	char *new_path;
-	int changed;
+{	
+	char	*old_path;
+	char	*new_path;
+	int		changed;
 
 	changed = 0;
 	old_path = safe_calloc(sizeof(char), ft_strlen(ft_pwd(0)) + 7);
@@ -64,13 +64,13 @@ void	ft_cd(char ***env, char **cmd_table)
 
 char	*get_old_pwd(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "OLDPWD=", 7))
-			return(&env[i][7]);
+			return (&env[i][7]);
 		i++;
 	}
 	return (NULL);
@@ -83,8 +83,6 @@ char	*get_old_pwd(char **env)
 // 	char	*new_path;
 // 	int		i;
 // 	int		s_count;
-
-
 // 	s_count = 0;
 // 	i = 0;
 // 	path = getcwd(pwd, sizeof(pwd));
