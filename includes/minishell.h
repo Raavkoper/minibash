@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:45:12 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/06 09:49:10 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,14 @@ void		executor(t_data *data);
 int			find_command(t_data *data, char *command, char **cmd_table);
 int			ft_word_check(char const *s);
 int			has_outfile(t_lexer *lexer);
-int			check_file(char filename, char *name);
 char		*infile(t_lexer *lexer);
-char		*outfile(t_lexer *lexer);
 char		*execute(t_parser *parser, char **env);
 char		*search_path(char **paths, char *cmdarg);
 char		*get_path(char **env);
 void		shell_pipex(t_data *data);
 void		child_process(t_parser *parser, char **env);
 void		create_pipes(int in, int tmpout, t_parser *parser);
-void		check_redirections(t_data *data, int in, t_parser *temp);
+void		check_redirections(t_parser *parser);
 
 /* builtin functions */
 void		ft_env(char **env);
@@ -199,7 +197,6 @@ int			dp_len(char **arr);
 int			isdollar(char *line);
 
 /* free functions */
-void		free_redirections(t_red **red);
 void		free_lexer(t_lexer **lexer);
 void		free_parser(t_parser **parser);
 void		free_dp(char **arr);
