@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 09:44:36 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:46:36 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/06 14:30:17 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	free_redirections(t_parser **parser)
 
 	if (!*parser)
 		return ;
-	// red = *parser->red;
+	red = (*parser)->red;
 	while (red)
 	{
 		temp = red;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/06 11:00:50 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/06 14:45:07 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_red
 typedef struct s_parser
 {
 	char			**command;
+	int				isredetiocinen;
 	t_red			*red;
 	struct s_parser	*next;
 }				t_parser;

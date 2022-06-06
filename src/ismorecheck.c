@@ -1,25 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   signal.c                                           :+:    :+:            */
+/*   ismorecheck.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/05/09 10:32:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/06 14:30:25 by rkoper        ########   odam.nl         */
+/*   Created: 2022/06/06 15:09:59 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/06 15:10:12 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_signals(void)
+int	is_redirection(char c)
 {
-	signal(SIGINT, new_prompt);
+	if (c == INFILE)
+		return (INFILE);
+	if (c == OUTFILE)
+		return (OUTFILE);
+	return (0);
 }
 
-void	new_prompt(int sig)
+int	isis(char *line)
 {
-	ft_putstr_fd("\n", 1);
-	// rl_replace_line("", 0);
-	// rl_redisplay();
+	while (*line && !iswhitespace(*line))
+	{
+		if (*line == 61)
+			return (1);
+		line++;
+	}
+	return (0);
+}
+
+int	isdollar(char *line)
+{
+	while (*line)
+	{
+		if (*line == 36)
+			return (1);
+		line++;
+	}
+	return (0);
 }
