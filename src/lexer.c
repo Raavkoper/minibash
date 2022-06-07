@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:46:57 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 13:33:59 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,19 @@ char	*mod_substr(char *str, int *i)
 	return (sub);
 }
 
-void	append_list(t_lexer **lexer, char *str, int *i)
+void	set_node_values(t_lexer **node, char *str, int *i)
 {
-	t_lexer		*new_node;
-	t_lexer		*last;
-	static int	index;
+	t_lexer	*new_node;
 
-	last = *lexer;
-	new_node = malloc(sizeof(t_lexer));
-	if (!new_node)
-		exit(EXIT_FAILURE);
-	new_node->token = 0;
+	new_node = *node;
 	if (isquote(str))
 		new_node->command = get_string(str, i);
 	else if (!istoken(str[0]) && !is_double(str[0]))
 		new_node->command = mod_substr(str, i);
 	else
 	{
-		if ((str[1] && is_redirection(str[0]) && is_redirection(str[0]) == is_redirection(str[1]))
+		if ((str[1] && is_redirection(str[0]) && \
+			is_redirection(str[0]) == is_redirection(str[1])) \
 			|| is_double(str[0]))
 		{
 			new_node->token = is_redirection(str[0]) + 250;
@@ -65,6 +60,20 @@ void	append_list(t_lexer **lexer, char *str, int *i)
 		}
 		new_node->command = NULL;
 	}
+}
+
+void	append_list(t_lexer **lexer, char *str, int *i)
+{
+	t_lexer		*new_node;
+	t_lexer		*last;
+	static int	index;
+
+	last = *lexer;
+	new_node = malloc(sizeof(t_lexer));
+	if (!new_node)
+		exit(EXIT_FAILURE);
+	new_node->token = 0;
+	set_node_values(&new_node, str, i);
 	new_node->index = index;
 	index++;
 	new_node->next = NULL;

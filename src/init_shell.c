@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/06 14:33:20 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 14:12:27 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	run_shell(t_data *data)
 			free_redirections(&data->parser);
 			free_parser(&data->parser);
 			lexer(data, line);
-			//print_lexer(data->lexer);
+			// print_lexer(data->lexer);
 			error_check(&data->lexer);
 			parser(data);
 			//print_parser(data->parser);
@@ -59,6 +59,5 @@ void	run_shell(t_data *data)
 			executor(data);
 		}
 		free(line);
-		// system("leaks minishell");
 	}
 }

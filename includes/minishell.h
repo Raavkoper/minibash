@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/07 11:10:29 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 14:26:48 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ char		*mod_substr(char *str, int *i);
 void		append_list(t_lexer **lexer, char *str, int *i);
 void		print_lexer(t_lexer *lexer);
 int			check_quotes(char *line);
+void		set_quote(char *line, int *quote);
 char		*get_string(char *line, int *i);
+void		set_node_values(t_lexer **node, char *str, int *i);
 char		*quote_substr(char *line, int end);
 void		add_quote_index(int quote, char *line, int *x);
 

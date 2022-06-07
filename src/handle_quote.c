@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 14:50:17 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:34:18 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 14:26:23 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,33 @@ void	add_quote_index(int quote, char *line, int *x)
 	*x += i + 1;
 }
 
-char	*get_string(char *line, int *i)
+void	set_quote(char *line, int *quote)
 {
-	int	quote;
-	int	x;
+	int x;
 
 	x = 0;
 	while (line[x])
 	{
 		if (line[x] == 39)
 		{
-			quote = 39;
+			*quote = 39;
 			break ;
 		}
 		if (line[x] == 34)
 		{
-			quote = 34;
+			*quote = 34;
 			break ;
 		}
 		x++;
 	}
+}
+
+char	*get_string(char *line, int *i)
+{
+	int	quote;
+	int	x;
+
+	set_quote(line, &quote);
 	x = 0;
 	while (!iswhitespace(line[x]) && line[x])
 	{
