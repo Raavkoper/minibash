@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:37:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/30 13:44:04 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 11:33:13 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,54 +20,25 @@ void	ft_echo(char **cmd_table)
 		return ;
 	}
 	if (!check_add_n(*cmd_table) && ft_strncmp(*cmd_table, "-n", 3))
-	{
-		while (*cmd_table)
-		{
-			if (*cmd_table[0] == '~')
-			{
-				if (check_add_chars(*cmd_table) == 1)
-				{
-					printf("%s", getenv("HOME"));
-					cmd_table++;
-					if (*cmd_table)
-						printf(" ");
-					continue ;
-				}
-				if (check_add_chars(*cmd_table) == 2)
-				{
-					printf("%s", getenv("HOME"));
-					printf("%s", *cmd_table);
-					cmd_table++;
-					if (*cmd_table)
-						printf(" ");
-					continue ;
-				}
-			}
-			printf("%s", *cmd_table);
-			printf(" ");
-			cmd_table++;
-		}
-		printf("\n");
-		return ;
-	}
-	while (*cmd_table && (check_add_n(*cmd_table) || !ft_strncmp(*cmd_table, "-n", 3)))
+		return (print_echo(cmd_table, 1));
+	while (*cmd_table && (check_add_n(*cmd_table) || \
+		!ft_strncmp(*cmd_table, "-n", 3)))
 		cmd_table++;
+	if (*cmd_table)
+		return (print_echo(cmd_table, 0));
+}
+
+void	print_echo(char **cmd_table, int nl)
+{
 	while (*cmd_table)
 	{
 		if (*cmd_table[0] == '~')
 		{
-			if (check_add_chars(*cmd_table) == 1)
+			if (check_add_chars(*cmd_table))
 			{
 				printf("%s", getenv("HOME"));
-				cmd_table++;
-				if (*cmd_table)
-					printf(" ");
-				continue ;
-			}
-			if (check_add_chars(*cmd_table) == 2)
-			{
-				printf("%s", getenv("HOME"));
-				printf("%s", *cmd_table);
+				if (check_add_chars(*cmd_table) == 2)
+					printf("%s", &cmd_table[0][1]);
 				cmd_table++;
 				if (*cmd_table)
 					printf(" ");
@@ -79,6 +50,8 @@ void	ft_echo(char **cmd_table)
 		if (*cmd_table)
 			printf(" ");
 	}
+	if (nl)
+		printf("\n");
 }
 
 int	check_add_n(char *str)

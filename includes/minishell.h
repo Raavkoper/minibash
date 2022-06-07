@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/06 14:45:07 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 11:10:29 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,18 +168,19 @@ char		*get_old_pwd(char **env);
 void		directory_split(void);
 void		find_home_dir(char status);
 void		ft_echo(char **cmd_table);
+void		print_echo(char **cmd_table, int nl);
 int			check_add_n(char *str);
 int			check_add_chars(char *str);
 
 /* general functions */
-int		iswhitespace(char c);
-int		istoken(char c);
-int 	is_double(int c);
-int		isquote(char *line);
-int		is_redirection(char c);
-int		isis(char *line);
-int		dp_len(char **arr);
-int		isdollar(char *line);
+int			iswhitespace(char c);
+int			istoken(char c);
+int 		is_double(int c);
+int			isquote(char *line);
+int			is_redirection(char c);
+int			isis(char *line);
+int			dp_len(char **arr);
+int			isdollar(char *line);
 
 /* free functions */
 void		free_redirections(t_parser **parser);

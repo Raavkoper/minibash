@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:40:13 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 10:54:43 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	quote_checker(int *sq, int *dq, char c)
 char	*cpy_env_var(char **env, char *var, int *x)
 {
 	int	len;
-	int	env_len;
 	int	i;
 
 	i = 0;
@@ -63,10 +62,9 @@ char	*cpy_env_var(char **env, char *var, int *x)
 	i = 0;
 	while (env[i])
 	{
-		env_len = varname_len(env[i]);
-		if (env_len == len)
+		if (varname_len(env[i]) == len)
 		{
-			if (!export_strncmp(env[i], var, env_len))
+			if (!export_strncmp(env[i], var, len))
 			{
 				*x += len + 1;
 				return (ft_strdup(&env[i][len + 1]));
