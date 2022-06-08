@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/06 11:00:50 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/06 15:45:27 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ typedef struct s_red
 typedef struct s_parser
 {
 	char			**command;
-	t_red			*red;
+	int				has_red;
 	struct s_parser	*next;
 }				t_parser;
 
 typedef struct s_data
 {
+	t_red		*red;
 	t_lexer		*lexer;
 	t_parser	*parser;
 	char		**env;
@@ -129,7 +130,7 @@ char		*get_path(char **env);
 void		shell_pipex(t_data *data);
 void		child_process(t_parser *parser, char **env);
 void    	create_pipes(int in, int tmpout, t_parser *parser);
-void		check_redirections(t_parser *parser);
+void		check_redirections(t_data *data);
 void		end_pipes(char *hid_name, int tmpin, int tmpout);
 
 /* heredoc functions */
@@ -181,7 +182,7 @@ int		dp_len(char **arr);
 int		isdollar(char *line);
 
 /* free functions */
-void		free_redirections(t_parser **parser);
+void		free_redirections(t_red **red);
 void		free_lexer(t_lexer **lexer);
 void		free_parser(t_parser **parser);
 void		free_dp(char **arr);

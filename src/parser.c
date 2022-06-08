@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/06 10:00:04 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/06 14:47:14 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	parser(t_data *data)
 			if (!data->lexer->token)
 				add_command(data->parser, data->lexer->command, commands, data->env);
 			else if ((data->lexer && is_redirection(data->lexer->token)) 
-			|| is_double(data->lexer->token))
+				|| is_double(data->lexer->token))
 			{
+				data->parser->has_red = 1;
 				if (data->lexer->next)
 					data->lexer = data->lexer->next->next;
 				else
@@ -91,6 +92,7 @@ void	init_parser(t_parser **parser)
 		exit(EXIT_FAILURE);
 	new_node->command = NULL;
 	new_node->next = NULL;
+	new_node->has_red = 0;
 	if (*parser == NULL)
 	{
 		*parser = new_node;
@@ -155,7 +157,7 @@ void	print_parser(t_parser *parser)
 			temp = parser->command;
 		while (*parser->command)
 		{
-			printf("command table %d command %d = %s\n", j, i, *parser->command);
+			printf("command table %d command %d = %s red= %d\n", j, i, *parser->command, parser->has_red);
 			parser->command++;
 			i++;
 		}

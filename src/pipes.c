@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/06 11:38:41 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/06 15:47:44 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,30 @@ void	create_pipes(int in, int tmpout, t_parser *parser)
 	close(out);
 }
 
-void	check_redirections(t_parser *parser)
+void	check_redirections(t_data *data)
 {
 	int			out;
 	int			in;
 	t_red		*headref;
 
-	headref	= parser->red;
-	while (parser->red)
+	headref	= data->red;
+	while (data->red)
 	{
-		if (parser->red->token == INFILE)
+		if (data->red->token == INFILE)
 		{
-			in = check_file(parser->red->file);
+			in = check_file(data->red->file);
 			dup2(in, STDIN);
 			close(in);
 		}
-		if (parser->red->token == OUTFILE || parser->red->token == D_OUTFILE)
+		if (data->red->token == OUTFILE || data->red->token == D_OUTFILE)
 		{
-			out = outfile(parser->red);
+			out = outfile(data->red);
 			dup2(out, STDOUT);
 			close(out);
 		}
-		parser->red = parser->red->next;
+		data->red = data->red->next;
 	}
-	parser->red = headref;
+	data->red = headref;
 }
 
 void	shell_pipex(t_data *data)
@@ -97,11 +97,14 @@ void	shell_pipex(t_data *data)
 	int			tmpout;
 	int			in;
 	char		*hid_name;
+	t_parser	*cabezarefenetie;
+	int			i;
 
 	tmpin = dup(STDIN);
 	tmpout = dup(STDOUT);
 	in = dup(tmpin);
 	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
+	cabezarefenetie = data->parser;
 	while (data->parser)
 	{
 		if (check_heredoc(data->lexer))
@@ -110,9 +113,11 @@ void	shell_pipex(t_data *data)
 			open_heredoc(data);
 		}
 		create_pipes(in, tmpout, data->parser);
-		check_redirections(data->parser);
+		if (data->parser->has_red)
+			check_redirections(data);
 		child_process(data->parser, data->env);
 		data->parser = data->parser->next;
 	}
+	data->parser = cabezarefenetie;
 	end_pipes(hid_name, tmpin, tmpout);
 }

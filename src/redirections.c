@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirections.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/04 13:10:24 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:47:57 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/06 15:11:58 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ void	redirections(t_data *data)
 	t_red		*red_head;
 	t_lexer		*lexer_head;
 	
-	data->parser->red = NULL;
+	data->red = NULL;
 	if (!data->lexer)
 		return ;
 	nodes = count_redirections(data->lexer) + 1;
 	while (nodes--)
-		init_red(&data->parser->red);
-	red_head = data->parser->red;
+		init_red(&data->red);
+	red_head = data->red;
 	lexer_head = data->lexer;
 	while (data->lexer)
 	{
 		if (is_redirection(data->lexer->token) || is_double(data->lexer->token))
 		{
-			data->parser->red->token = data->lexer->token;
+			data->red->token = data->lexer->token;
 			if (data->lexer->next && data->lexer->next->command)
-				data->parser->red->file = ft_strdup(data->lexer->next->command);
-			data->parser->red = data->parser->red->next;
+				data->red->file = ft_strdup(data->lexer->next->command);
+			data->red = data->red->next;
 		}
 		data->lexer = data->lexer->next;
 	}
-	data->parser->red = red_head;
+	data->red = red_head;
 	data->lexer = lexer_head;
 }
 

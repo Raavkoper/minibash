@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:32 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/06 11:26:53 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/06 15:51:12 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	run_shell(t_data *data)
 		if (line && line[0])
 		{
 			free_lexer(&data->lexer);
-			free_redirections(&data->parser);
+			free_redirections(&data->red);
 			free_parser(&data->parser);
 			lexer(data, line);
 			//print_lexer(data->lexer);
@@ -56,7 +56,7 @@ void	run_shell(t_data *data)
 			redirections(data);
 			//print_redirections(data->parser->red);
 			shell_pipex(data);
-			// executor(data);
+			//executor(data);
 		}
 		free(line);
 		//system("leaks minishell");
