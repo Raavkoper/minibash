@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:36:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/07 11:43:08 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/08 15:38:14 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,50 +16,69 @@ void	ft_cd(char ***env, char **cmd_table)
 {	
 	char	*old_path;
 	char	*new_path;
-	int		changed;
 
-	changed = 0;
 	old_path = safe_calloc(sizeof(char), ft_strlen(ft_pwd(0)) + 8);
 	ft_strlcat(old_path, "OLDPWD=", 8);
 	ft_strlcat(old_path, ft_pwd(0), 260);
-	if (!*cmd_table || ((*cmd_table[0] == '~' && !cmd_table[1])))
+	if (!change_pwd(cmd_table, *env, old_path))
 	{
-		if (chdir(getenv("HOME")))
-		{
-			printf("error near cd\n");
-			return ;
-		}
-		changed++;
+		remove_line_from_env(env, "PWD");
+		remove_line_from_env(env, "OLDPWD");
+		add_line_to_env(env, old_path);
+		new_path = safe_calloc(sizeof(char), ft_strlen(ft_pwd(0)) + 5);
+		ft_strlcat(new_path, "PWD=", 8);
+		ft_strlcat(new_path, ft_pwd(0), 260);
+		add_line_to_env(env, new_path);
+		free(new_path);
+		free(old_path);
 	}
-	if (!changed && *cmd_table[0] == '-' && !cmd_table[0][1])
+}
+
+int	change_pwd(char **cmd_table, char **env, char *old_path)
+{
+	if (change_pwd2(cmd_table))
+		return (0);
+	if (*cmd_table[0] == '-' && !cmd_table[0][1])
 	{
-		if (chdir(get_old_pwd(*env)))
-		{
-			printf("failed to cwd to OLDPWD\n");
-			return ;
-		}
+		if (chdir(get_old_pwd(env)))
+			return (printf("failed to cwd to OLDPWD\n"));
 		ft_pwd(1);
-		changed++;
 	}
-	if (!changed)
+	else
 	{
 		if (chdir(*cmd_table))
 		{
-			printf("minishell: cd: %s: No such file or directory\n", *cmd_table);
 			free(old_path);
-			return ;
+			return (printf("minishell: cd: %s: No such file or directory\n", \
+			*cmd_table));
 		}
-		changed++;
 	}
-	remove_line_from_env(env, "PWD");
-	remove_line_from_env(env, "OLDPWD");
-	add_line_to_env(env, old_path);
-	new_path = safe_calloc(sizeof(char), ft_strlen(ft_pwd(0)) + 5);
-	ft_strlcat(new_path, "PWD=", 8);
-	ft_strlcat(new_path, ft_pwd(0), 260);
-	add_line_to_env(env, new_path);
-	free(new_path);
-	free(old_path);
+	return (0);
+}
+
+int	change_pwd2(char **cmd_table)
+{
+	char *temp;
+
+	if (!*cmd_table || ((*cmd_table[0] == '~' && (!cmd_table[0][1] \
+	|| cmd_table[0][1] == '/'))))
+	{
+		if (!*cmd_table)
+		{
+			if (chdir(getenv("HOME")))
+				return (printf("error near cd\n"));
+			return (1);
+		}
+		temp = ft_strjoin(getenv("HOME"), &cmd_table[0][1]);
+		if (chdir(temp))
+		{
+			free(temp);
+			return (printf("error near cd\n"));
+		}
+		free(temp);
+		return (1);
+	}
+	return (0);
 }
 
 char	*get_old_pwd(char **env)
