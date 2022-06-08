@@ -1,0 +1,17 @@
+ls -la | wc -ls -la | wc -l > hoi | wc hoi poep
+
+command table 0 command 0 = ls red= 0
+command table 0 command 1 = -la red= 0
+command table 1 command 0 = wc red= 1
+command table 1 command 1 = -l red= 1
+command table 2 command 0 = wc red= 0
+command table 2 command 1 = hoi red= 0
+command table 2 command 2 = poep red= 0
+
+command table 0 command 0 = ls red= 0
+command table 0 command 1 = -la red= 0
+command table 1 command 0 = wc red= 1
+command table 1 command 1 = -l red= 1
+command table 2 command 0 = wc red= 0
+command table 2 command 1 = hoi red= 0
+command table 2 command 2 = poep red= 0

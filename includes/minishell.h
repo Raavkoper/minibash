@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/08 15:36:01 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/08 15:54:39 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int			wordcount(char const *s);
 void		init_parser(t_parser **parser);
 void		add_command(t_parser *parser, char *str, int commands, char **env);
 void		parser(t_data *data);
+void		parser2(t_data *data, int commands);
 void		print_parser(t_parser *parser);
 
 /* redirection functions */
