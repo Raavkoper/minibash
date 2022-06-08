@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/07 14:28:23 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/08 11:22:06 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv, char **env)
 		printf("invalid amount of arguments given... Usage:./minishell\n");
 		exit(1);
 	}
-	// handle_signals();
 	run_shell(&data);
 	return (0);
 }

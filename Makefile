@@ -29,13 +29,13 @@ all: $(LIBFT) $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INC) -I $(READLINE_DIR)/include -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INC) -I $(READLINE_DIR)/include/ -c -o $@ $<
 
 $(LIBFT):
 	$(MAKE) -C libraries/libft
 
 $(NAME): $(LIBFT) $(OBJS) 
-	@$(CC) $(CFLAGS) $(INC) -lreadline $^ -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC) -I $(READLINE_DIR)/include/ -L $(READLINE_DIR)/lib/ -lreadline $^ -o $(NAME)
 	@echo "\033[92mFiles made 🤔\033[0m"
 
 run: $(NAME)
