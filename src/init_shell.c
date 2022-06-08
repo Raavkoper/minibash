@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_shell.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 11:34:32 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/06 15:51:12 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init_shell.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/08 12:08:09 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	run_shell(t_data *data)
 	char	*line;
 
 	welcome();
+	handle_signals();
 	while (1)
 	{
 		line = init_shell();
@@ -49,16 +50,16 @@ void	run_shell(t_data *data)
 			free_redirections(&data->red);
 			free_parser(&data->parser);
 			lexer(data, line);
-			//print_lexer(data->lexer);
+			// print_lexer(data->lexer);
 			error_check(&data->lexer);
 			parser(data);
 			//print_parser(data->parser);
 			redirections(data);
-			//print_redirections(data->parser->red);
-			shell_pipex(data);
-			//executor(data);
+			//print_redirections(data->parser->r~ed);
+			// shell_pipex(data);
+			executor(data);
 		}
 		free(line);
-		//system("leaks minishell");
-	}
+		system("leaks minishell");
+		}
 }

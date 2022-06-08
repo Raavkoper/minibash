@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/06 15:45:27 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/08 12:07:31 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ char		*mod_substr(char *str, int *i);
 void		append_list(t_lexer **lexer, char *str, int *i);
 void		print_lexer(t_lexer *lexer);
 int			check_quotes(char *line);
+void		set_quote(char *line, int *quote);
 char		*get_string(char *line, int *i);
+void		set_node_values(t_lexer **node, char *str, int *i);
 char		*quote_substr(char *line, int end);
 void		add_quote_index(int quote, char *line, int *x);
 
@@ -168,18 +170,19 @@ char		*get_old_pwd(char **env);
 void		directory_split(void);
 void		find_home_dir(char status);
 void		ft_echo(char **cmd_table);
+void		print_echo(char **cmd_table, int nl);
 int			check_add_n(char *str);
 int			check_add_chars(char *str);
 
 /* general functions */
-int		iswhitespace(char c);
-int		istoken(char c);
-int 	is_double(int c);
-int		isquote(char *line);
-int		is_redirection(char c);
-int		isis(char *line);
-int		dp_len(char **arr);
-int		isdollar(char *line);
+int			iswhitespace(char c);
+int			istoken(char c);
+int 		is_double(int c);
+int			isquote(char *line);
+int			is_redirection(char c);
+int			isis(char *line);
+int			dp_len(char **arr);
+int			isdollar(char *line);
 
 /* free functions */
 void		free_redirections(t_red **red);

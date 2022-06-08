@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:36:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:27:45 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/07 11:43:08 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_cd(char ***env, char **cmd_table)
 	int		changed;
 
 	changed = 0;
-	old_path = safe_calloc(sizeof(char), ft_strlen(ft_pwd(0)) + 7);
+	old_path = safe_calloc(sizeof(char), ft_strlen(ft_pwd(0)) + 8);
 	ft_strlcat(old_path, "OLDPWD=", 8);
 	ft_strlcat(old_path, ft_pwd(0), 260);
 	if (!*cmd_table || ((*cmd_table[0] == '~' && !cmd_table[1])))
