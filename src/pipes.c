@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipes.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/09 14:19:01 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
+/*   Updated: 2022/06/09 14:54:08 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ char	*execute(t_parser *parser, char **env)
 	cmdarg = parser->command;
 	final_cmd = search_path(paths, *cmdarg);
 	if (final_cmd == NULL)
+	{
+		printf("minishell: %s: command not found\n", *cmdarg);
+		g_exit_code = 127;
 		exit(1);
+	}
 	else
 		execve(final_cmd, cmdarg, env);
-	perror("could not execute");
 	return (0);
 }
 
@@ -48,7 +51,7 @@ void	child_process(t_parser *parser, char **env)
 	else
 		waitpid(id, &status, 0);
 	if (status)
-		g_exit_code = status;
+		g_exit_code = 127;
 }
 
 void	create_pipes(int in, int tmpout, t_parser *parser)
@@ -108,13 +111,10 @@ void	shell_pipex(t_data *data)
 	tmp = data->parser;
 	while (data->parser)
 	{
-		if (!check_shell(data) || !find_command(data, *data->parser->command, data->parser->command))
+		if (!check_shell(data) || !find_command(data,
+				*data->parser->command, data->parser->command))
 		{
-			if (check_heredoc(data->lexer))
-			{
-				in = open(hid_name, O_RDONLY);
-				open_heredoc(data);
-			}
+			heredoc(data, hid_name, &in);
 			create_pipes(in, tmpout, data->parser);
 			if (data->parser->has_red)
 				check_redirections(data);
@@ -124,15 +124,4 @@ void	shell_pipex(t_data *data)
 	}
 	data->parser = tmp;
 	end_pipes(hid_name, tmpin, tmpout);
-}
-
-int	check_shell(t_data *data)
-{
-	if (!data->lexer)
-		return (0);
-	if (check_heredoc(data->lexer))
-		return (0);
-	if (data->parser->has_red)
-		return (0);
-	return (1);
 }

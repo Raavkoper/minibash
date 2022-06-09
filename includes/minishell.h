@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 14:14:19 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/09 14:44:35 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		add_quote_index(int quote, char *line, int *x);
 /* parser functions */
 t_parser	*init_cmdtable(t_parser *parser);
 int			count_pipes(t_lexer *lexer);
-int			count_commands(t_lexer *lexer, char **env);
+int			count_commands(t_lexer *lexer);
 int			list_len(t_parser *parser);
 int			wordcount(char const *s);
 void		init_parser(t_parser **parser);
@@ -154,6 +154,9 @@ char		*get_path(char **env);
 void		shell_pipex(t_data *data);
 void		child_process(t_parser *parser, char **env);
 void		create_pipes(int in, int tmpout, t_parser *parser);
+void		heredoc(t_data *data, char *hid_name, int *in);
+
+
 
 /* builtin functions */
 void		ft_env(char **env);

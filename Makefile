@@ -2,7 +2,7 @@ NAME = minishell
 
 HEADER = includes/minishell.h 
 
-CFLAGS = -g 
+CFLAGS = -g -Wall -Werror -Wextra
 
 #LDFLAGS = -lreadline 
 

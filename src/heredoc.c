@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 09:20:22 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/08 15:42:09 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/09 14:27:50 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,13 @@ void	open_heredoc(t_data *data)
 	free(hid_name);
 	free(line);
 	close(fd);
+}
+
+void	heredoc(t_data *data, char *hid_name, int *in)
+{
+	if (check_heredoc(data->lexer))
+	{
+		*in = open(hid_name, O_RDONLY);
+		open_heredoc(data);
+	}
 }
