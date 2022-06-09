@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 10:48:53 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/09 12:16:11 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   error.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/06/09 12:28:10 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	*safe_calloc(size_t count, size_t size)
 	if (!ptr)
 	{
 		write(2, "failed to allocate memory\n", 27);
+		g_exit_code = 137;
 		exit(1);
 	}
 	return (ptr);
-	g_exit_code = 137;
 }
 
 char	*exit_code()
