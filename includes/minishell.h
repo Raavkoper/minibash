@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/09 11:47:53 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/09 12:21:37 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			wordcount(char const *s);
 void		init_parser(t_parser **parser);
 void		add_command(t_parser *parser, char *str, int commands, char **env);
 void		parser(t_data *data);
+void		parser2(t_data *data, int commands);
 void		print_parser(t_parser *parser);
 
 /* redirection functions */
@@ -170,6 +171,8 @@ void		remove_line_from_env(char ***env, char *var);
 void		ft_unset(char ***env, char **cmd_table);
 char		*ft_pwd(int status);
 void		ft_cd(char ***env, char **cmd_table);
+int			change_pwd(char **cmd_table, char **env, char *old_path);
+int			change_pwd2(char **cmd_table);
 char		*get_old_pwd(char **env);
 void		directory_split(void);
 void		find_home_dir(char status);
