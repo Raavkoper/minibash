@@ -35,6 +35,7 @@ void	ft_export(char ***env, char **cmd_table)
 	}
 	if (*cmd_table && !ft_isalpha(*cmd_table[0]))
 		printf("minishell: export: %s: not a valid identifier\n", *cmd_table);
+	g_exit_code = 1;
 }
 
 char	**sort_env(char **env)

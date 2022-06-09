@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_shell.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/08 12:08:09 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/26 11:34:32 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/09 11:58:41 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	run_shell(t_data *data)
 	char	*line;
 
 	welcome();
-	handle_signals();
+	// handle_signals();
 	while (1)
 	{
 		line = init_shell();
@@ -56,10 +56,10 @@ void	run_shell(t_data *data)
 			//print_parser(data->parser);
 			redirections(data);
 			//print_redirections(data->parser->r~ed);
-			// shell_pipex(data);
-			executor(data);
+			shell_pipex(data);
+			//executor(data);
 		}
 		free(line);
-		system("leaks minishell");
-		}
+		//system("leaks minishell");
+	}
 }

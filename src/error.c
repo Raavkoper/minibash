@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:46:17 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/05 10:48:53 by cdiks             #+#    #+#             */
+/*   Updated: 2022/06/09 12:16:11 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	print_error(t_lexer **lexer, int token)
 		(char)token);
 	free_lexer(lexer);
 	lexer = NULL;
+	g_exit_code = 258;
 }
 
 int	valid_token(t_lexer *lexer, int *token)
@@ -61,6 +62,7 @@ int	valid_token(t_lexer *lexer, int *token)
         *token = 0;
         return (0);
     }
+	g_exit_code = 1;
 	return (1);
 }
 
@@ -75,4 +77,14 @@ void	*safe_calloc(size_t count, size_t size)
 		exit(1);
 	}
 	return (ptr);
+	g_exit_code = 137;
+}
+
+char	*exit_code()
+{
+	int tmp;
+
+	tmp = g_exit_code;
+	g_exit_code = 0;
+	return (ft_itoa(tmp));
 }

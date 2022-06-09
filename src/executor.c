@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:46:25 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/07 12:51:06 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/08 16:10:59 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ int	find_command(t_data *data, char *command, char **cmd_table)
 	else if (!ft_strncmp(command, "unset", 6))
 		ft_unset(&data->env, ++cmd_table);
 	else
-	{
-		printf("minishell: %s: command not found\n", command);
 		return (0);
-	}
 	return (1);
 }

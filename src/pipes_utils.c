@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipes_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:47:37 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipes_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
+/*   Updated: 2022/06/08 15:45:20 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ char	*search_path(char **paths, char *cmdarg)
 		i++;
 	}
 	return (NULL);
+}
+
+void	start_pipes(int *in, int *tmpin, int *tmpout)
+{
+	*tmpin = dup(STDIN);
+	*tmpout = dup(STDOUT);
+	*in = dup(*tmpin);
 }
 
 void	end_pipes(char *hid_name, int tmpin, int tmpout)

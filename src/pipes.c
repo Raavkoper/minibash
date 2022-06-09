@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/06 15:47:44 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/09 10:57:02 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ char	*execute(t_parser *parser, char **env)
 void	child_process(t_parser *parser, char **env)
 {
 	pid_t	id;
+	int 	status;
 
 	id = fork();
+	status = 0;
 	if (id < 0)
 	{
 		perror("fork failed");
@@ -44,7 +46,9 @@ void	child_process(t_parser *parser, char **env)
 	else if (id == 0)
 		execute(parser, env);
 	else
-		waitpid(id, NULL, 0);
+		waitpid(id, &status, 0);
+	if (status)
+		g_exit_code = status;
 }
 
 void	create_pipes(int in, int tmpout, t_parser *parser)
@@ -71,7 +75,7 @@ void	check_redirections(t_data *data)
 	int			in;
 	t_red		*headref;
 
-	headref	= data->red;
+	headref = data->red;
 	while (data->red)
 	{
 		if (data->red->token == INFILE)
@@ -97,27 +101,38 @@ void	shell_pipex(t_data *data)
 	int			tmpout;
 	int			in;
 	char		*hid_name;
-	t_parser	*cabezarefenetie;
-	int			i;
+	t_parser	*tmp;
 
-	tmpin = dup(STDIN);
-	tmpout = dup(STDOUT);
-	in = dup(tmpin);
+	start_pipes(&in, &tmpin, &tmpout);
 	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
-	cabezarefenetie = data->parser;
+	tmp = data->parser;
 	while (data->parser)
 	{
-		if (check_heredoc(data->lexer))
+		if (!check_shell(data) || !find_command(data, *data->parser->command, data->parser->command))
 		{
-			in = open(hid_name, O_RDONLY);
-			open_heredoc(data);
+			if (check_heredoc(data->lexer))
+			{
+				in = open(hid_name, O_RDONLY);
+				open_heredoc(data);
+			}
+			create_pipes(in, tmpout, data->parser);
+			if (data->parser->has_red)
+				check_redirections(data);
+			child_process(data->parser, data->env);
 		}
-		create_pipes(in, tmpout, data->parser);
-		if (data->parser->has_red)
-			check_redirections(data);
-		child_process(data->parser, data->env);
 		data->parser = data->parser->next;
 	}
-	data->parser = cabezarefenetie;
+	data->parser = tmp;
 	end_pipes(hid_name, tmpin, tmpout);
+}
+
+int	check_shell(t_data *data)
+{
+	if (!data->lexer)
+		return (0);
+	if (check_heredoc(data->lexer))
+		return (0);
+	if (data->parser->has_red)
+		return (0);
+	return (1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/08 12:07:31 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/09 11:47:53 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define STDERR 2
 
 # include "../libraries/libft/libft.h"
+
+int g_exit_code;
 
 typedef enum e_tokens
 {
@@ -123,6 +125,7 @@ void		three_ints_tozero(int *a, int *b, int *c);
 void		executor(t_data *data);
 int			find_command(t_data *data, char *command, char **cmd_table);
 int			outfile(t_red *red);
+int			check_shell(t_data *data);
 int			has_outfile(t_lexer *lexer);
 int			check_doubles(t_lexer *lexer);
 int			check_file(char *name);
@@ -138,6 +141,7 @@ void		end_pipes(char *hid_name, int tmpin, int tmpout);
 /* heredoc functions */
 char		*check_heredoc(t_lexer *lexer);
 void		open_heredoc(t_data *data);
+void		start_pipes(int *in, int *tmpin, int *tmpout);
 int 		check_end(char *input, char *filename);
 void		executor(t_data *data);
 int			find_command(t_data *data, char *command, char **cmd_table);
@@ -197,11 +201,6 @@ int			isis(char *line);
 int			dp_len(char **arr);
 int			isdollar(char *line);
 
-/* free functions */
-void		free_lexer(t_lexer **lexer);
-void		free_parser(t_parser **parser);
-void		free_dp(char **arr);
-
 /* signal functions */
 void		handle_signals(void);
 void		new_prompt(int sig);
@@ -211,5 +210,7 @@ void		error_check(t_lexer **lexer);
 int			valid_token(t_lexer *lexer, int *token);
 void		print_error(t_lexer **lexer, int token);
 void		*safe_calloc(size_t count, size_t size);
+char		*exit_code();
+
 
 #endif

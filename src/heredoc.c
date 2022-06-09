@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 09:20:22 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/03 11:44:23 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/08 15:42:09 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,6 @@ int	check_end(char *input, char *filename)
 {
 	return (ft_strncmp(input, filename, ft_strlen(filename)));
 }
-
-// char	*check_heredoc(t_parser *parser)
-// {
-// 	t_red	*tmp;
-
-// 	tmp = parser->red;
-// 	while (parser->red)
-// 	{
-// 		if (parser->red->token == D_INFILE)
-// 			return (parser->red->file);
-// 		parser->red = parser->red->next;
-// 		printf("%d\n", parser->red->token);
-// 	}
-// 	parser->red = tmp;
-// 	return (NULL);
-// }
 
 char	*check_heredoc(t_lexer *lexer)
 {
