@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:03:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/07 11:53:52 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:15:15 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	remove_line_from_env(char ***env, char *var)
 	new_env = safe_calloc(dp_len(*env) + 1, sizeof(char *));
 	while (env[0][i])
 	{
-		if (len == export_var_len(env[0][i]) && !ft_strncmp(env[0][i], var, len))
+		if (len == export_var_len(env[0][i]) && \
+		!ft_strncmp(env[0][i], var, len))
 			i++;
 		else
 			new_env[j++] = ft_strdup(env[0][i]);

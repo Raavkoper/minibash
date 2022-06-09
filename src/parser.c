@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/08 15:57:40 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:18:45 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,8 @@ void	print_parser(t_parser *parser)
 			temp = parser->command;
 		while (*parser->command)
 		{
-			printf("command table %d command %d = %s red= %d\n", j, i, *parser->command, parser->has_red);
+			printf("command table %d command %d = %s red= %d\n", \
+			j, i, *parser->command, parser->has_red);
 			parser->command++;
 			i++;
 		}

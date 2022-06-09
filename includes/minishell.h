@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 12:26:01 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:14:19 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # include "../libraries/libft/libft.h"
 
-int			g_exit_code;
+int	g_exit_code;
 
 typedef enum e_tokens
 {
@@ -135,7 +135,7 @@ char		*search_path(char **paths, char *cmdarg);
 char		*get_path(char **env);
 void		shell_pipex(t_data *data);
 void		child_process(t_parser *parser, char **env);
-void    	create_pipes(int in, int tmpout, t_parser *parser);
+void		create_pipes(int in, int tmpout, t_parser *parser);
 void		check_redirections(t_data *data);
 void		end_pipes(char *hid_name, int tmpin, int tmpout);
 
@@ -143,7 +143,7 @@ void		end_pipes(char *hid_name, int tmpin, int tmpout);
 char		*check_heredoc(t_lexer *lexer);
 void		open_heredoc(t_data *data);
 void		start_pipes(int *in, int *tmpin, int *tmpout);
-int 		check_end(char *input, char *filename);
+int			check_end(char *input, char *filename);
 void		executor(t_data *data);
 int			find_command(t_data *data, char *command, char **cmd_table);
 int			ft_word_check(char const *s);
@@ -184,7 +184,7 @@ int			check_add_chars(char *str);
 /* general functions */
 int			iswhitespace(char c);
 int			istoken(char c);
-int 		is_double(int c);
+int			is_double(int c);
 int			isquote(char *line);
 int			is_redirection(char c);
 int			isis(char *line);
@@ -213,7 +213,6 @@ void		error_check(t_lexer **lexer);
 int			valid_token(t_lexer *lexer, int *token);
 void		print_error(t_lexer **lexer, int token);
 void		*safe_calloc(size_t count, size_t size);
-char		*exit_code();
-
+char		*exit_code(void);
 
 #endif

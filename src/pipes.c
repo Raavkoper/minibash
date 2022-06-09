@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/09 13:58:57 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:19:01 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*execute(t_parser *parser, char **env)
 void	child_process(t_parser *parser, char **env)
 {
 	pid_t	id;
-	int 	status;
+	int		status;
 
 	id = fork();
 	status = 0;

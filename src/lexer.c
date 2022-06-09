@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/07 13:33:59 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:18:11 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*mod_substr(char *str, int *i)
 	x = 0;
 	if (!str)
 		return (NULL);
-	while (!iswhitespace(str[start]) && str[start] && !istoken(str[start]) 
+	while (!iswhitespace(str[start]) && str[start] && !istoken(str[start])
 		&& !is_double(str[start]))
 		start++;
 	sub = safe_calloc(start + 1, sizeof(char));
@@ -110,7 +110,8 @@ void	print_lexer(t_lexer *lexer)
 		printf("lexer empty\n");
 	while (lexer != NULL)
 	{
-		printf("command -> %s$ token ascii -> %d index -> %d\n", lexer->command, lexer->token, lexer->index);
+		printf("command -> %s$ token ascii -> %d index -> %d\n", \
+		lexer->command, lexer->token, lexer->index);
 		lexer = lexer->next;
 	}
 }

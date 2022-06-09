@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:36:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/08 15:38:14 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:14:46 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	change_pwd(char **cmd_table, char **env, char *old_path)
 
 int	change_pwd2(char **cmd_table)
 {
-	char *temp;
+	char	*temp;
 
 	if (!*cmd_table || ((*cmd_table[0] == '~' && (!cmd_table[0][1] \
 	|| cmd_table[0][1] == '/'))))
@@ -94,38 +94,3 @@ char	*get_old_pwd(char **env)
 	}
 	return (NULL);
 }
-
-// void	find_home_dir(char status)
-// {
-// 	char	pwd[260];
-// 	char	*path;
-// 	char	*new_path;
-// 	int		i;
-// 	int		s_count;
-// 	s_count = 0;
-// 	i = 0;
-// 	path = getcwd(pwd, sizeof(pwd));
-// 	while (path[i])
-// 	{
-// 		if (s_count == 2 && (iswhitespace(path[i]) || path[i] == '/'))
-// 		{
-// 			i++;
-// 			break ;
-// 		}
-// 		if (path[i] == '/')
-// 			s_count++;
-// 		i++;
-// 	}
-// 	i++;
-// 	new_path = ft_calloc(i + 1, sizeof(char));
-// 	ft_strlcpy(new_path, path, i);
-// 	if (status == 'p')
-// 	{
-// 		printf("%s", new_path);
-// 		free(new_path);
-// 		return ;
-// 	}
-// 	if (chdir(new_path))
-// 		printf("error near cd\n");
-// 	free(new_path);
-// }

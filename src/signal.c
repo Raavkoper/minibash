@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 10:32:21 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/08 13:42:30 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:19:17 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	handle_signals(void)
 {
-	// signal(SIGINT, new_prompt);
-	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, new_prompt);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	new_prompt(int sig)

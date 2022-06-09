@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/09 12:28:10 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:16:26 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,26 @@ void	print_error(t_lexer **lexer, int token)
 
 int	valid_token(t_lexer *lexer, int *token)
 {
-    if (!lexer)
-        return (0);
-	if ((*token == '>' || *token == '|') && (!lexer->command && lexer->token != '<'))
-        return (0);
-    if ((*token == 312 || *token == 310) && (!lexer->command))
-        return (0);
-    if (*token == '<' && access(lexer->command, F_OK))
-    {
-        printf("minishell: %s: No such file or directory\n", lexer->command);
-        *token = 0;
-        return (0);
-    }
+	if (!lexer)
+		return (0);
+	if ((*token == '>' || *token == '|') && \
+	(!lexer->command && lexer->token != '<'))
+		return (0);
+	if ((*token == 312 || *token == 310) && (!lexer->command))
+		return (0);
+	if (*token == '<' && access(lexer->command, F_OK))
+	{
+		printf("minishell: %s: No such file or directory\n", lexer->command);
+		*token = 0;
+		return (0);
+	}
 	g_exit_code = 1;
 	return (1);
 }
 
 void	*safe_calloc(size_t count, size_t size)
 {
-    void	*ptr;
+	void	*ptr;
 
 	ptr = ft_calloc(count, size);
 	if (!ptr)
@@ -80,9 +81,9 @@ void	*safe_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*exit_code()
+char	*exit_code(void)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = g_exit_code;
 	g_exit_code = 0;

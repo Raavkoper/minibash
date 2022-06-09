@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 12:36:40 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:17:34 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	run_shell(t_data *data)
 	char	*line;
 
 	welcome();
-	// handle_signals();
+	handle_signals();
 	while (1)
 	{
 		line = init_shell();
