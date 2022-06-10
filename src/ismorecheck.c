@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 15:09:59 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/06 15:10:12 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/10 11:55:41 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ int	isis(char *line)
 		line++;
 	}
 	return (0);
+}
+
+int	is_wholenum(char *line)
+{
+	while (*line && ft_isdigit(*line))
+		line++;
+	if (*line)
+		return (0);
+	return (1);
 }
 
 int	isdollar(char *line)

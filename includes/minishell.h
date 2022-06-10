@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/09 14:44:35 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/10 11:52:03 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,10 @@ void		child_process(t_parser *parser, char **env);
 void		create_pipes(int in, int tmpout, t_parser *parser);
 void		heredoc(t_data *data, char *hid_name, int *in);
 
-
-
 /* builtin functions */
 void		ft_env(char **env);
 char		**env_dup(char **env, int size);
-void		ft_exit(void);
+void		ft_exit(char **cmd_table);
 void		ft_export(char	***env, char **cmd_table);
 void		print_export(char **env);
 void		export_add_quotes(char *var);
@@ -193,6 +191,7 @@ int			is_redirection(char c);
 int			isis(char *line);
 int			dp_len(char **arr);
 int			isdollar(char *line);
+int			is_wholenum(char *line);
 
 /* free functions */
 void		free_redirections(t_red **red);

@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:51:06 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 13:59:07 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/10 11:37:46 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	find_command(t_data *data, char *command, char **cmd_table)
 	if (!ft_strncmp(command, "env", 4))
 		ft_env(data->env);
 	else if (!ft_strncmp(command, "exit", 5))
-		ft_exit();
+		ft_exit(++cmd_table);
 	else if (!ft_strncmp(command, "pwd", 4))
 		ft_pwd(1);
 	else if (!ft_strncmp(command, "cd", 3))

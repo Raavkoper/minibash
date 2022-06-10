@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/23 10:58:51 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/07 14:35:22 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/10 11:00:45 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*dub_min_digit(char *str, int *x)
 		ret[i] = str[i];
 		i++;
 	}
-	*x += len + 1;
+	*x += len + 2;
 	return (ret);
 }
 

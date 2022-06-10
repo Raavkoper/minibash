@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/09 14:44:27 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/06/10 11:03:24 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,14 @@ void	add_command(t_parser *parser, char *str, int commands, char **env)
 		i++;
 	}
 	if (isdollar(str))
-	{
 		*parser->command = expander(env, str);
-		if (!parser->command[0][0])
-		{
-			free(*parser->command);
-			*parser->command = NULL;
-		}
-	}
 	else
 		*parser->command = trim_quotes(str, 0);
+	if (!parser->command[0][0])
+	{
+		free(*parser->command);
+		*parser->command = NULL;
+	}
 	while (i--)
 		parser->command--;
 }

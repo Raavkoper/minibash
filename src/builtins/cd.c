@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:36:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 14:14:46 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/10 10:35:25 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	change_pwd2(char **cmd_table)
 		if (chdir(temp))
 		{
 			free(temp);
-			return (printf("error near cd\n"));
+			return (printf("minishell: cd: %s: No such file or directory\n"\
+			, temp));
 		}
 		free(temp);
 		return (1);
