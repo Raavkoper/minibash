@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/10 10:59:10 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/16 15:37:19 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*expander(char **env, char *var)
 			i += 2;
 		}
 		else if (var[i] == '$' && var[i + 1] && \
-		!sq && !iswhitespace(var[i + 1]))
+		!sq && !iswhitespace(var[i + 1]) && var[i + 1] != '"')
 			ret = merge_str(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
 			ret = add_char(ret, var[i], &i);

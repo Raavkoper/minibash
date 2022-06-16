@@ -1,5 +1,3 @@
-echo ""
-ft_exit arguments
 program exit codes???
 unset 1kkl
 cat kgjksgjdks (exit code)
@@ -8,4 +6,3 @@ ls | < banaan | ls
 < testyy grep a | > out
 < testyy grep "a"|grep "m" | wc -l|cat -e > out
 cat + ctrl c
-expander is kapot

@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 15:09:59 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/10 11:55:41 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/14 14:28:11 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_redirection(char c)
 	return (0);
 }
 
-int	isis(char *line)
+int	is_is(char *line)
 {
 	while (*line && !iswhitespace(*line))
 	{

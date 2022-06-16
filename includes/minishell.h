@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/10 11:52:03 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/14 14:28:28 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int			istoken(char c);
 int			is_double(int c);
 int			isquote(char *line);
 int			is_redirection(char c);
-int			isis(char *line);
+int			is_is(char *line);
 int			dp_len(char **arr);
 int			isdollar(char *line);
 int			is_wholenum(char *line);
@@ -202,7 +202,7 @@ int			iswhitespace(char c);
 int			istoken(char c);
 int			isquote(char *line);
 int			is_redirection(char c);
-int			isis(char *line);
+int			is_is(char *line);
 int			dp_len(char **arr);
 int			isdollar(char *line);
 

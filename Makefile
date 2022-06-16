@@ -2,9 +2,7 @@ NAME = minishell
 
 HEADER = includes/minishell.h 
 
-CFLAGS = -g -Wall -Werror -Wextra 
-
-#LDFLAGS = -lreadline 
+CFLAGS = -g -Wall -Werror -Wextra -fsanitize=address
 
 CC = gcc 
 

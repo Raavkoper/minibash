@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 14:19:54 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/14 14:28:20 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_export(char ***env, char **cmd_table)
 		*cmd_table[0] == '_' || *cmd_table[0] == '$'))
 	{
 		export_check_dup(env, *cmd_table);
-		if (*cmd_table[0] == '$' && isis(*cmd_table))
+		if (*cmd_table[0] == '$' && is_is(*cmd_table))
 			break ;
-		else if (*cmd_table[0] == '$' && !isis(*cmd_table))
+		else if (*cmd_table[0] == '$' && !is_is(*cmd_table))
 		{
 			print_export(*env);
 			cmd_table++;
