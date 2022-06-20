@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/03 13:07:49 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/10 11:03:24 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/20 16:40:48 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parser2(t_data *data, int commands)
 	{
 		if (!data->lexer->token)
 			add_command(data->parser, data->lexer->command, \
-			commands, data->env);
+			commands, data);
 		else if ((data->lexer && is_redirection(data->lexer->token))
 			|| is_double(data->lexer->token))
 		{
@@ -60,7 +60,7 @@ void	parser2(t_data *data, int commands)
 	}
 }
 
-void	add_command(t_parser *parser, char *str, int commands, char **env)
+void	add_command(t_parser *parser, char *str, int commands, t_data *data)
 {
 	int	i;
 
@@ -73,7 +73,7 @@ void	add_command(t_parser *parser, char *str, int commands, char **env)
 		i++;
 	}
 	if (isdollar(str))
-		*parser->command = expander(env, str);
+		*parser->command = expander(data->env, str, data);
 	else
 		*parser->command = trim_quotes(str, 0);
 	if (!parser->command[0][0])

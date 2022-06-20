@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/20 14:29:06 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/20 16:39:22 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_data
 	t_red		*red;
 	t_lexer		*lexer;
 	t_parser	*parser;
+	int			exit_codes;
 	char		**env;
 }				t_data;
 
@@ -98,7 +99,8 @@ int			count_commands(t_lexer *lexer);
 int			list_len(t_parser *parser);
 int			wordcount(char const *s);
 void		init_parser(t_parser **parser);
-void		add_command(t_parser *parser, char *str, int commands, char **env);
+void		add_command(t_parser *parser, char *str, int commands, \
+			t_data *data);
 void		parser(t_data *data);
 void		parser2(t_data *data, int commands);
 void		print_parser(t_parser *parser);
@@ -110,7 +112,7 @@ void		init_red(t_red **red);
 void		print_redirections(t_red *red);
 
 /* expander functions */
-char		*expander(char **env, char *var);
+char		*expander(char **env, char *var, t_data *data);
 char		*trim_double(char *word, int index);
 char		*trim_qoutes(char *word);
 char		*cpy_env_var(char **env, char *var, int *x);
@@ -136,8 +138,10 @@ char		*get_path(char **env);
 void		shell_pipex(t_data *data);
 void		child_process(t_parser *parser, char **env);
 void		create_pipes(int in, int tmpout, t_parser *parser);
-void		check_redirections(t_data *data);
+void		check_redirections(t_red *red);
+void		check_red(t_data **data);
 void		end_pipes(char *hid_name, int tmpin, int tmpout);
+void		count_exits(t_data *data);
 
 /* heredoc functions */
 char		*check_heredoc(t_lexer *lexer);
@@ -216,6 +220,6 @@ void		error_check(t_lexer **lexer);
 int			valid_token(t_lexer *lexer, int *token);
 void		print_error(t_lexer **lexer, int token);
 void		*safe_calloc(size_t count, size_t size);
-char		*exit_code(void);
+char		*exit_code(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/20 14:27:59 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/20 17:42:48 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	child_process(t_parser *parser, char **env)
 	else if (id == 0)
 		execute(parser, env);
 	else
-		waitpid(id, &status, 0);
+		waitpid(id, &status, 0);	
 	if (status)
 		g_exit_code = 127;
 }
@@ -72,30 +72,32 @@ void	create_pipes(int in, int tmpout, t_parser *parser)
 	close(out);
 }
 
-void	check_redirections(t_data *data)
+void	check_redirections(t_red *red)
 {
 	int			out;
 	int			in;
 	t_red		*headref;
 
-	headref = data->red;
-	while (data->red)
+	headref = red;
+	while (red)
 	{
-		if (data->red->token == INFILE)
+		if (red->token == OUTFILE || red->token == D_OUTFILE)
 		{
-			in = check_file(data->red->file);
-			dup2(in, STDIN);
-			close(in);
-		}
-		if (data->red->token == OUTFILE || data->red->token == D_OUTFILE)
-		{
-			out = outfile(data->red);
+			out = outfile(red);
 			dup2(out, STDOUT);
 			close(out);
+			return ;
 		}
-		data->red = data->red->next;
+		if (red->token == INFILE)
+		{
+			in = check_file(red->file);
+			dup2(in, STDIN);
+			close(in);
+			return ;
+		}
+		red = red->next;
 	}
-	data->red = headref;
+	red = headref;
 }
 
 void	shell_pipex(t_data *data)
@@ -111,15 +113,12 @@ void	shell_pipex(t_data *data)
 	tmp = data->parser;
 	while (data->parser)
 	{
+		heredoc(data, hid_name, &in);
+		create_pipes(in, tmpout, data->parser);
+		check_red(&data);
 		if (!check_shell(data) || !find_command(data,
 				*data->parser->command, data->parser->command))
-		{
-			heredoc(data, hid_name, &in);
-			create_pipes(in, tmpout, data->parser);
-			if (data->parser->has_red)
-				check_redirections(data);
 			child_process(data->parser, data->env);
-		}
 		data->parser = data->parser->next;
 	}
 	data->parser = tmp;

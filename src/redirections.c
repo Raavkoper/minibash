@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirections.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/04 13:10:24 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 14:19:12 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/20 16:41:40 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,31 @@ void	print_redirections(t_red *red)
 		printf("red -> %d file name -> %s\n", red->token, red->file);
 		red = red->next;
 	}
+}
+
+void	count_exits(t_data *data)
+{
+	t_lexer	*tmp;
+	int		i;
+	int		exit_codes;
+
+	tmp = data->lexer;
+	exit_codes = 0;
+	while (data->lexer)
+	{
+		i = 0;
+		if (data->lexer->command)
+		{
+			if (data->lexer->command[i] == '$'
+				&& data->lexer->command[i + 1] == '?')
+			{
+				exit_codes++;
+				i = i + 2;
+			}
+			i++;
+		}
+		data->lexer = data->lexer->next;
+	}
+	data->lexer = tmp;
+	data->exit_codes = exit_codes;
 }

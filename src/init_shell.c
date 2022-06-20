@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_shell.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/20 10:33:11 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/26 11:34:32 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/20 15:28:07 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	run_shell(t_data *data)
 			free_redirections(&data->red);
 			free_parser(&data->parser);
 			lexer(data, line);
-			// print_lexer(data->lexer);
+			//print_lexer(data->lexer);
+			count_exits(data);
 			error_check(&data->lexer);
 			parser(data);
 			// print_parser(data->parser);

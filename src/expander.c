@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   expander.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/16 15:37:19 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/07 12:34:39 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/20 16:10:50 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expander(char **env, char *var)
+char	*expander(char **env, char *var, t_data *data)
 {
 	int		i;
 	char	*ret;
@@ -28,7 +28,7 @@ char	*expander(char **env, char *var)
 			ret = merge_str(ret, dub_min_digit(&var[i + 2], &i));
 		else if (var[i] == '$' && var[i + 1] == '?' && !sq)
 		{
-			ret = merge_str(ret, exit_code());
+			ret = merge_str(ret, exit_code(data));
 			i += 2;
 		}
 		else if (var[i] == '$' && var[i + 1] && \

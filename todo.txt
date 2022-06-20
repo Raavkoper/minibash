@@ -1,8 +1,0 @@
-program exit codes???
-unset 1kkl
-cat kgjksgjdks (exit code)
-ls | < banaan | ls 
-< testyy | cat -e > out
-< testyy grep a | > out
-< testyy grep "a"|grep "m" | wc -l|cat -e > out
-cat + ctrl c

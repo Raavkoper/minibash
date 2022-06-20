@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/05 10:48:53 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/09 14:16:26 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/05 10:48:53 by cdiks             #+#    #+#             */
+/*   Updated: 2022/06/20 16:40:08 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,23 @@ void	error_check(t_lexer **lexer)
 void	print_error(t_lexer **lexer, int token)
 {
 	if (token == 310)
+	{
 		printf("minishell: syntax error near unexpected token `<<'\n");
+		g_exit_code = 258;
+	}
 	else if (token == 312)
+	{
 		printf("minishell: syntax error near unexpected token `>>'\n");
+		g_exit_code = 258;
+	}
 	else if (istoken(token))
+	{
 		printf("minishell: syntax error near unexpected token `%c'\n", \
-		(char)token);
+			(char)token);
+		g_exit_code = 258;
+	}
 	free_lexer(lexer);
 	lexer = NULL;
-	g_exit_code = 258;
 }
 
 int	valid_token(t_lexer *lexer, int *token)
@@ -61,9 +69,10 @@ int	valid_token(t_lexer *lexer, int *token)
 	{
 		printf("minishell: %s: No such file or directory\n", lexer->command);
 		*token = 0;
+		g_exit_code = 1;
 		return (0);
 	}
-	g_exit_code = 1;
+	g_exit_code = 0;
 	return (1);
 }
 
@@ -81,11 +90,13 @@ void	*safe_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*exit_code(void)
+char	*exit_code(t_data *data)
 {
 	int	tmp;
 
 	tmp = g_exit_code;
-	g_exit_code = 0;
+	data->exit_codes--;
+	if (!data->exit_codes)
+		g_exit_code = 0;
 	return (ft_itoa(tmp));
 }

@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 09:20:22 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/09 14:27:50 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/20 16:08:38 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	open_heredoc(t_data *data)
 	filename = check_heredoc(data->lexer);
 	fd = open(hid_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	line = readline("heredoc> ");
+	if (line)
+		line = expander(data->env, line, data);
 	while (line)
 	{
 		if (!check_end(line, filename))
@@ -51,6 +53,7 @@ void	open_heredoc(t_data *data)
 		write(fd, "\n", 1);
 		free(line);
 		line = readline("heredoc> ");
+		line = expander(data->env, line, data);
 	}
 	free(hid_name);
 	free(line);
