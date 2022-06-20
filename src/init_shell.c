@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/26 11:34:32 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/16 15:35:21 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/20 10:33:11 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ char	*init_shell(void)
 	char	*line;
 
 	line = (char *)readline("\033[1m\033[32mminishell$>\x1B[0m ");
+	if (!line)
+	{
+		printf("%sExidos!%s\n", RED, NC);
+		exit (0);
+	}
 	add_history(line);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:36:55 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/10 10:35:25 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/20 09:21:36 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	change_pwd(char **cmd_table, char **env, char *old_path)
 	if (*cmd_table[0] == '-' && !cmd_table[0][1])
 	{
 		if (chdir(get_old_pwd(env)))
+		{
+			g_exit_code = 1;
 			return (printf("failed to cwd to OLDPWD\n"));
+		}
 		ft_pwd(1);
 	}
 	else
@@ -49,6 +52,7 @@ int	change_pwd(char **cmd_table, char **env, char *old_path)
 		if (chdir(*cmd_table))
 		{
 			free(old_path);
+			g_exit_code = 1;
 			return (printf("minishell: cd: %s: No such file or directory\n", \
 			*cmd_table));
 		}
@@ -66,13 +70,17 @@ int	change_pwd2(char **cmd_table)
 		if (!*cmd_table)
 		{
 			if (chdir(getenv("HOME")))
+			{
+				g_exit_code = 1;
 				return (printf("error near cd\n"));
+			}
 			return (1);
 		}
 		temp = ft_strjoin(getenv("HOME"), &cmd_table[0][1]);
 		if (chdir(temp))
 		{
 			free(temp);
+			g_exit_code = 1;
 			return (printf("minishell: cd: %s: No such file or directory\n"\
 			, temp));
 		}

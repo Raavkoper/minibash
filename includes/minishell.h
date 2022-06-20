@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/14 14:28:28 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/20 09:08:26 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void		heredoc(t_data *data, char *hid_name, int *in);
 void		ft_env(char **env);
 char		**env_dup(char **env, int size);
 void		ft_exit(char **cmd_table);
+int			ft_exit2(char **cmd_table, char *command, int *exitcode);
 void		ft_export(char	***env, char **cmd_table);
 void		print_export(char **env);
 void		export_add_quotes(char *var);
