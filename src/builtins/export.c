@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 13:43:47 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/14 14:28:20 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/20 11:24:12 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	ft_export(char ***env, char **cmd_table)
 		add_line_to_env(env, *cmd_table++);
 	}
 	if (*cmd_table && !ft_isalpha(*cmd_table[0]))
+	{
 		printf("minishell: export: %s: not a valid identifier\n", *cmd_table);
-	g_exit_code = 1;
+		g_exit_code = 1;
+	}
 }
 
 char	**sort_env(char **env)
