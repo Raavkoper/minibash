@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 14:13:34 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/10 10:09:34 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/20 11:53:33 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **env)
 	data.env = env_dup(env, dp_len(env) + 1);
 	if (argc != 1)
 	{
-		printf("invalid amount of arguments given... Usage:./minishell\n");
+		write(2, "invalid amount of arguments given... Usage:./minishell\n", 56);
 		exit(1);
 	}
 	run_shell(&data);
