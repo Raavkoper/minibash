@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 12:34:39 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/20 16:10:50 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/23 14:57:06 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ char	*trim_quotes(char *word, int liberate)
 		word++;
 	}
 	if (liberate)
-		free(temp);
+		//free(temp); --> kan deze weg? Anders leak in heredoc
+		return (ret);
 	return (ret);
 }
 

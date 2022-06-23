@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/20 17:42:48 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/23 13:42:24 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*execute(t_parser *parser, char **env)
 	}
 	else
 		execve(final_cmd, cmdarg, env);
-	return (0);
+	return (NULL);
 }
 
 void	child_process(t_parser *parser, char **env)
@@ -46,9 +46,9 @@ void	child_process(t_parser *parser, char **env)
 		perror("fork failed");
 		return ;
 	}
-	else if (id == 0)
+	if (id == 0)
 		execute(parser, env);
-	else
+	if (id > 0)
 		waitpid(id, &status, 0);	
 	if (status)
 		g_exit_code = 127;

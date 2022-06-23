@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/20 17:46:09 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/23 14:33:52 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	end_pipes(char *hid_name, int tmpin, int tmpout)
 void	check_red(t_data **data)
 {
 	t_data **tmp;
-	
+
 	tmp = data;
 	if ((*data)->parser->has_red)
 	{
