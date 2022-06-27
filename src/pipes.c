@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/24 09:27:09 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/24 12:25:40 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	child_process(t_parser *parser, char **env)
 	pid_t	id;
 	int		status;
 
-	id = fork();
 	status = 0;
+	id = fork();
 	if (id < 0)
 	{
 		perror("fork failed");
@@ -48,8 +48,7 @@ void	child_process(t_parser *parser, char **env)
 	}
 	if (id == 0)
 		execute(parser, env);
-	if (id > 0)
-		waitpid(id, &status, 0);	
+	waitpid(id, &status, 0);
 	if (status)
 		g_exit_code = 127;
 }
@@ -119,6 +118,7 @@ void	shell_pipex(t_data *data)
 		if (!check_shell(data) || !find_command(data,
 				*data->parser->command, data->parser->command))
 			child_process(data->parser, data->env);
+		
 		data->parser = data->parser->next;
 	}
 	data->parser = tmp;

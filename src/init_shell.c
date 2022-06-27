@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:32 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/23 14:26:04 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/24 11:18:01 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	run_shell(t_data *data)
 			redirections(data);
 			//print_redirections(data->parser->r~ed);
 			shell_pipex(data);
-			//executor(data);
 		}
 		free(line);
 		//system("leaks minishell");

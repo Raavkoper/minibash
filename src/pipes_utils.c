@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/23 14:33:52 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/24 11:59:43 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	*search_path(char **paths, char *cmdarg)
 	i = 0;
 	while (paths[i])
 	{
-		final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
+		if (cmdarg[0] == '/')
+			final_cmd = ft_strjoin(paths[i], cmdarg);
+		else
+			final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
 		if (access(final_cmd, F_OK) == 0)
 			return (final_cmd);
 		free(final_cmd);
@@ -61,7 +64,7 @@ void	end_pipes(char *hid_name, int tmpin, int tmpout)
 
 void	check_red(t_data **data)
 {
-	t_data **tmp;
+	t_data	**tmp;
 
 	tmp = data;
 	if ((*data)->parser->has_red)
