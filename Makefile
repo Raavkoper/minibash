@@ -2,7 +2,7 @@ NAME = minishell
 
 HEADER = includes/minishell.h 
 
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g 
 
 CC = gcc 
 

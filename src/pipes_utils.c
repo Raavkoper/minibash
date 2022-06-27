@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/27 10:51:32 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/06/27 14:05:33 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,18 @@ char	*search_path(char **paths, char *cmdarg)
 	char	*final_cmd;
 
 	i = 0;
+	if (!paths[i])
+	{
+		if (cmdarg[0] == '/')
+		{
+			if (access(cmdarg, F_OK) == 0)
+				return (cmdarg);
+		}
+	}
 	while (paths[i])
 	{
 		if (cmdarg[0] == '/')
-			final_cmd = ft_strjoin(paths[i], cmdarg);
+			final_cmd = ft_strdup(cmdarg);
 		else
 			final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
 		if (access(final_cmd, F_OK) == 0)
