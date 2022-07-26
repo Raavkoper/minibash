@@ -1,3 +1,0 @@
-1. ls > out (als er een redirection in zit)
-2. $$$
-3. cat << file (heredoc, freed but not allocated)

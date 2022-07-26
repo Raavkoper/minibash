@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/23 11:52:36 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:06:22 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void		run_shell(t_data *data);
 void		lexer(t_data *data, char *str);
 char		*mod_substr(char *str, int *i);
 void		append_list(t_lexer **lexer, char *str, int *i);
-void		print_lexer(t_lexer *lexer);
 int			check_quotes(char *line);
 void		set_quote(char *line, int *quote);
 char		*get_string(char *line, int *i);
@@ -103,13 +102,11 @@ void		add_command(t_parser *parser, char *str, int commands, \
 			t_data *data);
 void		parser(t_data *data);
 void		parser2(t_data *data, int commands);
-void		print_parser(t_parser *parser);
 
 /* redirection functions */
 void		redirections(t_data *data);
 int			count_redirections(t_lexer *lexer);
 void		init_red(t_red **red);
-void		print_redirections(t_red *red);
 
 /* expander functions */
 char		*expander(char **env, char *var, t_data *data);

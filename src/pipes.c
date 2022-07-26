@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/30 14:47:19 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:05:09 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	shell_pipex(t_data *data)
 		if (!check_shell(data) || !find_command(data,
 				*data->parser->command, data->parser->command))
 			child_process(data->parser, data->env);
-		
 		data->parser = data->parser->next;
 	}
 	data->parser = tmp;

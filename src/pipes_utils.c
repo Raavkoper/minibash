@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/07/26 15:02:09 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:05:40 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,4 @@ void	check_red(t_data **data)
 		(*data)->red = (*data)->red->next;
 	}
 	data = tmp;
-}
-
-int	count_commands(t_lexer *lexer)
-{
-	int	i;
-
-	i = 0;
-	if (!lexer)
-		return (0);
-	while (lexer && lexer->token != PIPE)
-	{
-		if (!lexer->token)
-			i += 1;
-		if (is_redirection(lexer->token) || is_double(lexer->token))
-		{
-			if (lexer->next)
-				lexer = lexer->next->next;
-			else
-				lexer = lexer->next;
-		}
-		else
-			lexer = lexer->next;
-	}
-	return (i);
 }

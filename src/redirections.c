@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/20 16:41:40 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:06:04 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,28 @@ int	count_redirections(t_lexer *lexer)
 	return (i);
 }
 
-void	print_redirections(t_red *red)
+int	count_commands(t_lexer *lexer)
 {
-	if (!red)
-		return ;
-	while (red)
+	int	i;
+
+	i = 0;
+	if (!lexer)
+		return (0);
+	while (lexer && lexer->token != PIPE)
 	{
-		printf("red -> %d file name -> %s\n", red->token, red->file);
-		red = red->next;
+		if (!lexer->token)
+			i += 1;
+		if (is_redirection(lexer->token) || is_double(lexer->token))
+		{
+			if (lexer->next)
+				lexer = lexer->next->next;
+			else
+				lexer = lexer->next;
+		}
+		else
+			lexer = lexer->next;
 	}
+	return (i);
 }
 
 void	count_exits(t_data *data)

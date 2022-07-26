@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/04/26 14:13:31 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/09 14:18:11 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/26 14:13:31 by rkoper            #+#    #+#             */
+/*   Updated: 2022/07/26 15:06:10 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,5 @@ void	lexer(t_data *data, char *line)
 			i++;
 		if (line[i] && !iswhitespace(line[i]))
 			append_list(&data->lexer, &line[i], &i);
-	}
-}
-
-void	print_lexer(t_lexer *lexer)
-{
-	if (!lexer)
-		printf("lexer empty\n");
-	while (lexer != NULL)
-	{
-		printf("command -> %s$ token ascii -> %d index -> %d\n", \
-		lexer->command, lexer->token, lexer->index);
-		lexer = lexer->next;
 	}
 }
