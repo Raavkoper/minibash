@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipes.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:47:46 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
+/*   Updated: 2022/07/26 15:05:09 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,33 @@ char	*execute(t_parser *parser, char **env)
 	cmdarg = parser->command;
 	final_cmd = search_path(paths, *cmdarg);
 	if (final_cmd == NULL)
+	{
+		printf("minishell: %s: command not found\n", *cmdarg);
+		g_exit_code = 127;
 		exit(1);
+	}
 	else
 		execve(final_cmd, cmdarg, env);
-	perror("could not execute");
-	return (0);
+	return (NULL);
 }
 
 void	child_process(t_parser *parser, char **env)
 {
 	pid_t	id;
+	int		status;
 
+	status = 0;
 	id = fork();
 	if (id < 0)
 	{
 		perror("fork failed");
 		return ;
 	}
-	else if (id == 0)
+	if (id == 0)
 		execute(parser, env);
-	else
-		waitpid(id, NULL, 0);
+	waitpid(id, &status, 0);
+	if (status)
+		g_exit_code = 127;
 }
 
 void	create_pipes(int in, int tmpout, t_parser *parser)
@@ -65,29 +71,32 @@ void	create_pipes(int in, int tmpout, t_parser *parser)
 	close(out);
 }
 
-void	check_redirections(t_parser *parser)
+void	check_redirections(t_red *red)
 {
 	int			out;
 	int			in;
 	t_red		*headref;
 
-	headref	= parser->red;
-	while (parser->red)
+	headref = red;
+	while (red)
 	{
-		if (parser->red->token == INFILE)
+		if (red->token == OUTFILE || red->token == D_OUTFILE)
 		{
-			in = check_file(parser->red->file);
-			dup2(in, STDIN);
-		}
-		if (parser->red->token == OUTFILE || parser->red->token == D_OUTFILE)
-		{
-			out = outfile(parser->red);
+			out = outfile(red);
 			dup2(out, STDOUT);
 			close(out);
+			return ;
 		}
-		parser->red = parser->red->next;
+		if (red->token == INFILE)
+		{
+			in = check_file(red->file);
+			dup2(in, STDIN);
+			close(in);
+			return ;
+		}
+		red = red->next;
 	}
-	parser->red = headref;
+	red = headref;
 }
 
 void	shell_pipex(t_data *data)
@@ -96,22 +105,21 @@ void	shell_pipex(t_data *data)
 	int			tmpout;
 	int			in;
 	char		*hid_name;
+	t_parser	*tmp;
 
-	tmpin = dup(STDIN);
-	tmpout = dup(STDOUT);
-	in = dup(tmpin);
+	start_pipes(&in, &tmpin, &tmpout);
 	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
+	tmp = data->parser;
 	while (data->parser)
 	{
-		if (check_heredoc(data->lexer))
-		{
-			in = open(hid_name, O_RDONLY);
-			open_heredoc(data);
-		}
+		heredoc(data, hid_name, &in);
 		create_pipes(in, tmpout, data->parser);
-		check_redirections(data->parser);
-		child_process(data->parser, data->env);
+		check_red(&data);
+		if (!check_shell(data) || !find_command(data,
+				*data->parser->command, data->parser->command))
+			child_process(data->parser, data->env);
 		data->parser = data->parser->next;
 	}
+	data->parser = tmp;
 	end_pipes(hid_name, tmpin, tmpout);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   expander.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:40:13 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/07 12:34:39 by rkoper            #+#    #+#             */
+/*   Updated: 2022/06/30 14:44:47 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expander(char **env, char *var)
+char	*expander(char **env, char *var, t_data *data)
 {
 	int		i;
 	char	*ret;
@@ -26,7 +26,13 @@ char	*expander(char **env, char *var)
 		quote_checker(&sq, &dq, var[i]);
 		if (var[i] == '$' && ft_isdigit(var[i + 1]) && !sq)
 			ret = merge_str(ret, dub_min_digit(&var[i + 2], &i));
-		if (var[i] == '$' && var[i + 1] && !sq && !iswhitespace(var[i + 1]))
+		else if (var[i] == '$' && var[i + 1] == '?' && !sq)
+		{
+			ret = merge_str(ret, exit_code(data));
+			i += 2;
+		}
+		else if (var[i] == '$' && var[i + 1] && \
+		!sq && !iswhitespace(var[i + 1]) && var[i + 1] != '"')
 			ret = merge_str(ret, cpy_env_var(env, &var[i + 1], &i));
 		else
 			ret = add_char(ret, var[i], &i);
@@ -51,7 +57,6 @@ void	quote_checker(int *sq, int *dq, char c)
 char	*cpy_env_var(char **env, char *var, int *x)
 {
 	int	len;
-	int	env_len;
 	int	i;
 
 	i = 0;
@@ -63,10 +68,9 @@ char	*cpy_env_var(char **env, char *var, int *x)
 	i = 0;
 	while (env[i])
 	{
-		env_len = varname_len(env[i]);
-		if (env_len == len)
+		if (varname_len(env[i]) == len)
 		{
-			if (!export_strncmp(env[i], var, env_len))
+			if (!export_strncmp(env[i], var, len))
 			{
 				*x += len + 1;
 				return (ft_strdup(&env[i][len + 1]));

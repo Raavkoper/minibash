@@ -4,8 +4,6 @@ HEADER = includes/minishell.h
 
 CFLAGS = -g 
 
-# LDFLAGS = -lreadline 
-
 CC = gcc 
 
 LIBFT = libraries/libft/libft.a
@@ -13,8 +11,7 @@ LIBFT = libraries/libft/libft.a
 OBJS_DIR = objs
 SRC_DIR = src
 INCLUDE_DIR = includes
-READLINE_DIR = $(shell brew --prefix readline)
-READLINE_LIB = -lreadline -lhistory -L $(READLINE_DIR)/lib
+READLINE_DIR = ~/.brew/Cellar/readline/8.1.2
 
 INC := -I $(INCLUDE_DIR)
 
@@ -22,7 +19,7 @@ SRCS = main.c lexer.c is_check.c init_shell.c free.c handle_quote.c parser.c \
 		builtins/echo.c builtins/env.c builtins/cd.c builtins/export.c \
 		builtins/unset.c builtins/exit.c builtins/pwd.c signal.c builtins/export_utils.c \
 		redirections.c expander.c executor.c error.c pipes.c pipes_utils.c heredoc.c \
-		check_files.c expander_utils.c init_cmdtable.c
+		check_files.c expander_utils.c ismorecheck.c
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 
@@ -30,13 +27,13 @@ all: $(LIBFT) $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INC) -I $(READLINE_DIR)/include/ -c -o $@ $<
 
 $(LIBFT):
 	$(MAKE) -C libraries/libft
 
 $(NAME): $(LIBFT) $(OBJS) 
-	@$(CC) $(CFLAGS) $(INC) $(READLINE_LIB) $^ -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC) -I $(READLINE_DIR)/include/ -L $(READLINE_DIR)/lib/ -lreadline $^ -o $(NAME)
 	@echo "\033[92mFiles made 🤔\033[0m"
 
 run: $(NAME)

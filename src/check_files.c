@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   check_files.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/20 13:48:35 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:45:32 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   check_files.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/20 13:48:35 by cdiks             #+#    #+#             */
+/*   Updated: 2022/06/09 14:45:16 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	has_outfile(t_lexer *lexer)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (lexer)
@@ -50,4 +50,15 @@ int	outfile(t_red *red)
 					O_CREAT | O_RDWR | O_TRUNC, 0644));
 	}
 	return (0);
+}
+
+int	check_shell(t_data *data)
+{
+	if (!data->lexer)
+		return (0);
+	if (check_heredoc(data->lexer))
+		return (0);
+	if (data->parser->has_red)
+		return (0);
+	return (1);
 }

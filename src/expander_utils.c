@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/23 10:58:51 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:33:04 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/10 11:00:45 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*dub_min_digit(char *str, int *x)
 		ret[i] = str[i];
 		i++;
 	}
-	*x += len + 1;
+	*x += len + 2;
 	return (ret);
 }
 
@@ -64,14 +64,10 @@ char	*merge_str(char *s1, char *s2)
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	s3 = safe_calloc(len1 + len2 + 1, sizeof(char));
-	while (i < len1)
-	{
-		s3[i] = s1[i];
-		i++;
-	}
+	ft_memcpy(s3, s1, len1);
 	while (j < len2)
 	{
-		s3[i + j] = s2[j];
+		s3[len1 + j] = s2[j];
 		j++;
 	}
 	if (s1[0])

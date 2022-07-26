@@ -6,13 +6,13 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 14:50:17 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/05/26 11:34:18 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/16 15:24:11 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_quotes(char *line)
+int	check_quotes(char *line)
 {
 	int	i;
 	int	quote;
@@ -47,9 +47,8 @@ void	add_quote_index(int quote, char *line, int *x)
 	*x += i + 1;
 }
 
-char	*get_string(char *line, int *i)
+void	set_quote(char *line, int *quote)
 {
-	int	quote;
 	int	x;
 
 	x = 0;
@@ -57,16 +56,24 @@ char	*get_string(char *line, int *i)
 	{
 		if (line[x] == 39)
 		{
-			quote = 39;
+			*quote = 39;
 			break ;
 		}
 		if (line[x] == 34)
 		{
-			quote = 34;
+			*quote = 34;
 			break ;
 		}
 		x++;
 	}
+}
+
+char	*get_string(char *line, int *i)
+{
+	int	quote;
+	int	x;
+
+	set_quote(line, &quote);
 	x = 0;
 	while (!iswhitespace(line[x]) && line[x])
 	{

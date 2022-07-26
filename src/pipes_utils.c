@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   pipes_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:47:37 by rkoper        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   pipes_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
+/*   Updated: 2022/07/26 15:05:40 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,33 @@ char	*search_path(char **paths, char *cmdarg)
 	char	*final_cmd;
 
 	i = 0;
+	if (!paths[i])
+	{
+		if (cmdarg[0] == '/')
+		{
+			if (access(cmdarg, F_OK) == 0)
+				return (cmdarg);
+		}
+	}
 	while (paths[i])
 	{
-		final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
+		if (cmdarg[0] == '/')
+			final_cmd = ft_strdup(cmdarg);
+		else
+			final_cmd = ft_strjoin_p(ft_strjoin_p(paths[i], "/"), cmdarg);
 		if (access(final_cmd, F_OK) == 0)
 			return (final_cmd);
 		free(final_cmd);
 		i++;
 	}
 	return (NULL);
+}
+
+void	start_pipes(int *in, int *tmpin, int *tmpout)
+{
+	*tmpin = dup(STDIN);
+	*tmpout = dup(STDOUT);
+	*in = dup(*tmpin);
 }
 
 void	end_pipes(char *hid_name, int tmpin, int tmpout)
@@ -50,4 +68,17 @@ void	end_pipes(char *hid_name, int tmpin, int tmpout)
 	dup2(tmpout, STDOUT);
 	close(tmpin);
 	close(tmpout);
+}
+
+void	check_red(t_data **data)
+{
+	t_data	**tmp;
+
+	tmp = data;
+	if ((*data)->parser->has_red)
+	{
+		check_redirections((*data)->red);
+		(*data)->red = (*data)->red->next;
+	}
+	data = tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: rkoper <rkoper@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 09:44:36 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/06/03 14:46:36 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/06/09 14:16:33 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,16 @@ void	free_dp(char **arr)
 	free(arr);
 }
 
-void	free_redirections(t_parser **parser)
+void	free_redirections(t_red **red)
 {
 	t_red	*temp;
-	t_red	*red;
 
-	if (!*parser)
+	if (!*red)
 		return ;
-	// red = *parser->red;
-	while (red)
+	while (*red)
 	{
-		temp = red;
-		red = temp->next;
+		temp = *red;
+		*red = temp->next;
 		if (temp->file)
 			free(temp->file);
 		free(temp);
