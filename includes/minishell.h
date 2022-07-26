@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/07/26 15:29:44 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:32:22 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,7 @@ int			is_wholenum(char *line);
 void		free_lexer(t_lexer **lexer);
 void		free_parser(t_parser **parser);
 void		free_dp(char **arr);
-int			iswhitespace(char c);
-int			istoken(char c);
-int			isquote(char *line);
-int			is_redirection(char c);
-int			is_is(char *line);
-int			dp_len(char **arr);
-int			isdollar(char *line);
+void		free_redirections(t_red **red);
 
 /* signal functions */
 void		handle_signals(void);
