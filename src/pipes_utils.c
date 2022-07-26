@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/08 15:45:20 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   pipes_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/07/26 14:21:31 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,28 @@ void	end_pipes(char *hid_name, int tmpin, int tmpout)
 	dup2(tmpout, STDOUT);
 	close(tmpin);
 	close(tmpout);
+}
+
+int	count_commands(t_lexer *lexer)
+{
+	int	i;
+
+	i = 0;
+	if (!lexer)
+		return (0);
+	while (lexer && lexer->token != PIPE)
+	{
+		if (!lexer->token)
+			i += 1;
+		if (is_redirection(lexer->token) || is_double(lexer->token))
+		{
+			if (lexer->next)
+				lexer = lexer->next->next;
+			else
+				lexer = lexer->next;
+		}
+		else
+			lexer = lexer->next;
+	}
+	return (i);
 }
