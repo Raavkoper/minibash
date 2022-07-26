@@ -1,5 +1,6 @@
 *.o
 *.a
 *.out
+objs
 .vscode
 .DS_Store
