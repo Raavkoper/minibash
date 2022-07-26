@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
-/*   Updated: 2022/06/20 16:40:48 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:01:14 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,57 +119,4 @@ int	count_pipes(t_lexer *lexer)
 		lexer = lexer->next;
 	}
 	return (i);
-}
-
-int	count_commands(t_lexer *lexer)
-{
-	int	i;
-
-	i = 0;
-	if (!lexer)
-		return (0);
-	while (lexer && lexer->token != PIPE)
-	{
-		if (!lexer->token)
-			i += 1;
-		if (is_redirection(lexer->token) || is_double(lexer->token))
-		{
-			if (lexer->next)
-				lexer = lexer->next->next;
-			else
-				lexer = lexer->next;
-		}
-		else
-			lexer = lexer->next;
-	}
-	return (i);
-}
-
-void	print_parser(t_parser *parser)
-{
-	int		i;
-	int		j;
-	char	**temp;
-
-	if (!parser)
-		return ;
-	j = 0;
-	while (parser != NULL)
-	{
-		i = 0;
-		if (parser->command)
-			temp = parser->command;
-		while (*parser->command)
-		{
-			printf("command table %d command %d = %s red= %d\n", \
-			j, i, *parser->command, parser->has_red);
-			parser->command++;
-			i++;
-		}
-		if (temp)
-			parser->command = temp;
-		temp = NULL;
-		j++;
-		parser = parser->next;
-	}
 }

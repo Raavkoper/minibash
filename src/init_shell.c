@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:34:32 by rkoper            #+#    #+#             */
-/*   Updated: 2022/07/26 14:57:51 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:01:39 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,9 @@ void	run_shell(t_data *data)
 			free_redirections(&data->red);
 			free_parser(&data->parser);
 			lexer(data, line);
-			//print_lexer(data->lexer);
-			count_exits(data);
 			error_check(&data->lexer);
 			parser(data);
-			// print_parser(data->parser);
 			redirections(data);
-			//print_redirections(data->parser->r~ed);
 			shell_pipex(data);
 		}
 		free(line);
