@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/07/26 15:05:09 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/05 16:03:59 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,17 @@ void	check_redirections(t_red *red)
 			out = outfile(red);
 			dup2(out, STDOUT);
 			close(out);
-			return ;
+			red = red->next;
 		}
 		if (red->token == INFILE)
 		{
 			in = check_file(red->file);
 			dup2(in, STDIN);
 			close(in);
-			return ;
+			red = red->next;
 		}
-		red = red->next;
+		else
+			red = red->next;
 	}
 	red = headref;
 }
