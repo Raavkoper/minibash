@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/07/26 15:05:40 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/06 10:48:17 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,4 @@ void	end_pipes(char *hid_name, int tmpin, int tmpout)
 	dup2(tmpout, STDOUT);
 	close(tmpin);
 	close(tmpout);
-}
-
-void	check_red(t_data **data)
-{
-	t_data	**tmp;
-
-	tmp = data;
-	if ((*data)->parser->has_red)
-	{
-		check_redirections((*data)->red);
-		(*data)->red = (*data)->red->next;
-	}
-	data = tmp;
 }

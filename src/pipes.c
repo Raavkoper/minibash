@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/05 16:03:59 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/06 10:48:07 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_redirections(t_red *red)
 			close(out);
 			red = red->next;
 		}
-		if (red->token == INFILE)
+		else if (red->token == INFILE)
 		{
 			in = check_file(red->file);
 			dup2(in, STDIN);
@@ -115,7 +115,7 @@ void	shell_pipex(t_data *data)
 	{
 		heredoc(data, hid_name, &in);
 		create_pipes(in, tmpout, data->parser);
-		check_red(&data);
+		check_redirections(&data->parser->red);
 		if (!check_shell(data) || !find_command(data,
 				*data->parser->command, data->parser->command))
 			child_process(data->parser, data->env);
