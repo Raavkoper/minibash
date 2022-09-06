@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/06 10:48:07 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/06 11:10:40 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*execute(t_parser *parser, char **env)
 	path_env = get_path(env);
 	paths = ft_split(path_env, ':');
 	cmdarg = parser->command;
+	if (access(*parser->command, F_OK) == 0)
+		execve(*parser->command, cmdarg, env);
 	final_cmd = search_path(paths, *cmdarg);
 	if (final_cmd == NULL)
 	{
