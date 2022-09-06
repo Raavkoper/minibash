@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/06 11:10:40 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/06 11:44:35 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	child_process(t_parser *parser, char **env)
 		execute(parser, env);
 	waitpid(id, &status, 0);
 	if (status)
-		g_exit_code = 127;
+		g_exit_code = WEXITSTATUS(status);
 }
 
 void	create_pipes(int in, int tmpout, t_parser *parser)
