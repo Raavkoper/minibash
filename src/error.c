@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:48:53 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/20 16:40:08 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/08 12:25:53 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	*exit_code(t_data *data)
 	int	tmp;
 
 	tmp = g_exit_code;
+	count_exits(data);
 	data->exit_codes--;
 	if (!data->exit_codes)
 		g_exit_code = 0;

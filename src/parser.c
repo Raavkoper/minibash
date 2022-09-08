@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 13:07:49 by rkoper            #+#    #+#             */
-/*   Updated: 2022/09/06 10:38:35 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/08 12:03:24 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	parser2(t_data *data, int commands)
 		else if ((data->lexer && is_redirection(data->lexer->token))
 			|| is_double(data->lexer->token))
 		{
-			data->parser->red.token = data->lexer->token;
-			data->parser->red.file = data->lexer->next->command;
+			// data->parser->red->token = data->lexer->token;
+			// data->parser->red->file = data->lexer->next->command;
 			data->parser->has_red = 1;
 			if (data->lexer->next)
 				data->lexer = data->lexer->next->next;

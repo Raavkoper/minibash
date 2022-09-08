@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/09/06 10:48:11 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/08 12:13:45 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_parser
 {
 	char			**command;
 	int				has_red;
-	struct s_red	red;
+	struct s_red	*red;
 	struct s_parser	*next;
 }				t_parser;
 
@@ -136,6 +136,7 @@ char		*get_path(char **env);
 void		shell_pipex(t_data *data);
 void		child_process(t_parser *parser, char **env);
 void		create_pipes(int in, int tmpout, t_parser *parser);
+void		check_red(t_data **data);
 void		check_redirections(t_red *red);
 void		end_pipes(char *hid_name, int tmpin, int tmpout);
 void		count_exits(t_data *data);

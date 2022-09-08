@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/06 11:44:35 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/08 12:03:06 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	shell_pipex(t_data *data)
 	{
 		heredoc(data, hid_name, &in);
 		create_pipes(in, tmpout, data->parser);
-		check_redirections(&data->parser->red);
+		check_red(&data);
 		if (!check_shell(data) || !find_command(data,
 				*data->parser->command, data->parser->command))
 			child_process(data->parser, data->env);

@@ -1,5 +1,5 @@
-$? reset;
-cat < Makefile > out;
-./minishell in prompt;
-exit negative number;
-fix Makefile flags;
+$? reset; done
+pipes;
+./minishell in prompt; done
+exit negative number; 
+fix Makefile flags; done
