@@ -1,0 +1,15 @@
+total 136
+drwxr-xr-x  14 rkoper  piscine    476 Sep 15 13:26 .
+drwxr-xr-x   6 rkoper  piscine    204 Sep  5 15:42 ..
+drwxr-xr-x  15 rkoper  piscine    510 Sep 15 12:14 .git
+-rw-r--r--   1 rkoper  piscine     36 Sep 14 10:52 .gitignore
+drwxr-xr-x   3 rkoper  piscine    102 Sep 15 12:04 .vscode
+-rw-r--r--   1 rkoper  piscine   1373 Sep 14 10:52 Makefile
+drwxr-xr-x   3 rkoper  piscine    102 Sep 15 11:58 includes
+drwxr-xr-x   3 rkoper  piscine    102 Sep  5 15:41 libraries
+-rwxr-xr-x   1 rkoper  piscine  50764 Sep 15 13:26 minishell
+drwxr-xr-x  21 rkoper  piscine    714 Sep 15 13:26 objs
+-rw-r--r--   1 rkoper  piscine     61 Sep 15 13:26 out
+-rw-r--r--   1 rkoper  piscine      0 Sep 15 13:26 outt
+drwxr-xr-x  21 rkoper  piscine    714 Sep 15 11:58 src
+-rw-r--r--   1 rkoper  piscine     98 Sep 15 11:58 todo
