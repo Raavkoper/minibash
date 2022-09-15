@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/09/15 11:58:46 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/09/15 13:28:50 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,12 @@ void	shell_pipex(t_data *data)
 	int			in;
 	char		*hid_name;
 	t_parser	*tmp;
+	t_red		*tmp2;
 
 	start_pipes(&in, &tmpin, &tmpout);
 	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
 	tmp = data->parser;
+	tmp2 = data->red;
 	while (data->parser)
 	{
 		heredoc(data, hid_name, &in);
@@ -123,5 +125,6 @@ void	shell_pipex(t_data *data)
 		data->parser = data->parser->next;
 	}
 	data->parser = tmp;
+	data->red = tmp2;
 	end_pipes(hid_name, tmpin, tmpout);
 }
