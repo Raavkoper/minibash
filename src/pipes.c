@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/08 12:03:06 by cdiks            ###   ########.fr       */
+/*   Updated: 2022/09/15 11:44:14 by cdiks            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ char	*execute(t_parser *parser, char **env)
 	final_cmd = search_path(paths, *cmdarg);
 	if (final_cmd == NULL)
 	{
-		printf("minishell: %s: command not found\n", *cmdarg);
+		write(STDERR, "minishell: ", 11);
+		write(STDERR, *cmdarg, ft_strlen(*cmdarg));
+		write(STDERR, ": command not found\n", 20);
 		g_exit_code = 127;
 		exit(1);
 	}
@@ -80,24 +82,21 @@ void	check_redirections(t_red *red)
 	t_red		*headref;
 
 	headref = red;
-	while (red)
+	while (red && !red->token == PIPE)
 	{
 		if (red->token == OUTFILE || red->token == D_OUTFILE)
 		{
 			out = outfile(red);
 			dup2(out, STDOUT);
 			close(out);
-			red = red->next;
 		}
 		else if (red->token == INFILE)
 		{
 			in = check_file(red->file);
 			dup2(in, STDIN);
 			close(in);
-			red = red->next;
 		}
-		else
-			red = red->next;
+		red = red->next;
 	}
 	red = headref;
 }
