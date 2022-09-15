@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 13:10:24 by rkoper            #+#    #+#             */
-/*   Updated: 2022/07/26 15:06:04 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirections.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/04 13:10:24 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/09/15 12:03:14 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	redirections(t_data *data)
 			data->red->token = data->lexer->token;
 			if (data->lexer->next && data->lexer->next->command)
 				data->red->file = ft_strdup(data->lexer->next->command);
+			data->red = data->red->next;
+		}
+		else if (data->lexer->token == PIPE)
+		{
+			data->red->token = PIPE;
 			data->red = data->red->next;
 		}
 		data->lexer = data->lexer->next;
@@ -70,7 +75,8 @@ int	count_redirections(t_lexer *lexer)
 	i = 0;
 	while (lexer)
 	{
-		if ((is_redirection(lexer->token) || is_double(lexer->token))
+		if ((is_redirection(lexer->token) || is_double(lexer->token) \
+			|| lexer->token == PIPE)
 			&& lexer->next && lexer->next->command)
 			i++;
 		lexer = lexer->next;

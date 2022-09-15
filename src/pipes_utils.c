@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/08 10:31:00 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   pipes_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/09/15 12:13:11 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void	check_red(t_data **data)
 	if ((*data)->parser->has_red)
 	{
 		check_redirections((*data)->red);
-		(*data)->red = (*data)->red->next;
+		while ((*data)->red && (*data)->red->token != PIPE)
+			(*data)->red = (*data)->red->next;
+		if ((*data)->red)
+			(*data)->red = (*data)->red->next;
 	}
 	data = tmp;
 }

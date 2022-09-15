@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 13:00:18 by cdiks             #+#    #+#             */
-/*   Updated: 2022/09/15 11:44:14 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   pipes.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/09/15 11:58:46 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	check_redirections(t_red *red)
 	t_red		*headref;
 
 	headref = red;
-	while (red && !red->token == PIPE)
+	while (red && red->token != PIPE)
 	{
 		if (red->token == OUTFILE || red->token == D_OUTFILE)
 		{
