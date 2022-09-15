@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check_files.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 13:48:35 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/09 14:45:16 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   check_files.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/20 13:48:35 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/09/15 14:34:08 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ int	outfile(t_red *red)
 					O_CREAT | O_RDWR | O_TRUNC, 0644));
 	}
 	return (0);
+}
+
+void	red_token_check(t_data *data)
+{
+	if (is_redirection(data->lexer->token) || is_double(data->lexer->token))
+	{
+		data->red->token = data->lexer->token;
+		if (data->lexer->next && data->lexer->next->command)
+			data->red->file = ft_strdup(data->lexer->next->command);
+		data->red = data->red->next;
+	}
 }
 
 int	check_shell(t_data *data)

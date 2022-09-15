@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:00:18 by cdiks         #+#    #+#                 */
-/*   Updated: 2022/09/15 13:28:50 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/09/15 14:26:31 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	child_process(t_parser *parser, char **env)
 		execute(parser, env);
 	waitpid(id, &status, 0);
 	if (status)
-		g_exit_code = WEXITSTATUS(status);
+		g_exit_code = 127;
 }
 
 void	create_pipes(int in, int tmpout, t_parser *parser)
@@ -106,17 +106,15 @@ void	shell_pipex(t_data *data)
 	int			tmpin;
 	int			tmpout;
 	int			in;
-	char		*hid_name;
 	t_parser	*tmp;
 	t_red		*tmp2;
 
 	start_pipes(&in, &tmpin, &tmpout);
-	hid_name = ft_strjoin("/tmp/", check_heredoc(data->lexer));
 	tmp = data->parser;
 	tmp2 = data->red;
 	while (data->parser)
 	{
-		heredoc(data, hid_name, &in);
+		heredoc(data, ft_strjoin("/tmp/", check_heredoc(data->lexer)), &in);
 		create_pipes(in, tmpout, data->parser);
 		check_red(&data);
 		if (!check_shell(data) || !find_command(data,
@@ -126,5 +124,5 @@ void	shell_pipex(t_data *data)
 	}
 	data->parser = tmp;
 	data->red = tmp2;
-	end_pipes(hid_name, tmpin, tmpout);
+	end_pipes(ft_strjoin("/tmp/", check_heredoc(data->lexer)), tmpin, tmpout);
 }

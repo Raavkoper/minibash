@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 11:39:13 by rkoper            #+#    #+#             */
-/*   Updated: 2022/09/08 12:13:45 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/09/15 14:33:30 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		parser2(t_data *data, int commands);
 void		redirections(t_data *data);
 int			count_redirections(t_lexer *lexer);
 void		init_red(t_red **red);
+void		red_token_check(t_data *data);
 
 /* expander functions */
 char		*expander(char **env, char *var, t_data *data);

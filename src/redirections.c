@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/04 13:10:24 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/09/15 12:03:14 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/09/15 14:33:41 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,8 @@ void	redirections(t_data *data)
 	lexer_head = data->lexer;
 	while (data->lexer)
 	{
-		if (is_redirection(data->lexer->token) || is_double(data->lexer->token))
-		{
-			data->red->token = data->lexer->token;
-			if (data->lexer->next && data->lexer->next->command)
-				data->red->file = ft_strdup(data->lexer->next->command);
-			data->red = data->red->next;
-		}
-		else if (data->lexer->token == PIPE)
+		red_token_check(data);
+		if (data->lexer->token == PIPE)
 		{
 			data->red->token = PIPE;
 			data->red = data->red->next;
