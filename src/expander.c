@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 12:34:39 by rkoper            #+#    #+#             */
-/*   Updated: 2022/09/08 12:23:07 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   expander.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/07 12:34:39 by rkoper        #+#    #+#                 */
+/*   Updated: 2022/09/26 13:17:45 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expander(char **env, char *var, t_data *data)
+char	*expander(char **env, char *var, t_data *data, int liberate)
 {
 	int		i;
 	char	*ret;
@@ -37,7 +37,7 @@ char	*expander(char **env, char *var, t_data *data)
 		else
 			ret = add_char(ret, var[i], &i);
 	}
-	return (trim_quotes(ret, 1));
+	return (trim_quotes(ret, liberate));
 }
 
 void	quote_checker(int *sq, int *dq, char c)

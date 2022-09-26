@@ -6,7 +6,7 @@
 /*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/03 11:39:13 by rkoper        #+#    #+#                 */
-/*   Updated: 2022/09/15 14:33:30 by rkoper        ########   odam.nl         */
+/*   Updated: 2022/09/26 13:18:24 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		init_red(t_red **red);
 void		red_token_check(t_data *data);
 
 /* expander functions */
-char		*expander(char **env, char *var, t_data *data);
+char		*expander(char **env, char *var, t_data *data, int liberate);
 char		*trim_double(char *word, int index);
 char		*trim_qoutes(char *word);
 char		*cpy_env_var(char **env, char *var, int *x);

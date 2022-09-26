@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cdiks <cdiks@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 09:20:22 by cdiks             #+#    #+#             */
-/*   Updated: 2022/06/23 14:49:29 by cdiks            ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   heredoc.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: cdiks <cdiks@student.42.fr>                  +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/27 09:20:22 by cdiks         #+#    #+#                 */
+/*   Updated: 2022/09/26 13:18:48 by rkoper        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	open_heredoc(t_data *data)
 	fd = open(hid_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	line = readline("> ");
 	if (line)
-		line = expander(data->env, line, data);
+		line = expander(data->env, line, data, 0);
 	while (line)
 	{
 		if (!check_end(line, filename))
@@ -53,7 +53,7 @@ void	open_heredoc(t_data *data)
 		write(fd, "\n", 1);
 		free(line);
 		line = readline("> ");
-		line = expander(data->env, line, data);
+		line = expander(data->env, line, data, 0);
 	}
 	free(hid_name);
 	free(line);
