@@ -1,5 +1,7 @@
 # Minibash
 
+<img width="198" alt="Screen Shot 2023-04-24 at 3 38 18 PM" src="https://user-images.githubusercontent.com/94134595/234013361-3cdd5c34-e4cc-4afc-acff-514ee693a02b.png">
+
 ## table of contents
 
 - [table of contents](#table-of-contents)
@@ -28,6 +30,8 @@ It will also expand the variables and the aliases.
 Once we have a valid command, we will check if it is a builtin (one we haven't rebuild). If it is, we will execute it. Otherwise, we will fork the process and execute the command in the child process using our own implentation of the `execve` function.
 
 After the execution of the command, we will free all the memory we allocated and we will loop back to the beginning where you will again face a prompt.
+
+<img width="637" alt="Screen Shot 2023-04-24 at 3 40 25 PM" src="https://user-images.githubusercontent.com/94134595/234013959-923511b2-5976-4e31-a419-26e11ba694c0.png">
 
 The shell supports the following builtins:
 
